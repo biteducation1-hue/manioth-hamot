@@ -347,19 +347,23 @@
     </svg>
   </div>
 
-  <!-- TREND CHART (SVG) -->
-  <!-- Scale: 0–16%, y = 190 - (val/16)*170
-       x positions: אפריל=110, מאי=300, יוני=470
-       ראובן: Apr5.7→129, May7.5→110, Jun7.4→111
-       צבי:   Apr14.6→35, May8.4→101, Jun5.3→134
-       דניאל: May0→190,  Jun5.1→136
-       אבי:   Jun8.7→97
-       אלי:   Apr0→190, May5.3→134, Jun8.5→100
-  -->
+  <!-- TREND CHART (SVG) with per-rep toggle -->
   <div class="chart-card">
     <h3>מגמת המרה חודשית</h3>
-    <div class="chart-desc">יחס המרה לפי חודש סגירת הדיל (אפריל–יוני 2026)</div>
+    <div class="chart-desc">יחס המרה לפי חודש סגירת הדיל (אפריל–יוני 2026) — לחץ על נציג לסינון</div>
+
+    <!-- Toggle buttons -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+      <button onclick="trendToggle('all')"     id="tb-all"    style="padding:5px 12px;border:2px solid #1a1a2e;background:#1a1a2e;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">הכל</button>
+      <button onclick="trendToggle('reuven')"  id="tb-reuven" style="padding:5px 12px;border:2px solid #6366f1;background:#6366f1;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">ראובן</button>
+      <button onclick="trendToggle('tzvi')"    id="tb-tzvi"   style="padding:5px 12px;border:2px solid #10b981;background:#10b981;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">צבי</button>
+      <button onclick="trendToggle('daniel')"  id="tb-daniel" style="padding:5px 12px;border:2px solid #f59e0b;background:#f59e0b;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">דניאל</button>
+      <button onclick="trendToggle('avi')"     id="tb-avi"    style="padding:5px 12px;border:2px solid #ef4444;background:#ef4444;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">אבי</button>
+      <button onclick="trendToggle('eli')"     id="tb-eli"    style="padding:5px 12px;border:2px solid #8b5cf6;background:#8b5cf6;color:white;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;">אלי</button>
+    </div>
+
     <svg class="svg-chart" viewBox="0 0 500 225" style="height:215px;">
+      <!-- Grid -->
       <line x1="50" y1="20"  x2="490" y2="20"  stroke="#f0f0f0" stroke-width="1"/>
       <line x1="50" y1="63"  x2="490" y2="63"  stroke="#f0f0f0" stroke-width="1"/>
       <line x1="50" y1="105" x2="490" y2="105" stroke="#f0f0f0" stroke-width="1"/>
@@ -378,42 +382,53 @@
       <line x1="470" y1="20" x2="470" y2="190" stroke="#f5f5f5" stroke-width="1"/>
 
       <!-- ראובן: Apr5.7→129, May7.5→110, Jun7.4→111 -->
-      <polyline points="110,129 300,110 470,111" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="110" cy="129" r="5" fill="#6366f1"/>
-      <circle cx="300" cy="110" r="5" fill="#6366f1"/>
-      <circle cx="470" cy="111" r="5" fill="#6366f1"/>
-      <text x="476" y="114" font-size="10" fill="#6366f1" font-weight="600">7.4%</text>
+      <g id="tg-reuven">
+        <polyline points="110,129 300,110 470,111" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="110" cy="129" r="5" fill="#6366f1"/>
+        <circle cx="300" cy="110" r="5" fill="#6366f1"/>
+        <circle cx="470" cy="111" r="5" fill="#6366f1"/>
+        <text x="476" y="114" font-size="10" fill="#6366f1" font-weight="600">7.4%</text>
+        <text x="104" y="123" font-size="9" fill="#6366f1" text-anchor="middle">5.7%</text>
+        <text x="294" y="104" font-size="9" fill="#6366f1" text-anchor="middle">7.5%</text>
+      </g>
 
       <!-- צבי: Apr14.6→35, May8.4→101, Jun5.3→134 -->
-      <polyline points="110,35 300,101 470,134" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="110" cy="35" r="5" fill="#10b981"/>
-      <circle cx="300" cy="101" r="5" fill="#10b981"/>
-      <circle cx="470" cy="134" r="5" fill="#10b981"/>
-      <text x="476" y="137" font-size="10" fill="#10b981" font-weight="600">5.3%</text>
+      <g id="tg-tzvi">
+        <polyline points="110,35 300,101 470,134" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="110" cy="35" r="5" fill="#10b981"/>
+        <circle cx="300" cy="101" r="5" fill="#10b981"/>
+        <circle cx="470" cy="134" r="5" fill="#10b981"/>
+        <text x="476" y="137" font-size="10" fill="#10b981" font-weight="600">5.3%</text>
+        <text x="104" y="29"  font-size="9" fill="#10b981" text-anchor="middle">14.6%</text>
+        <text x="294" y="95"  font-size="9" fill="#10b981" text-anchor="middle">8.4%</text>
+      </g>
 
       <!-- דניאל: May0→190, Jun5.1→136 (dashed) -->
-      <polyline points="300,190 470,136" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3" stroke-linejoin="round"/>
-      <circle cx="300" cy="190" r="5" fill="#f59e0b"/>
-      <circle cx="470" cy="136" r="5" fill="#f59e0b"/>
-      <text x="476" y="150" font-size="10" fill="#f59e0b" font-weight="600">5.1%</text>
+      <g id="tg-daniel">
+        <polyline points="300,190 470,136" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3" stroke-linejoin="round"/>
+        <circle cx="300" cy="190" r="5" fill="#f59e0b"/>
+        <circle cx="470" cy="136" r="5" fill="#f59e0b"/>
+        <text x="476" y="150" font-size="10" fill="#f59e0b" font-weight="600">5.1%</text>
+        <text x="294" y="184" font-size="9" fill="#f59e0b" text-anchor="middle">0%</text>
+      </g>
 
       <!-- אבי: Jun8.7→97 only -->
-      <circle cx="470" cy="97" r="6" fill="#ef4444"/>
-      <text x="476" y="100" font-size="10" fill="#ef4444" font-weight="600" dy="12">8.7%</text>
+      <g id="tg-avi">
+        <circle cx="470" cy="97" r="6" fill="#ef4444"/>
+        <text x="476" y="112" font-size="10" fill="#ef4444" font-weight="600">8.7%</text>
+      </g>
 
       <!-- אלי: Apr0→190, May5.3→134, Jun8.5→100 -->
-      <polyline points="110,190 300,134 470,100" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="110" cy="190" r="5" fill="#8b5cf6"/>
-      <circle cx="300" cy="134" r="5" fill="#8b5cf6"/>
-      <circle cx="470" cy="100" r="5" fill="#8b5cf6"/>
+      <g id="tg-eli">
+        <polyline points="110,190 300,134 470,100" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="110" cy="190" r="5" fill="#8b5cf6"/>
+        <circle cx="300" cy="134" r="5" fill="#8b5cf6"/>
+        <circle cx="470" cy="100" r="5" fill="#8b5cf6"/>
+        <text x="476" y="103" font-size="10" fill="#8b5cf6" font-weight="600">8.5%</text>
+        <text x="104" y="184" font-size="9" fill="#8b5cf6" text-anchor="middle">0%</text>
+        <text x="294" y="128" font-size="9" fill="#8b5cf6" text-anchor="middle">5.3%</text>
+      </g>
     </svg>
-    <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#6366f1"></div>ראובן</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>צבי</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>דניאל</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>אבי</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>אלי</div>
-    </div>
   </div>
 
 </div><!-- end charts-row -->
@@ -566,6 +581,39 @@
 </div>
 
 <script>
+// Trend chart toggle
+var trendReps = ['reuven','tzvi','daniel','avi','eli'];
+var trendColors = {reuven:'#6366f1',tzvi:'#10b981',daniel:'#f59e0b',avi:'#ef4444',eli:'#8b5cf6'};
+var trendActive = 'all';
+
+function trendToggle(rep) {
+  trendActive = rep;
+  trendReps.forEach(function(r) {
+    var g = document.getElementById('tg-' + r);
+    var btn = document.getElementById('tb-' + r);
+    if (!g || !btn) return;
+    var show = (rep === 'all' || rep === r);
+    g.style.opacity = show ? '1' : '0.08';
+    if (rep === 'all') {
+      btn.style.background = trendColors[r];
+      btn.style.color = 'white';
+    } else if (rep === r) {
+      btn.style.background = trendColors[r];
+      btn.style.color = 'white';
+    } else {
+      btn.style.background = 'white';
+      btn.style.color = '#aaa';
+      btn.style.borderColor = '#ddd';
+    }
+  });
+  var allBtn = document.getElementById('tb-all');
+  if (rep === 'all') {
+    allBtn.style.background = '#1a1a2e'; allBtn.style.color = 'white';
+  } else {
+    allBtn.style.background = 'white'; allBtn.style.color = '#aaa'; allBtn.style.borderColor = '#ddd';
+  }
+}
+
 var tabColors = {reuven:'',tzvi:'c-tzvi',daniel:'c-daniel',avi:'c-avi',eli:'c-eli'};
 var tabOrder  = ['reuven','tzvi','daniel','avi','eli'];
 function showTab(id) {
