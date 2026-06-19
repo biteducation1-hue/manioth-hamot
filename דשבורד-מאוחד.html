@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyclesTrading — דשבורד מאוחד</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root{
+  --bg:#0a0e1a;--panel:rgba(255,255,255,.04);--panel2:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.08);--txt:#e8edf7;--mut:#8a96b3;
+  --cyan:#22d3ee;--violet:#8b5cf6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--pink:#f472b6;
+  --grad:linear-gradient(135deg,#22d3ee 0%,#8b5cf6 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Assistant',Arial,sans-serif}
+body{background:var(--bg);color:var(--txt);min-height:100vh;
+  background-image:radial-gradient(circle at 15% 10%,rgba(139,92,246,.12),transparent 40%),radial-gradient(circle at 85% 0%,rgba(34,211,238,.12),transparent 40%);}
+.master{max-width:1320px;margin:0 auto;padding:24px 20px 60px}
+/* Master header */
+.m-header{margin-bottom:20px}
+.m-header h1{font-size:32px;font-weight:800;letter-spacing:-.5px}
+.m-header h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.m-header .sub{color:var(--mut);font-size:14px;margin-top:6px}
+/* Aggregate strip */
+.agg-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;padding:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;position:relative;overflow:hidden}
+.agg-strip::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:.5}
+.agg-item{text-align:center}
+.agg-item .al{font-size:11px;color:var(--mut);margin-bottom:4px;letter-spacing:.3px}
+.agg-item .av{font-size:22px;font-weight:800}
+.agg-item .as{font-size:10px;color:var(--mut);margin-top:3px}
+/* Campaign nav */
+.camp-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.camp-tab{padding:11px 24px;border-radius:14px;background:var(--panel);border:1px solid var(--line);cursor:pointer;font-size:14px;font-weight:700;color:var(--mut);transition:.2s}
+.camp-tab:hover{color:var(--txt);background:var(--panel2)}
+.camp-tab.active{background:var(--grad);color:#06121f;border-color:transparent}
+.camp{display:none}
+.camp.active{display:block;animation:fade .35s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Shared inner styles */
+header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+h1.ih{font-size:26px;font-weight:800;letter-spacing:-.5px}
+h1.ih span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--mut);font-size:14px;margin-top:6px}
+.badge{display:inline-block;padding:5px 12px;border-radius:20px;background:var(--panel2);border:1px solid var(--line);font-size:12px;color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 12px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;right:0;width:100%;height:3px;background:var(--grad);opacity:.8}
+.kpi .l{font-size:11px;color:var(--mut);margin-bottom:7px}
+.kpi .v{font-size:20px;font-weight:800;line-height:1}
+.kpi .d{font-size:10px;color:var(--mut);margin-top:5px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{padding:9px 16px;border-radius:12px;background:var(--panel);border:1px solid var(--line);cursor:pointer;font-size:13px;font-weight:600;color:var(--mut);transition:.2s}
+.tab:hover{color:var(--txt)}
+.tab.active{background:var(--grad);color:#06121f;border-color:transparent}
+.view{display:none}
+.view.active{display:block;animation:fade .4s}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h3{font-size:14px;margin-bottom:14px;font-weight:700}
+.card h3 .mut{color:var(--mut);font-weight:400;font-size:12px}
+canvas{max-height:300px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:var(--mut);font-weight:600;font-size:12px;cursor:pointer;user-select:none;position:sticky;top:0;background:var(--bg)}
+th:hover{color:var(--cyan)}
+tbody tr:hover{background:var(--panel2)}
+.pill{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700}
+.pill.y{background:rgba(52,211,153,.15);color:var(--green)}
+.pill.n{background:rgba(138,150,179,.15);color:var(--mut)}
+.pill.b{background:rgba(34,211,238,.15);color:var(--cyan)}
+.pill.a{background:rgba(251,191,36,.15);color:var(--amber)}
+.pill.r{background:rgba(248,113,113,.15);color:var(--red)}
+.scroll{max-height:480px;overflow:auto;border-radius:10px}
+.funnel{display:flex;flex-direction:column;gap:10px}
+.fstep{display:flex;align-items:center;gap:14px}
+.fbar{height:46px;border-radius:10px;display:flex;align-items:center;padding:0 16px;font-weight:800;color:#06121f;min-width:90px;box-shadow:0 4px 20px rgba(34,211,238,.1)}
+.fmeta{font-size:13px;color:var(--mut)}
+.fmeta b{color:var(--txt);font-size:15px}
+.fconv{font-size:14px;font-weight:800;color:var(--green);margin-right:8px}
+.big{font-size:40px;font-weight:800}
+.cmp{display:flex;gap:16px;flex-wrap:wrap}
+.cmp .box{flex:1;min-width:200px;text-align:center;padding:22px;border-radius:14px;border:1px solid var(--line)}
+.cmp .box.win{background:linear-gradient(160deg,rgba(52,211,153,.14),transparent);border-color:rgba(52,211,153,.3)}
+.cmp .box.lose{background:linear-gradient(160deg,rgba(248,113,113,.1),transparent)}
+.insight{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(34,211,238,.06));border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;display:flex;gap:14px;align-items:flex-start}
+.ico{font-size:22px;flex-shrink:0}
+.insight b{color:var(--cyan)}
+.note{color:var(--mut);font-size:12px;margin-top:14px;line-height:1.7}
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hbar-row{display:flex;flex-direction:column;gap:3px}
+.hbar-top{display:flex;justify-content:space-between;align-items:center}
+.hbar-name{font-size:12px;color:var(--mut)}
+.hbar-count{font-size:13px;font-weight:700}
+.hbar-track{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:4px}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.meta-item{background:var(--panel2);border-radius:12px;padding:14px 12px;text-align:center}
+.meta-item .ml{font-size:11px;color:var(--mut);margin-bottom:6px}
+.meta-item .mv{font-size:19px;font-weight:800}
+.meta-hi{border-radius:16px;padding:24px;margin-bottom:18px;text-align:center}
+.meta-hi.def{background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.08));border:1px solid rgba(34,211,238,.3)}
+.meta-hi.fb{background:linear-gradient(135deg,rgba(79,142,255,.12),rgba(79,142,255,.04));border:1px solid rgba(79,142,255,.3)}
+.meta-hi.gg{background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(52,211,153,.04));border:1px solid rgba(52,211,153,.3)}
+/* From כסף חכם */
+.stat-rows{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--panel2);border-radius:9px}
+.sr-lbl{font-size:12px;color:var(--mut)}
+.sr-val{font-size:16px;font-weight:800}
+.placeholder{text-align:center;padding:48px 20px;color:var(--mut)}
+.placeholder .pi{font-size:40px;margin-bottom:14px}
+.placeholder h4{font-size:15px;color:var(--txt);margin-bottom:8px;font-weight:700}
+.placeholder p{font-size:12px;line-height:1.7}
+/* From וובינרים */
+.banner{background:linear-gradient(100deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--line);border-right:3px solid var(--amber);border-radius:14px;padding:14px 18px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.6}
+.banner b{color:var(--amber)}
+.min-grid{display:flex;gap:8px;align-items:flex-end;height:160px;margin-bottom:10px}
+.min-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:3px}
+.min-bar{width:100%;border-radius:6px 6px 0 0;min-height:4px;position:relative}
+.min-val{font-size:12px;font-weight:800;text-align:center}
+.min-lbl{font-size:9px;color:var(--mut);text-align:center;line-height:1.3}
+.min-n{font-size:9px;color:var(--mut);text-align:center}
+.src-rows{display:flex;flex-direction:column;gap:8px}
+.src-row{display:flex;align-items:center;gap:10px}
+.src-lbl{width:90px;font-size:12px;color:var(--mut);text-align:right;flex-shrink:0}
+.src-track{flex:1;position:relative;height:32px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden}
+.src-vol{position:absolute;top:0;right:0;height:100%;border-radius:6px;opacity:.22}
+.src-line{position:absolute;top:4px;right:0;height:calc(100% - 8px);border-radius:4px;opacity:.85}
+.src-txt{position:absolute;top:0;left:8px;height:100%;display:flex;align-items:center;font-size:10px;color:rgba(255,255,255,.5)}
+.src-pct{width:46px;text-align:left;flex-shrink:0;font-size:14px;font-weight:800}
+.ch-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.ch-box{border-radius:14px;padding:20px;border:1px solid var(--line);text-align:center}
+.ch-box.fb{background:linear-gradient(160deg,rgba(79,142,255,.12),transparent);border-color:rgba(79,142,255,.3)}
+.ch-box.gg{background:linear-gradient(160deg,rgba(52,211,153,.12),transparent);border-color:rgba(52,211,153,.3)}
+.ch-box.yt{background:linear-gradient(160deg,rgba(251,191,36,.12),transparent);border-color:rgba(251,191,36,.4)}
+.ch-lbl{font-size:12px;color:var(--mut);margin-bottom:6px}
+.ch-val{font-size:34px;font-weight:800;line-height:1.1}
+.ch-sub{font-size:11px;color:var(--mut);margin-top:6px}
+.kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.exp-bar-wrap{display:flex;flex-direction:column;gap:12px}
+.exp-row{display:flex;flex-direction:column;gap:5px}
+.exp-top{display:flex;justify-content:space-between;align-items:center}
+.exp-name{font-size:12px;font-weight:600}
+.exp-stats{font-size:11px;color:var(--mut)}
+.exp-track{height:10px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden;position:relative}
+.exp-total-fill{position:absolute;top:0;right:0;height:100%;border-radius:5px;opacity:.25}
+.exp-conv-fill{position:absolute;top:0;right:0;height:100%;border-radius:5px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(4,1fr)}.meta-grid{grid-template-columns:repeat(2,1fr)}.agg-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g3{grid-template-columns:1fr}.kpi4{grid-template-columns:repeat(2,1fr)}.ch-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="master">
+
+<div class="m-header">
+  <h1>CyclesTrading <span>— דשבורד מאוחד</span></h1>
+  <div class="sub">מגנט 7 דרכים · כסף חכם · וובינרים · כל הקמפיינים במקום אחד</div>
+</div>
+
+<!-- AGGREGATE STRIP -->
+<div class="agg-strip">
+  <div class="agg-item"><div class="al">💰 הכנסות כוללות</div><div class="av" style="color:var(--green)">₪13,745,454</div><div class="as">כל 3 קמפיינים</div></div>
+  <div class="agg-item"><div class="al">🏆 עסקאות WON</div><div class="av" style="color:var(--cyan)">2,124</div><div class="as">24 + 20 + 2,080</div></div>
+  <div class="agg-item"><div class="al">📣 הוצאת מדיה</div><div class="av" style="color:var(--amber)">₪2,363,339</div><div class="as">Meta + Google</div></div>
+  <div class="agg-item"><div class="al">💼 פייפליין פתוח</div><div class="av" style="color:var(--violet)">₪10,152,176</div><div class="as">3 פייפליינים משולבים</div></div>
+</div>
+
+<!-- CAMPAIGN TABS -->
+<div class="camp-nav">
+  <div class="camp-tab active" data-c="mg">🧲 מגנט 7 דרכים</div>
+  <div class="camp-tab" data-c="kc">💡 כסף חכם</div>
+  <div class="camp-tab" data-c="wb">🎙️ וובינרים</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     CAMPAIGN 1 — מגנט 7 דרכים
+══════════════════════════════════════════════════ -->
+<div class="camp active" id="camp-mg">
+<header>
+  <div>
+    <h1 class="ih">קמפיין <span>מגנט 7 דרכים</span></h1>
+    <div class="sub">חשבון Cycles 3 · קמפיין לידים PDF "7 דרכים להכפיל את ההון" · מקור הגעה ראשוני = מגנט 7 דרכים</div>
+  </div>
+  <div style="text-align:left">
+    <span class="badge">📅 30/10/2025 — 17/06/2026</span>
+    <div class="sub" id="mg_upd"></div>
+  </div>
+</header>
+<div class="kpis" id="mg_kpis"></div>
+<div class="tabs">
+  <div class="tab active" data-v="ov">📊 סקירה</div>
+  <div class="tab" data-v="fn">🔻 משפך</div>
+  <div class="tab" data-v="wb">🎥 וובינר</div>
+  <div class="tab" data-v="ct">⏱️ זמן סגירה</div>
+  <div class="tab" data-v="dl">💼 עסקאות</div>
+  <div class="tab" data-v="mt">📣 מטא אדס</div>
+  <div class="tab" data-v="cn">💡 מסקנות</div>
+</div>
+<div class="view active" id="mg_ov">
+  <div class="card" style="margin-bottom:16px"><h3>לידים ועסקאות WON לפי חודש <span class="mut">— מגמה משולבת</span></h3><canvas id="mg_cTrend" style="max-height:260px"></canvas></div>
+  <div class="grid g2">
+    <div class="card"><h3>WON לפי נציג מכירות</h3><canvas id="mg_cOwner"></canvas></div>
+    <div class="card"><h3>פילוח סטטוס הלידים</h3><canvas id="mg_cStatus"></canvas></div>
+  </div>
+</div>
+<div class="view" id="mg_fn">
+  <div class="grid g2">
+    <div class="card">
+      <h3>משפך ההמרה המלא</h3>
+      <div class="funnel" id="mg_funnel"></div>
+      <div class="note">פער בין 3,585 לידים שדיווח Meta ל-2,677 לידים ב-CRM נובע מ: לידים שלא תויגו כמקור ראשוני "מגנט", כפילויות, ולידים שעדיין לא סונכרנו.</div>
+    </div>
+    <div class="card">
+      <h3>כמה מקורות נוספים עבר הליד? <span class="mut">— שדה "מקור הגעה"</span></h3>
+      <canvas id="mg_cMulti"></canvas>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>🪜 שלבי פייפליין <span class="mut">— 316 עסקאות פתוחות</span></h3>
+      <div class="hbars" id="mg_pipeStages"></div>
+      <div class="note">פוטנציאל הכנסה: <b style="color:var(--amber)" id="mg_pipeVal">—</b> ₪ · המרה 10% = <b style="color:var(--green)" id="mg_pipeVal10">—</b> ₪</div>
+    </div>
+    <div class="card"><h3>📊 פיזור סטטוס — כלל 2,677 הלידים</h3><canvas id="mg_cPipeStatus"></canvas></div>
+  </div>
+</div>
+<div class="view" id="mg_wb">
+  <div class="card" style="margin-bottom:16px">
+    <h3>ההשפעה הדרמטית של נוכחות בוובינר</h3>
+    <div class="cmp">
+      <div class="box win"><div class="fmeta">נכחו בוובינר</div><div class="big" style="color:var(--green)" id="mg_wConvA">—</div><div class="fmeta">המרה לעסקה · <span id="mg_wA"></span> לידים · <span id="mg_wAw"></span> נסגרו</div></div>
+      <div class="box lose"><div class="fmeta">לא נכחו בוובינר</div><div class="big" style="color:var(--red)" id="mg_wConvN">—</div><div class="fmeta">המרה לעסקה · <span id="mg_wN"></span> לידים · <span id="mg_wNw"></span> נסגרו</div></div>
+      <div class="box" style="background:linear-gradient(160deg,rgba(139,92,246,.14),transparent);border-color:rgba(139,92,246,.3)"><div class="fmeta">פי כמה גבוהה ההמרה</div><div class="big" style="color:var(--violet)" id="mg_wMult">—</div><div class="fmeta">נוכחות בוובינר = מנוף ההמרה החזק ביותר</div></div>
+    </div>
+  </div>
+  <div class="card"><h3>נוכחות והמרה לפי וובינר</h3><div class="scroll"><table><thead><tr><th>וובינר</th><th>נכחו</th><th>נסגרו</th><th>המרה</th></tr></thead><tbody id="mg_wbBody"></tbody></table></div></div>
+</div>
+<div class="view" id="mg_ct">
+  <div class="kpis" style="grid-template-columns:repeat(4,1fr)" id="mg_ctKpis"></div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>פיזור זמן סגירה (ימים)</h3><canvas id="mg_cClose"></canvas></div>
+    <div class="card"><h3>פילוח לפי מהירות סגירה</h3><canvas id="mg_cSpeed"></canvas><div class="note">מהיר = עד 14 יום · בינוני = 15–45 · איטי = מעל 45</div></div>
+  </div>
+</div>
+<div class="view" id="mg_dl">
+  <div class="card"><h3>כל העסקאות שנסגרו <span class="mut">— ממוין לפי זמן סגירה</span></h3><div class="scroll"><table><thead><tr><th>לקוח</th><th>נציג</th><th>ערך (₪)</th><th>ימים</th><th>נכנס</th><th>נסגר</th><th>וובינר</th></tr></thead><tbody id="mg_dlBody"></tbody></table></div></div>
+</div>
+<div class="view" id="mg_mt">
+  <div class="meta-hi def">
+    <div style="font-size:12px;color:var(--mut);margin-bottom:6px;letter-spacing:.5px">🎯 יחס המרה קריטי — קליק על קישור ← ליד</div>
+    <div style="font-size:50px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1" id="mg_linkToLead">—</div>
+    <div style="font-size:12px;color:var(--mut);margin-top:8px" id="mg_linkMeta">—</div>
+  </div>
+  <div class="card"><h3>📣 מדדי Meta Ads <span class="mut">— קמפיין לידים "7 דרכים להכפיל את ההון"</span></h3><div class="meta-grid" id="mg_metaGrid"></div></div>
+</div>
+<div class="view" id="mg_cn">
+  <div class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.08))">
+    <div class="fmeta">החזר על ההשקעה (ROI)</div>
+    <div class="big" id="mg_roiBig" style="margin:8px 0">—</div>
+    <div class="fmeta">הכנסה נטו ₪<span id="mg_roiNet"></span> · הוצאה ₪<span id="mg_roiSpend"></span> · ROAS <span id="mg_roiRoas"></span></div>
+  </div>
+  <div id="mg_insights"></div>
+</div>
+<div class="note" style="text-align:center;margin-top:8px">נתוני Pipedrive ו-Meta Ads · סונן: לא כולל "חידוש מנוי" · ערכים ללא מעמ (÷1.18)</div>
+</div><!-- /camp-mg -->
+
+<!-- ══════════════════════════════════════════════════
+     CAMPAIGN 2 — כסף חכם
+══════════════════════════════════════════════════ -->
+<div class="camp" id="camp-kc">
+<header>
+  <div>
+    <h1 class="ih">קמפיין <span>כסף חכם</span></h1>
+    <div class="sub">חשבון Cycles 3 · קמפיין לידים ישירים VSL "כסף חכם" · Meta Ads + Pipedrive CRM</div>
+  </div>
+  <div style="text-align:left">
+    <span class="badge">📅 ספטמבר 2023 — יוני 2026</span>
+    <div class="sub" id="kc_upd"></div>
+  </div>
+</header>
+<div class="kpis" id="kc_kpis"></div>
+<div class="tabs">
+  <div class="tab active" data-v="ov">📊 סקירה</div>
+  <div class="tab" data-v="fn">🔻 משפך</div>
+  <div class="tab" data-v="wb">🎥 וובינר</div>
+  <div class="tab" data-v="ct">⏱️ זמן סגירה</div>
+  <div class="tab" data-v="dl">💼 עסקאות</div>
+  <div class="tab" data-v="mt">📣 מטא אדס</div>
+  <div class="tab" data-v="cn">💡 מסקנות</div>
+</div>
+<div class="view active" id="kc_ov">
+  <div class="card" style="margin-bottom:16px"><h3>לידים ועסקאות WON לפי חודש <span class="mut">— ספטמבר 2023 עד יוני 2026</span></h3><canvas id="kc_cTrend" style="max-height:260px"></canvas></div>
+  <div class="grid g2">
+    <div class="card"><h3>פילוח סטטוס הלידים</h3><canvas id="kc_cStatus"></canvas></div>
+    <div class="card"><h3>פיזור מהירות סגירה</h3><canvas id="kc_cSpeedOv"></canvas></div>
+  </div>
+</div>
+<div class="view" id="kc_fn">
+  <div class="grid g2">
+    <div class="card">
+      <h3>משפך ההמרה המלא</h3>
+      <div class="funnel" id="kc_funnel"></div>
+      <div class="note">הנתונים מבוססים על Union של שלושת שדות המקור ב-CRM. 1,001 לידים = כל ליד שנגע ב"כסף חכם" לפחות פעם אחת.</div>
+    </div>
+    <div class="card">
+      <h3>🪜 שלבי פייפליין <span class="mut">— 1,001 לידים</span></h3>
+      <div class="hbars" id="kc_pipeStages"></div>
+      <div class="note">פוטנציאל: <b style="color:var(--amber)" id="kc_pipeVal">—</b> ₪ · המרה 10% = <b style="color:var(--green)" id="kc_pipeVal10">—</b> ₪</div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>📊 פיזור סטטוס</h3><canvas id="kc_cPipeStatus"></canvas></div>
+    <div class="card"><h3>📅 WON לפי חודש סגירה</h3><canvas id="kc_cWonMonth"></canvas></div>
+  </div>
+</div>
+<div class="view" id="kc_wb">
+  <div class="card" style="margin-bottom:16px">
+    <h3>ההשפעה הדרמטית של נוכחות בוובינר</h3>
+    <div class="cmp">
+      <div class="box win"><div class="fmeta">נכחו בוובינר</div><div class="big" style="color:var(--green)" id="kc_wConvA">—</div><div class="fmeta">המרה לעסקה · <span id="kc_wA"></span> לידים · <span id="kc_wAw"></span> נסגרו</div></div>
+      <div class="box lose"><div class="fmeta">לא נכחו בוובינר</div><div class="big" style="color:var(--red)" id="kc_wConvN">—</div><div class="fmeta">המרה לעסקה · <span id="kc_wN"></span> לידים · <span id="kc_wNw"></span> נסגרו</div></div>
+      <div class="box" style="background:linear-gradient(160deg,rgba(139,92,246,.14),transparent);border-color:rgba(139,92,246,.3)"><div class="fmeta">פי כמה גבוהה ההמרה</div><div class="big" style="color:var(--violet)" id="kc_wMult">—</div><div class="fmeta">נוכחות בוובינר = מנוף ההמרה החזק ביותר</div></div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>📊 נתוני וובינר</h3>
+      <div class="stat-rows">
+        <div class="stat-row"><span class="sr-lbl">📧 הוזמנו לוובינר</span><span class="sr-val" style="color:var(--cyan)">240</span></div>
+        <div class="stat-row"><span class="sr-lbl">✅ נכחו בפועל</span><span class="sr-val" style="color:var(--green)">112</span></div>
+        <div class="stat-row"><span class="sr-lbl">❌ לא הגיעו</span><span class="sr-val" style="color:var(--red)">128</span></div>
+        <div class="stat-row"><span class="sr-lbl">📈 Show Rate</span><span class="sr-val" style="color:var(--amber)">47%</span></div>
+        <div class="stat-row"><span class="sr-lbl">⏱️ ממוצע זמן צפייה</span><span class="sr-val" style="color:var(--violet)">82 דק׳</span></div>
+        <div class="stat-row"><span class="sr-lbl">🎯 המרת מכירה מנוכחים</span><span class="sr-val" style="color:var(--green)">7.1%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>📊 השוואת המרה</h3>
+      <canvas id="kc_cWbComp"></canvas>
+      <div class="note">לידים שנכחו בוובינר ממירים פי <span style="color:var(--violet);font-weight:700" id="kc_wMultNote">—</span> מאלו שלא נכחו.</div>
+    </div>
+  </div>
+</div>
+<div class="view" id="kc_ct">
+  <div class="kpis" style="grid-template-columns:repeat(4,1fr)" id="kc_ctKpis"></div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>פיזור זמן סגירה לפי טווח (789 עסקאות)</h3><canvas id="kc_cClose"></canvas></div>
+    <div class="card"><h3>פילוח לפי מהירות סגירה</h3><canvas id="kc_cSpeed"></canvas><div class="note">מהיר = עד 7 ימים · בינוני = 7–30 · איטי = מעל 30. 78% נסגרות תוך 30 יום.</div></div>
+  </div>
+</div>
+<div class="view" id="kc_dl">
+  <div class="card">
+    <div class="placeholder">
+      <div class="pi">💼</div>
+      <h4>20 עסקאות WON — נתונים בודדים זמינים ב-Pipedrive</h4>
+      <p>ממוצע עסקה: <b style="color:var(--green)">₪8,027</b> · סך הכנסות: <b style="color:var(--green)">₪160,534</b> ללא מעמ<br>78% נסגרו תוך 30 יום · 16% לקחו 90+ ימים</p>
+    </div>
+  </div>
+</div>
+<div class="view" id="kc_mt">
+  <div class="meta-hi def">
+    <div style="font-size:12px;color:var(--mut);margin-bottom:6px;letter-spacing:.5px">🎯 יחס המרה קריטי — קליק על קישור ← ליד</div>
+    <div style="font-size:50px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1" id="kc_linkToLead">—</div>
+    <div style="font-size:12px;color:var(--mut);margin-top:8px" id="kc_linkMeta">—</div>
+  </div>
+  <div class="card"><h3>📣 מדדי Meta Ads <span class="mut">— קמפיין לידים ישירים VSL "כסף חכם"</span></h3><div class="meta-grid" id="kc_metaGrid"></div></div>
+</div>
+<div class="view" id="kc_cn">
+  <div class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.08))">
+    <div class="fmeta">החזר על ההשקעה (ROI)</div>
+    <div class="big" id="kc_roiBig" style="margin:8px 0">—</div>
+    <div class="fmeta">הכנסה נטו ₪<span id="kc_roiNet"></span> · הוצאה ₪<span id="kc_roiSpend"></span> · ROAS <span id="kc_roiRoas"></span></div>
+  </div>
+  <div id="kc_insights"></div>
+</div>
+<div class="note" style="text-align:center;margin-top:8px">נתוני Pipedrive ו-Meta Ads · ערכים ללא מעמ (÷1.18) · עודכן <span id="kc_updFooter"></span></div>
+</div><!-- /camp-kc -->
+
+<!-- ══════════════════════════════════════════════════
+     CAMPAIGN 3 — וובינרים
+══════════════════════════════════════════════════ -->
+<div class="camp" id="camp-wb">
+<header>
+  <div>
+    <h1 class="ih">פאנל <span>הוובינרים</span></h1>
+    <div class="sub">ערוץ שיווקי ראשי · Airtable (נוכחות + רכישות) · Pipedrive (ייחוס עסקאות) · 79 וובינרים</div>
+  </div>
+  <div style="text-align:left">
+    <span class="badge">📅 2023 — יוני 2026</span>
+    <div class="sub" id="wb_upd"></div>
+  </div>
+</header>
+<div class="kpis" id="wb_kpis"></div>
+<div class="tabs">
+  <div class="tab active" data-v="ov">📊 סקירה</div>
+  <div class="tab" data-v="fn">🔻 משפך</div>
+  <div class="tab" data-v="wb">🎥 וובינרים</div>
+  <div class="tab" data-v="ct">⏱️ זמן סגירה</div>
+  <div class="tab" data-v="dl">💼 עסקאות</div>
+  <div class="tab" data-v="ad">📣 ערוצי פרסום</div>
+  <div class="tab" data-v="cn">💡 מסקנות</div>
+</div>
+<div class="view active" id="wb_ov">
+  <div class="card" style="margin-bottom:16px"><h3>הכנסה חודשית מוובינרים <span class="mut">— מאי 2025 עד יוני 2026</span></h3><canvas id="wb_cRev" style="max-height:240px"></canvas></div>
+  <div class="grid g2">
+    <div class="card"><h3>מתי נסגרת המכירה? <span class="mut">— ערב הוובינר מול מאוחר</span></h3><canvas id="wb_cEve"></canvas><div class="note">71% מהרכישות נסגרות <b style="color:var(--amber)">אחרי</b> ערב הוובינר. חלון ייחוס נכון = 30–60 יום.</div></div>
+    <div class="card"><h3>מגמה שנתית 2023–2026 <span class="mut">— נפח ו-% המרה</span></h3><canvas id="wb_cYearly"></canvas><div class="note">2026 נראה נמוך (9%) כי הפייפליין עדיין פתוח. צפי: ~14–15%</div></div>
+  </div>
+</div>
+<div class="view" id="wb_fn">
+  <div class="grid g2">
+    <div class="card">
+      <h3>🕐 משפך שהייה בזמן — זמן הצפייה כמנוע ההמרה</h3>
+      <div class="funnel" id="wb_retFunnel"></div>
+      <div class="note">13,702 לידים שנגעו בוובינר. כולם נכנסו — השאלה היא <b>כמה זמן נשארו</b>. כל שעה נוספת מכפילה את ההמרה.</div>
+    </div>
+    <div class="card">
+      <h3>📊 המרה לפי דקות שהייה — נקודת המפנה ב-120 דקות</h3>
+      <div class="min-grid" id="wb_minGrid"></div>
+      <table style="margin-top:8px"><thead><tr><th>טווח</th><th>נרשמו</th><th>WON</th><th>המרה</th></tr></thead><tbody id="wb_minTbody"></tbody></table>
+      <div class="note">⚡ קפיצה מ-8.5% ל-<b style="color:var(--green)">25.0%</b> ב-120+ דקות — פי 3 בהמרה.</div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>🪜 שלבי פייפליין פתוח <span class="mut">— 857 עסקאות · ₪6,888,756</span></h3>
+      <div class="hbars" id="wb_pipeStages"></div>
+    </div>
+    <div class="card"><h3>📊 חלוקת ניסיון — 13,702 לידי וובינר</h3><canvas id="wb_cExp"></canvas><div class="note">57.7% מהלידים הם "ללא ניסיון". ניסיון 3–5 שנים מוביל בהמרה (16.3%).</div></div>
+  </div>
+</div>
+<div class="view" id="wb_wb">
+  <div class="banner">⚡ <div><b>תובנת-העל:</b> רק <b id="wb_evePct">28%</b> מהרכישות בערב הוובינר. <b id="wb_latePct">71%</b> נסגרות אחר כך — חציון 9.4 ימים, ו-34% אחרי 30+ יום. הוובינרים אחראים ל-63% מכלל הכנסת הפייפליין (₪13.4M מתוך ₪21.2M).</div></div>
+  <div class="card" style="margin-bottom:16px"><h3>מגמת נוכחות מול המרה לאורך זמן</h3><canvas id="wb_cTrend" style="max-height:200px"></canvas></div>
+  <div class="card">
+    <h3>כל 49 הוובינרים המתועדים <span class="mut">— לחיצה על כותרת ממיינת</span></h3>
+    <div class="scroll"><table id="wb_tbl">
+      <thead><tr>
+        <th data-k="date">תאריך</th><th data-k="reg">נרשמו</th><th data-k="att">נכחו</th>
+        <th data-k="att_rate">% נוכחות</th><th data-k="buy_eve">קנו בערב</th>
+        <th data-k="buy_late">קנו מאוחר</th><th data-k="buy_total">סה"כ קניות</th>
+        <th data-k="conv">% המרה</th><th data-k="rev">הכנסה ₪</th>
+      </tr></thead>
+      <tbody id="wb_tblBody"></tbody>
+    </table></div>
+  </div>
+</div>
+<div class="view" id="wb_ct">
+  <div class="kpi4" id="wb_ctKpis"></div>
+  <div class="grid g2">
+    <div class="card"><h3>מחזור המכירה — מהוובינר ועד סגירה (2,080 עסקאות)</h3><canvas id="wb_cCycle"></canvas><div class="note">חציון: 9.4 ימים. אך 34% סוגרים אחרי 30+ יום. אל תוותרו על לידים "ישנים".</div></div>
+    <div class="card">
+      <h3>פייפליין פתוח לפי שלב</h3>
+      <canvas id="wb_cOpenPipe"></canvas>
+      <div class="stat-rows" style="margin-top:14px">
+        <div class="stat-row"><span class="sr-lbl">💼 עסקאות פתוחות</span><span class="sr-val" style="color:var(--amber)">857</span></div>
+        <div class="stat-row"><span class="sr-lbl">💰 פוטנציאל הכנסה</span><span class="sr-val" style="color:var(--green)">₪6,888,756</span></div>
+        <div class="stat-row"><span class="sr-lbl">📈 המרה 10%</span><span class="sr-val" style="color:var(--cyan)">₪688,876</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="view" id="wb_dl">
+  <div class="grid g2">
+    <div class="card">
+      <h3>🎓 ביצועים לפי רמת ניסיון</h3>
+      <div class="exp-bar-wrap" id="wb_expBars"></div>
+    </div>
+    <div class="card">
+      <h3>📊 ביצועים לפי שנה <span class="mut">— CRM · 13,702 לידים</span></h3>
+      <canvas id="wb_cYearly2"></canvas>
+      <div class="stat-rows" style="margin-top:14px">
+        <div class="stat-row"><span class="sr-lbl">🏆 שיא המרה</span><span class="sr-val" style="color:var(--green)">2023 — 19.3%</span></div>
+        <div class="stat-row"><span class="sr-lbl">📈 נפח שיא</span><span class="sr-val" style="color:var(--cyan)">2025 — 6,174 לידים</span></div>
+        <div class="stat-row"><span class="sr-lbl">🎯 WON מיוחסות</span><span class="sr-val" style="color:var(--amber)">2,080 עסקאות</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>💰 סיכום עסקאות — Pipedrive</h3>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px">
+      <div style="text-align:center;padding:18px;background:var(--panel2);border-radius:12px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">סה"כ WON (כלל CRM)</div><div style="font-size:24px;font-weight:800;color:var(--cyan)">3,730</div><div style="font-size:11px;color:var(--mut);margin-top:4px">₪21,231,278</div></div>
+      <div style="text-align:center;padding:18px;background:var(--panel2);border-radius:12px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">WON מיוחס לוובינרים</div><div style="font-size:24px;font-weight:800;color:var(--green)">2,080</div><div style="font-size:11px;color:var(--mut);margin-top:4px">₪13,435,029 · 63%</div></div>
+      <div style="text-align:center;padding:18px;background:var(--panel2);border-radius:12px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">ממוצע לעסקה</div><div style="font-size:24px;font-weight:800;color:var(--amber)">₪6,459</div><div style="font-size:11px;color:var(--mut);margin-top:4px">13,435,029 ÷ 2,080</div></div>
+      <div style="text-align:center;padding:18px;background:var(--panel2);border-radius:12px"><div style="font-size:11px;color:var(--mut);margin-bottom:6px">פייפליין פתוח</div><div style="font-size:24px;font-weight:800;color:var(--violet)">857</div><div style="font-size:11px;color:var(--mut);margin-top:4px">₪6,888,756</div></div>
+    </div>
+  </div>
+</div>
+<div class="view" id="wb_ad">
+  <div class="card" style="margin-bottom:18px">
+    <h3>📘 Meta Ads — פייסבוק ואינסטגרם <span class="mut">· קמפיין וובינר · חשבון ראשי</span></h3>
+    <div class="meta-hi fb">
+      <div style="font-size:12px;color:rgba(79,142,255,.7);margin-bottom:6px;letter-spacing:.5px">🎯 יחס המרה קריטי — קליק על קישור ← ליד</div>
+      <div style="font-size:50px;font-weight:800;background:linear-gradient(90deg,#4f8eff,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1">2.8%</div>
+      <div style="font-size:12px;color:var(--mut);margin-top:8px">611,185 קליקים על קישור · 17,336 לידים · CPL ₪71.5</div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="ml">💰 הוצאה</div><div class="mv" style="color:var(--cyan)">₪1,290K</div></div>
+      <div class="meta-item"><div class="ml">🎯 לידים (Pixel)</div><div class="mv">18,042</div></div>
+      <div class="meta-item"><div class="ml">📊 CPL</div><div class="mv" style="color:#4f8eff">₪71.5</div></div>
+      <div class="meta-item" style="background:linear-gradient(135deg,rgba(79,142,255,.15),transparent);border:1px solid rgba(79,142,255,.3)"><div class="ml">🔗 קליק ← ליד</div><div class="mv" style="color:#4f8eff">2.8%</div></div>
+      <div class="meta-item"><div class="ml">👁️ Impressions</div><div class="mv">20M+</div></div>
+      <div class="meta-item"><div class="ml">🖱️ CTR</div><div class="mv">3.1%</div></div>
+      <div class="meta-item"><div class="ml">💵 CPC</div><div class="mv" style="color:var(--green)">₪1.99</div></div>
+      <div class="meta-item"><div class="ml">📡 CPM</div><div class="mv">₪65</div></div>
+      <div class="meta-item" style="background:linear-gradient(135deg,rgba(79,142,255,.12),transparent);border:1px solid rgba(79,142,255,.25)"><div class="ml">🏆 קמפיין מוביל</div><div class="mv" style="font-size:12px;color:#4f8eff">SiteLead 15/7</div></div>
+      <div class="meta-item"><div class="ml">💰 הוצאה — מוביל</div><div class="mv">₪546,792</div></div>
+      <div class="meta-item"><div class="ml">🎯 לידים — מוביל</div><div class="mv">8,189</div></div>
+      <div class="meta-item"><div class="ml">📊 CPL — מוביל</div><div class="mv" style="color:var(--green)">₪67</div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <h3>🔍 Google Ads — Search · YouTube · PMax <span class="mut">· 5 קמפיינים</span></h3>
+    <div class="meta-hi gg">
+      <div style="font-size:12px;color:rgba(52,211,153,.7);margin-bottom:6px;letter-spacing:.5px">🎯 יחס המרה קריטי — קליק ← ליד ב-CRM</div>
+      <div style="font-size:50px;font-weight:800;background:linear-gradient(90deg,#34d399,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1">0.94%</div>
+      <div style="font-size:12px;color:var(--mut);margin-top:8px">451,150 קליקים · 4,258 לידים ב-CRM · CPC ₪2.16 · 57.4M חשיפות</div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="ml">💰 הוצאה</div><div class="mv" style="color:var(--cyan)">₪976,737</div></div>
+      <div class="meta-item"><div class="ml">🖱️ קליקים</div><div class="mv">451,150</div></div>
+      <div class="meta-item"><div class="ml">💵 CPC</div><div class="mv" style="color:var(--green)">₪2.16</div></div>
+      <div class="meta-item"><div class="ml">📊 CTR</div><div class="mv">0.79%</div></div>
+      <div class="meta-item"><div class="ml">👁️ חשיפות</div><div class="mv">57.4M</div></div>
+      <div class="meta-item"><div class="ml">📡 CPM</div><div class="mv">₪17</div></div>
+      <div class="meta-item" style="background:linear-gradient(135deg,rgba(52,211,153,.12),transparent);border:1px solid rgba(52,211,153,.25)"><div class="ml">✅ PMax-WEBINAR (פעיל)</div><div class="mv" style="color:var(--green)">₪708,909</div></div>
+      <div class="meta-item"><div class="ml">⏸️ Demand Gen New25</div><div class="mv">₪169,333</div></div>
+      <div class="meta-item"><div class="ml">⏸️ Perf. Max Legacy</div><div class="mv">₪76,102</div></div>
+      <div class="meta-item"><div class="ml">⏸️ YouTube Followers</div><div class="mv">₪21,697</div></div>
+      <div class="meta-item"><div class="ml">🖱️ CPC — PMax ראשי</div><div class="mv" style="color:var(--green)">₪2.03</div></div>
+      <div class="meta-item"><div class="ml">🖱️ קליקים — PMax ראשי</div><div class="mv">348,412</div></div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>📊 ביצועי ערוצי UTM <span class="mut">— נפח ו-% המרה</span></h3><div class="src-rows" id="wb_srcRows"></div></div>
+    <div class="card">
+      <h3>🎯 ערוצים אורגניים — המרה</h3>
+      <div class="stat-rows">
+        <div class="stat-row"><span class="sr-lbl">⭐ יוטיוב — המרה</span><span class="sr-val" style="color:var(--amber)">22.6%</span></div>
+        <div class="stat-row"><span class="sr-lbl">📱 טלגרם — המרה</span><span class="sr-val" style="color:var(--violet)">19.7%</span></div>
+        <div class="stat-row"><span class="sr-lbl">📲 טיקטוק — המרה</span><span class="sr-val" style="color:var(--pink)">14.4%</span></div>
+        <div class="stat-row"><span class="sr-lbl">🔗 ווטסאפ — המרה</span><span class="sr-val" style="color:var(--cyan)">13.3%</span></div>
+        <div class="stat-row"><span class="sr-lbl">📸 אינסטגרם — המרה</span><span class="sr-val" style="color:var(--red)">11.9%</span></div>
+        <div class="stat-row"><span class="sr-lbl">📡 Outbrain — המרה</span><span class="sr-val" style="color:var(--mut)">8.9%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="view" id="wb_cn">
+  <div class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.08))">
+    <div style="font-size:12px;color:var(--mut)">הכנסה מיוחסת לוובינרים (Pipedrive)</div>
+    <div class="big" style="margin:8px 0;color:var(--green)">₪13,435,029</div>
+    <div style="font-size:13px;color:var(--mut)">63% מכלל הכנסת הפייפליין · 2,080 עסקאות · ממוצע ₪6,459 לעסקה</div>
+  </div>
+  <div id="wb_insights"></div>
+</div>
+<div class="note" style="text-align:center;margin-top:8px">Airtable (49 וובינרים) + Pipedrive (2,080 עסקאות) + CRM (13,702 לידים) · עודכן <span id="wb_updFooter"></span></div>
+</div><!-- /camp-wb -->
+
+</div><!-- /master -->
+<script>
+// ══ Shared utils ══
+const nf=n=>n.toLocaleString('he-IL');
+const money=n=>'₪'+nf(Math.round(n));
+const C={cyan:'#22d3ee',violet:'#8b5cf6',green:'#34d399',amber:'#fbbf24',red:'#f87171',pink:'#f472b6',mut:'#8a96b3'};
+Chart.defaults.color='#8a96b3';
+Chart.defaults.font.family="'Segoe UI',Arial";
+Chart.defaults.borderColor='rgba(255,255,255,.06)';
+const grad=(ctx,c1,c2)=>{const g=ctx.createLinearGradient(0,0,0,300);g.addColorStop(0,c1);g.addColorStop(1,c2);return g;};
+const baseOpt={plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'}},x:{grid:{display:false}}}};
+const now=new Date().toLocaleDateString('he-IL');
+
+// ══ Sub-tab scoping ══
+function setupSubTabs(prefix){
+  const cid='camp-'+prefix.slice(0,-1);
+  const container=document.getElementById(cid);
+  container.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+    container.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    container.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(prefix+t.dataset.v).classList.add('active');
+  });
+}
+
+// ══ Campaign switcher ══
+let mgInited=false,kcInited=false,wbInited=false;
+function switchCamp(c){
+  document.querySelectorAll('.camp-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.camp').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.camp-tab[data-c="'+c+'"]').classList.add('active');
+  document.getElementById('camp-'+c).classList.add('active');
+  if(c==='mg'&&!mgInited){initMg();mgInited=true;}
+  if(c==='kc'&&!kcInited){initKc();kcInited=true;}
+  if(c==='wb'&&!wbInited){initWb();wbInited=true;}
+}
+document.querySelectorAll('.camp-tab').forEach(t=>t.onclick=()=>switchCamp(t.dataset.c));
+
+// ══════════════════════════════════════════
+// DATA — מגנט 7 דרכים
+// ══════════════════════════════════════════
+const D_mg={
+  meta:{spend:53192,leads_pixel:3585,cpl:14.84,impressions:574879,reach:136391,clicks:27763,ctr:4.83,cpc:1.92,cpm:92.53,link_to_lead:12.9},
+  pipe:{total:2677,won:24,lost:2337,open:316,open_val:1973420,
+    stages:[{n:"ליד חדש",c:95,col:"#22d3ee"},{n:"נוצר קשר ראשוני",c:100,col:"#38bdf8"},{n:"אין מענה",c:68,col:"#f87171"},{n:"בוצעה שיחה מלאה",c:38,col:"#34d399"},{n:"פולואפ 1",c:8,col:"#fbbf24"},{n:"הקלטה",c:4,col:"#a78bfa"},{n:"פולואפ 2",c:3,col:"#fb923c"}]},
+  rev:{gross:176871,exvat:149891},
+  roi:{roas:2.82,net:96699,pct:182,cac:2216,cpl_crm:19.87},
+  ml:{"2025-11":214,"2025-12":359,"2026-01":353,"2026-02":271,"2026-03":311,"2026-04":444,"2026-05":501,"2026-06":224},
+  mw:{"2025-11":7,"2025-12":1,"2026-01":4,"2026-02":3,"2026-03":1,"2026-04":3,"2026-05":4,"2026-06":1},
+  wb:{att:78,att_won:12,noatt:2599,noatt_won:12,conv_att:15.4,conv_noatt:0.46},
+  wbTbl:[
+    {name:"נכח וובינר 23.03.2026",t:7,w:0},{name:"נכח וובינר 16.03.2026",t:6,w:0},
+    {name:"נכח וובינר 01.06.26",t:5,w:0},{name:"נכח וובינר 11.05.26",t:5,w:2},
+    {name:"נכח וובינר 08.06.26",t:4,w:0},{name:"נכח וובינר 03.05.26",t:4,w:1},
+    {name:"נכח וובינר 27.04.26",t:4,w:0},{name:"נכח וובינר 12.04.2026",t:4,w:1},
+    {name:"וובינר 16.02.2026",t:4,w:0},{name:"נכח וובינר 19.04.26",t:3,w:0},
+    {name:"נכח וובינר 29.03.2026",t:3,w:0},{name:"וובינר 09.02.2026",t:3,w:1},
+    {name:"וובינר 19.01.2026",t:3,w:1},{name:"וובינר 26.01.2026",t:3,w:1},
+    {name:"וובינר 24.11.2025",t:3,w:2},{name:"וובינר 23.02.2026",t:2,w:0},
+    {name:"וובינר 02.02.2026",t:2,w:0},{name:"וובינר 05.01.2026",t:2,w:0},
+    {name:"וובינר 29.12.2025",t:2,w:1},{name:"וובינר 22.12.2025",t:2,w:1},
+    {name:"וובינר 01.12.2025",t:2,w:0},{name:"נכח וובינר 25.05.26",t:1,w:0},
+    {name:"נכח וובינר 09.03.2026",t:1,w:1},{name:"וובינר 12.01.2026",t:1,w:0},
+    {name:"וובינר 17.11.2025",t:1,w:0},{name:"וובינר 10.11.2025",t:1,w:0}
+  ],
+  close:{avg:44.2,median:18.5,min:1,max:166},
+  own:{Roy:6,"Guy Rrovinsky":4,"צבי שמש":3,"Avi Hotovely":3,"Shani Hajj":2,"Amit Almakies":2,"ראובן":1,"גולן":1,"אלי בן סימון":1,"Michael Krichely":1},
+  multi:{"0":77,"1":2473,"2":107,"3":16,"4":2,"5":2},
+  deals:[
+    {title:"יאיר כהן- סדנא",owner:"Roy",value:97,days:1,add:"2025-11-07",won:"2025-11-09",wb:false},
+    {title:"דניאל מלחי- מגנט 7 דרכים",owner:"Roy",value:97,days:2,add:"2025-11-03",won:"2025-11-05",wb:false},
+    {title:"יפעת הראל- מגנט 7 דרכים",owner:"Avi Hotovely",value:10890,days:4,add:"2025-11-05",won:"2025-11-10",wb:false},
+    {title:"זריהן דוד - אפסייל לאחר סדנא",owner:"Michael Krichely",value:8790,days:11,add:"2025-11-06",won:"2025-11-18",wb:false},
+    {title:"איילת אלוני-קורס גולד",owner:"צבי שמש",value:8490,days:12,add:"2026-03-29",won:"2026-04-11",wb:true},
+    {title:"אייל בן משה- מגנט 7 דרכים",owner:"Avi Hotovely",value:9150,days:12,add:"2025-11-14",won:"2025-11-27",wb:true},
+    {title:"דניאל שם טוב- מגנט 7 דרכים",owner:"Avi Hotovely",value:8790,days:13,add:"2025-12-09",won:"2025-12-23",wb:true},
+    {title:"גיל ממן-קורס גולד",owner:"Guy Rrovinsky",value:8790,days:14,add:"2026-01-26",won:"2026-02-10",wb:true},
+    {title:"שי פנקר- מגנט 7 דרכים",owner:"Amit Almakies",value:9300,days:15,add:"2025-11-11",won:"2025-11-26",wb:false},
+    {title:"אילן ספקטור-קורס גולד",owner:"ראובן",value:8790,days:16,add:"2026-04-18",won:"2026-05-04",wb:true},
+    {title:"נורית ערבה-קורס גולד",owner:"Shani Hajj",value:9690,days:16,add:"2025-12-15",won:"2026-01-01",wb:true},
+    {title:"אברהם גלבר- מגנט 7 דרכים",owner:"Amit Almakies",value:8490,days:17,add:"2025-11-09",won:"2025-11-26",wb:true},
+    {title:"שחר בנימין-קורס גולד",owner:"Shani Hajj",value:8790,days:20,add:"2025-12-22",won:"2026-01-11",wb:false},
+    {title:"פרג יצחקי-סדנא",owner:"Roy",value:97,days:25,add:"2026-01-15",won:"2026-02-10",wb:true},
+    {title:"טל קינן-קורס גולד",owner:"Guy Rrovinsky",value:8790,days:26,add:"2026-01-30",won:"2026-02-25",wb:false},
+    {title:"יוסי קדוסי-דו\"ח שנתי",owner:"צבי שמש",value:3590,days:27,add:"2026-03-16",won:"2026-04-13",wb:false},
+    {title:"דגן אטיה-קורס גולד",owner:"Guy Rrovinsky",value:8790,days:30,add:"2025-12-28",won:"2026-01-27",wb:true},
+    {title:"הילה אורן-קורס גולד",owner:"Guy Rrovinsky",value:8490,days:31,add:"2026-02-06",won:"2026-03-10",wb:true},
+    {title:"עדיאל חרט-קורס גולד",owner:"Roy",value:8490,days:81,add:"2025-11-08",won:"2026-01-28",wb:false},
+    {title:"בועז לב ארי-קורס גולד",owner:"גולן",value:8490,days:108,add:"2026-01-24",won:"2026-05-13",wb:true},
+    {title:"לב ארי חסון-קורס גולד",owner:"Roy",value:9690,days:119,add:"2025-12-06",won:"2026-04-05",wb:false},
+    {title:"יצחק אלבז-קורס גולד",owner:"צבי שמש",value:9100,days:141,add:"2025-12-21",won:"2026-05-12",wb:false},
+    {title:"אלמוג טובי חי-ליווי קבוצתי",owner:"Roy",value:2400,days:153,add:"2025-12-31",won:"2026-06-03",wb:false},
+    {title:"עמיקם כהן-קורס גולד",owner:"אלי בן סימון",value:8790,days:166,add:"2025-12-10",won:"2026-05-25",wb:true}
+  ]
+};
+
+// ══════════════════════════════════════════
+// DATA — כסף חכם
+// ══════════════════════════════════════════
+const D_kc={
+  meta:{spend:43410,leads_pixel:913,cpl:47.55,impressions:473745,reach:162741,clicks:8042,all_clicks:14963,ctr:3.16,link_click_rate:1.70,cpc:5.40,cpm:91.6,link_to_lead:11.4},
+  pipe:{total:1001,won:20,lost:792,open:191,open_val:1290000,
+    stages:[{n:"נוצר קשר ראשוני",c:410,col:"#22d3ee"},{n:"אין מענה",c:214,col:"#f87171"},{n:"בוצעה שיחה מלאה",c:161,col:"#34d399"},{n:"ליד חדש",c:99,col:"#38bdf8"},{n:"פולואפ 1",c:45,col:"#fbbf24"},{n:"הקלטה",c:41,col:"#a78bfa"},{n:"פולואפ 2",c:17,col:"#fb923c"}]},
+  rev:{gross:189430,exvat:160534},
+  roi:{roas:3.70,net:117124,pct:270,cac:2171,cpl_crm:43},
+  ml:{"ספט-23":1,"אוק-23":2,"נוב-23":6,"דצמ-23":4,"ינו-24":5,"פבר-24":4,"מרץ-24":2,"אפר-24":8,"מאי-24":5,"יוני-24":2,"יול-24":4,"אוג-24":3,"ספט-24":2,"אוק-24":3,"נוב-24":5,"דצמ-24":8,"ינו-25":9,"פבר-25":5,"מרץ-25":9,"אפר-25":9,"מאי-25":6,"יוני-25":13,"יול-25":11,"אוג-25":10,"ספט-25":5,"אוק-25":7,"נוב-25":9,"דצמ-25":9,"ינו-26":113,"פבר-26":72,"מרץ-26":115,"אפר-26":19,"מאי-26":440,"יוני-26":90},
+  mw:{"ספט-23":0,"אוק-23":0,"נוב-23":0,"דצמ-23":0,"ינו-24":0,"פבר-24":0,"מרץ-24":0,"אפר-24":0,"מאי-24":0,"יוני-24":0,"יול-24":0,"אוג-24":0,"ספט-24":0,"אוק-24":0,"נוב-24":0,"דצמ-24":0,"ינו-25":0,"פבר-25":0,"מרץ-25":0,"אפר-25":0,"מאי-25":0,"יוני-25":0,"יול-25":1,"אוג-25":0,"ספט-25":0,"אוק-25":0,"נוב-25":0,"דצמ-25":0,"ינו-26":1,"פבר-26":2,"מרץ-26":4,"אפר-26":0,"מאי-26":9,"יוני-26":3},
+  wb:{att:112,att_won:8,noatt:889,noatt_won:12,conv_att:7.1,conv_noatt:1.3},
+  close:{avg:63,median:10,pct30:78,pct90p:16},
+  closeBuckets:{"0–7":290,"7–30":324,"30–90":49,"90+":126}
+};
+
+// ══════════════════════════════════════════
+// DATA — וובינרים
+// ══════════════════════════════════════════
+const D_wb={
+  air:{n:49,total:79,rev:4931381,att:8365,reg:9482,buy:891,eve:254,late:637},
+  pd:{won:2080,won_rev:13435029,share:63.3,total_won:3730,total_rev:21231278,open_deals:857,open_rev:6888756,
+    cycle:{median:9.4,mean:73.6,same:16.5,d1_7:27.2,d7_30:22.3,d30p:34.0},
+    open_stages:[{n:"נוצר קשר ראשוני",c:143,rev:1070000,col:"#22d3ee"},{n:"ליד חדש (קר)",c:140,rev:1100000,col:"#38bdf8"},{n:"פולואפ 1",c:105,rev:807000,col:"#fbbf24"},{n:"אין מענה",c:79,rev:638000,col:"#f87171"}]},
+  crm:{total:13702,won:1959,conv:14.3},
+  retention:[
+    {l:"כלל לידי הוובינר",n:13702,conv:14.3,col:"rgba(34,211,238,.85)"},
+    {l:"נשארו 30+ דקות",n:11549,conv:16.3,col:"rgba(99,102,241,.85)"},
+    {l:"נשארו 60+ דקות",n:10111,conv:18.2,col:"rgba(139,92,246,.85)"},
+    {l:"נשארו 90+ דקות",n:8592,conv:20.6,col:"rgba(192,68,247,.85)"},
+    {l:"נשארו 120+ דקות",n:6336,conv:25.0,col:"rgba(52,211,153,.9)"},
+  ],
+  minutes:[
+    {l:"0 דק'",n:57,won:13,conv:22.8,col:"rgba(139,92,246,.7)"},
+    {l:"1–9",n:841,won:23,conv:2.7,col:"rgba(248,113,113,.7)"},
+    {l:"10–29",n:1255,won:42,conv:3.3,col:"rgba(248,113,113,.65)"},
+    {l:"30–59",n:1438,won:42,conv:2.9,col:"rgba(251,191,36,.55)"},
+    {l:"60–89",n:1519,won:66,conv:4.3,col:"rgba(251,191,36,.7)"},
+    {l:"90–119",n:2256,won:192,conv:8.5,col:"rgba(59,130,246,.75)"},
+    {l:"120+",n:6336,won:1581,conv:25.0,col:"rgba(52,211,153,.85)"},
+  ],
+  exp:[
+    {l:"אין ניסיון",n:7907,won:1061,conv:13.4,c120:23.9,col:"#94a3b8"},
+    {l:"ניסיון 1–2 שנים",n:2898,won:434,conv:15.0,c120:26.5,col:"#3b82f6"},
+    {l:"מעל 5 שנים",n:1816,won:288,conv:15.9,c120:26.1,col:"#a855f7"},
+    {l:"ניסיון 3–5 שנים",n:1081,won:176,conv:16.3,c120:26.6,col:"#22c55e"},
+  ],
+  src:[
+    {l:"פייסבוק",n:4343,conv:13.1,col:"#4f8eff"},
+    {l:"גוגל",n:4258,conv:14.2,col:"#34d399"},
+    {l:"ווטסאפ",n:822,conv:13.3,col:"#22d3ee"},
+    {l:"⭐ יוטיוב",n:602,conv:22.6,col:"#fbbf24"},
+    {l:"טלגרם",n:512,conv:19.7,col:"#818cf8"},
+    {l:"טיקטוק",n:418,conv:14.4,col:"#f472b6"},
+    {l:"אינסטגרם",n:293,conv:11.9,col:"#e879f9"},
+    {l:"Outbrain",n:45,conv:8.9,col:"#64748b"},
+  ],
+  yearly:[{y:"2023",n:703,won:136,conv:19.3},{y:"2024",n:4724,won:728,conv:15.4},{y:"2025",n:6174,won:905,conv:14.7},{y:"2026*",n:2099,won:188,conv:9.0}],
+  monthly:[
+    {m:"מאי-25",rev:0,buy:44,eve:13,late:31,att:339,reg:409},
+    {m:"יוני-25",rev:38523,buy:104,eve:36,late:68,att:862,reg:995},
+    {m:"יולי-25",rev:39344,buy:67,eve:23,late:44,att:618,reg:717},
+    {m:"אוג-25",rev:321231,buy:80,eve:18,late:62,att:643,reg:718},
+    {m:"ספט-25",rev:648260,buy:94,eve:25,late:69,att:605,reg:770},
+    {m:"אוק-25",rev:542299,buy:78,eve:20,late:58,att:752,reg:729},
+    {m:"נוב-25",rev:752744,buy:99,eve:26,late:73,att:770,reg:838},
+    {m:"דצמ-25",rev:597985,buy:82,eve:25,late:57,att:816,reg:922},
+    {m:"ינו-26",rev:445121,buy:56,eve:11,late:45,att:592,reg:671},
+    {m:"פבר-26",rev:453504,buy:54,eve:17,late:37,att:551,reg:663},
+    {m:"מרץ-26",rev:334480,buy:41,eve:5,late:36,att:680,reg:716},
+    {m:"אפר-26",rev:353840,buy:44,eve:15,late:29,att:432,reg:501},
+    {m:"מאי-26",rev:342370,buy:40,eve:16,late:24,att:563,reg:649},
+    {m:"יוני-26",rev:61680,buy:8,eve:4,late:4,att:142,reg:184},
+  ],
+  rows:[
+    {date:"2025-05-12",reg:212,att:171,att_rate:0.361,buy_eve:8,buy_late:18,buy_total:26,conv:0.152,rev:0},
+    {date:"2025-05-19",reg:197,att:168,att_rate:0.358,buy_eve:5,buy_late:13,buy_total:18,conv:0.107,rev:0},
+    {date:"2025-06-09",reg:281,att:267,att_rate:0.311,buy_eve:11,buy_late:12,buy_total:23,conv:0.086,rev:29557},
+    {date:"2025-06-17",reg:269,att:214,att_rate:0.426,buy_eve:6,buy_late:24,buy_total:30,conv:0.140,rev:8287},
+    {date:"2025-06-23",reg:220,att:194,att_rate:0.390,buy_eve:10,buy_late:12,buy_total:22,conv:0.113,rev:194},
+    {date:"2025-06-30",reg:225,att:187,att_rate:0.366,buy_eve:9,buy_late:20,buy_total:29,conv:0.155,rev:485},
+    {date:"2025-07-07",reg:164,att:128,att_rate:0.316,buy_eve:7,buy_late:6,buy_total:13,conv:0.102,rev:15927},
+    {date:"2025-07-14",reg:162,att:145,att_rate:0.407,buy_eve:7,buy_late:11,buy_total:18,conv:0.124,rev:15830},
+    {date:"2025-07-21",reg:152,att:136,att_rate:0.413,buy_eve:5,buy_late:11,buy_total:16,conv:0.118,rev:6790},
+    {date:"2025-07-28",reg:239,att:209,att_rate:0.441,buy_eve:4,buy_late:16,buy_total:20,conv:0.096,rev:797},
+    {date:"2025-08-04",reg:178,att:163,att_rate:0.384,buy_eve:5,buy_late:12,buy_total:17,conv:0.104,rev:25860},
+    {date:"2025-08-11",reg:193,att:173,att_rate:0.401,buy_eve:3,buy_late:21,buy_total:24,conv:0.139,rev:28010},
+    {date:"2025-08-18",reg:173,att:157,att_rate:0.328,buy_eve:7,buy_late:14,buy_total:21,conv:0.134,rev:146720},
+    {date:"2025-08-25",reg:174,att:150,att_rate:0.365,buy_eve:3,buy_late:15,buy_total:18,conv:0.120,rev:120641},
+    {date:"2025-09-01",reg:164,att:155,att_rate:0.429,buy_eve:8,buy_late:20,buy_total:28,conv:0.181,rev:211624},
+    {date:"2025-09-08",reg:183,att:170,att_rate:0.418,buy_eve:2,buy_late:17,buy_total:19,conv:0.112,rev:129531},
+    {date:"2025-09-15",reg:145,att:140,att_rate:0.400,buy_eve:7,buy_late:11,buy_total:18,conv:0.129,rev:110064},
+    {date:"2025-09-28",reg:278,att:140,att_rate:0.212,buy_eve:8,buy_late:21,buy_total:29,conv:0.207,rev:197041},
+    {date:"2025-10-20",reg:496,att:535,att_rate:0.398,buy_eve:13,buy_late:35,buy_total:48,conv:0.090,rev:336661},
+    {date:"2025-10-27",reg:233,att:217,att_rate:0.430,buy_eve:7,buy_late:23,buy_total:30,conv:0.138,rev:205638},
+    {date:"2025-11-03",reg:182,att:166,att_rate:0.398,buy_eve:3,buy_late:11,buy_total:14,conv:0.084,rev:93127},
+    {date:"2025-11-10",reg:212,att:189,att_rate:0.431,buy_eve:6,buy_late:20,buy_total:26,conv:0.138,rev:178720},
+    {date:"2025-11-17",reg:240,att:208,att_rate:0.472,buy_eve:8,buy_late:21,buy_total:29,conv:0.139,rev:234730},
+    {date:"2025-11-24",reg:204,att:207,att_rate:0.427,buy_eve:9,buy_late:21,buy_total:30,conv:0.145,rev:246167},
+    {date:"2025-12-01",reg:184,att:169,att_rate:0.437,buy_eve:5,buy_late:15,buy_total:20,conv:0.118,rev:144384},
+    {date:"2025-12-08",reg:212,att:184,att_rate:0.421,buy_eve:6,buy_late:11,buy_total:17,conv:0.092,rev:125357},
+    {date:"2025-12-15",reg:143,att:120,att_rate:0.352,buy_eve:5,buy_late:9,buy_total:14,conv:0.117,rev:104627},
+    {date:"2025-12-22",reg:194,att:172,att_rate:0.451,buy_eve:6,buy_late:11,buy_total:17,conv:0.099,rev:115957},
+    {date:"2025-12-29",reg:189,att:171,att_rate:0.440,buy_eve:3,buy_late:11,buy_total:14,conv:0.082,rev:107660},
+    {date:"2026-01-05",reg:147,att:132,att_rate:0.424,buy_eve:4,buy_late:9,buy_total:13,conv:0.099,rev:110977},
+    {date:"2026-01-12",reg:166,att:146,att_rate:0.355,buy_eve:3,buy_late:10,buy_total:13,conv:0.089,rev:106340},
+    {date:"2026-01-19",reg:166,att:148,att_rate:0.344,buy_eve:1,buy_late:14,buy_total:15,conv:0.101,rev:101777},
+    {date:"2026-01-26",reg:192,att:166,att_rate:0.341,buy_eve:3,buy_late:12,buy_total:15,conv:0.090,rev:126027},
+    {date:"2026-02-02",reg:180,att:154,att_rate:0.419,buy_eve:7,buy_late:6,buy_total:13,conv:0.084,rev:104677},
+    {date:"2026-02-09",reg:164,att:139,att_rate:0.332,buy_eve:1,buy_late:12,buy_total:13,conv:0.094,rev:107080},
+    {date:"2026-02-16",reg:140,att:112,att_rate:0.260,buy_eve:3,buy_late:6,buy_total:9,conv:0.080,rev:72227},
+    {date:"2026-02-23",reg:179,att:146,att_rate:0.344,buy_eve:6,buy_late:13,buy_total:19,conv:0.130,rev:169520},
+    {date:"2026-03-09",reg:302,att:327,att_rate:0.465,buy_eve:2,buy_late:18,buy_total:20,conv:0.061,rev:166320},
+    {date:"2026-03-16",reg:136,att:106,att_rate:0.322,buy_eve:1,buy_late:3,buy_total:4,conv:0.038,rev:26520},
+    {date:"2026-03-23",reg:130,att:118,att_rate:0.278,buy_eve:0,buy_late:4,buy_total:4,conv:0.034,rev:35160},
+    {date:"2026-03-29",reg:148,att:129,att_rate:0.350,buy_eve:2,buy_late:11,buy_total:13,conv:0.101,rev:106480},
+    {date:"2026-04-12",reg:186,att:155,att_rate:0.366,buy_eve:6,buy_late:10,buy_total:16,conv:0.103,rev:132790},
+    {date:"2026-04-19",reg:151,att:133,att_rate:0.343,buy_eve:3,buy_late:11,buy_total:14,conv:0.105,rev:95290},
+    {date:"2026-04-27",reg:164,att:144,att_rate:0.400,buy_eve:6,buy_late:8,buy_total:14,conv:0.097,rev:125760},
+    {date:"2026-05-03",reg:142,att:112,att_rate:0.421,buy_eve:2,buy_late:6,buy_total:8,conv:0.071,rev:73730},
+    {date:"2026-05-11",reg:183,att:157,att_rate:0.360,buy_eve:6,buy_late:8,buy_total:14,conv:0.089,rev:114720},
+    {date:"2026-05-17",reg:113,att:97,att_rate:0.299,buy_eve:5,buy_late:4,buy_total:9,conv:0.093,rev:79710},
+    {date:"2026-05-25",reg:211,att:197,att_rate:0.326,buy_eve:3,buy_late:6,buy_total:9,conv:0.046,rev:74210},
+    {date:"2026-06-01",reg:184,att:142,att_rate:0.345,buy_eve:4,buy_late:4,buy_total:8,conv:0.056,rev:61680},
+  ]
+};
+
+// ══════════════════════════════════════════
+// INIT — מגנט 7 דרכים
+// ══════════════════════════════════════════
+function initMg(){
+  const D=D_mg;
+  document.getElementById('mg_upd').textContent='עודכן: '+now;
+  setupSubTabs('mg_');
+  // KPIs
+  document.getElementById('mg_kpis').innerHTML=[
+    {l:'לידים (CRM)',v:nf(D.pipe.total),d:'מקור ראשוני מגנט'},
+    {l:'עסקאות שנסגרו',v:D.pipe.won,d:D.pipe.open+' עדיין פתוחות'},
+    {l:'הוצאת מדיה',v:'₪'+nf(D.meta.spend),d:'CPL ₪'+D.meta.cpl},
+    {l:'הכנסה (ללא מעמ)',v:'₪'+nf(D.rev.exvat),d:'ברוטו ₪'+nf(D.rev.gross)},
+    {l:'פייפליין פתוח',v:'₪'+nf(D.pipe.open_val),d:'פוטנציאל '+D.pipe.open+' עסקאות'},
+    {l:'ROAS',v:D.roi.roas+'x',d:'החזר על ההוצאה'},
+    {l:'ROI',v:'+'+D.roi.pct+'%',d:'CAC ₪'+nf(D.roi.cac)},
+  ].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="d">${k.d}</div></div>`).join('');
+  // Charts
+  new Chart(document.getElementById('mg_cTrend'),{type:'bar',data:{labels:Object.keys(D.ml),datasets:[{label:'לידים',data:Object.values(D.ml),backgroundColor:ctx=>grad(ctx.chart.ctx,'rgba(34,211,238,.8)','rgba(34,211,238,.15)'),borderRadius:7,order:2,yAxisID:'y'},{label:'WON',data:Object.values(D.mw),type:'line',borderColor:'#34d399',backgroundColor:'rgba(52,211,153,.1)',pointBackgroundColor:'#34d399',pointBorderColor:'#0a0e1a',pointBorderWidth:2,pointRadius:6,borderWidth:2.5,tension:.3,fill:false,order:1,yAxisID:'y2'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,padding:16,color:'#8a96b3'}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},title:{display:true,text:'לידים',color:'#8a96b3',font:{size:11}}},y2:{beginAtZero:true,position:'right',grid:{display:false},ticks:{precision:0},title:{display:true,text:'WON',color:'#34d399',font:{size:11}}},x:{grid:{display:false}}}}});
+  new Chart(document.getElementById('mg_cOwner'),{type:'bar',data:{labels:Object.keys(D.own),datasets:[{data:Object.values(D.own),backgroundColor:'rgba(139,92,246,.8)',borderRadius:6}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0},grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
+  new Chart(document.getElementById('mg_cStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:[C.green,'rgba(248,113,113,.55)',C.amber],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  // Funnel
+  const fsteps=[{l:'חשיפות',v:D.meta.impressions,c:'linear-gradient(135deg,#22d3ee,#0891b2)'},{l:'קליקים',v:D.meta.clicks,c:'linear-gradient(135deg,#38bdf8,#6366f1)'},{l:'לידים (Meta)',v:D.meta.leads_pixel,c:'linear-gradient(135deg,#8b5cf6,#6d28d9)'},{l:'לידים (CRM)',v:D.pipe.total,c:'linear-gradient(135deg,#a78bfa,#7c3aed)'},{l:'נכחו בוובינר',v:D.wb.att,c:'linear-gradient(135deg,#f472b6,#db2777)'},{l:'עסקאות (WON)',v:D.pipe.won,c:'linear-gradient(135deg,#34d399,#059669)'}];
+  const fmax=fsteps[0].v;
+  document.getElementById('mg_funnel').innerHTML=fsteps.map((s,i)=>{const w=Math.max(8,Math.sqrt(s.v/fmax)*100);const prev=i>0?fsteps[i-1].v:s.v;const rate=i>0?((s.v/prev)*100).toFixed(s.v/prev<.1?1:0)+'%':'100%';return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${s.c}">${nf(s.v)}</div><div class="fmeta"><b>${s.l}</b> · ${rate} מהשלב הקודם</div></div>`;}).join('');
+  const mlk=Object.keys(D.multi);
+  const mlLabels={"0":"ללא מקור","1":"מקור 1","2":"2 מקורות","3":"3 מקורות","4":"4 מקורות","5":"5 מקורות"};
+  new Chart(document.getElementById('mg_cMulti'),{type:'bar',data:{labels:mlk.map(k=>mlLabels[k]||k),datasets:[{data:mlk.map(k=>D.multi[k]),backgroundColor:'rgba(244,114,182,.75)',borderRadius:6}]},options:baseOpt});
+  const maxStage=Math.max(...D.pipe.stages.map(s=>s.c));
+  document.getElementById('mg_pipeStages').innerHTML=D.pipe.stages.map(s=>`<div class="hbar-row"><div class="hbar-top"><span class="hbar-name">${s.n}</span><span class="hbar-count" style="color:${s.col}">${s.c}</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${(s.c/maxStage*100).toFixed(1)}%;background:${s.col}"></div></div></div>`).join('');
+  document.getElementById('mg_pipeVal').textContent=nf(D.pipe.open_val);
+  document.getElementById('mg_pipeVal10').textContent=nf(Math.round(D.pipe.open_val*0.1));
+  new Chart(document.getElementById('mg_cPipeStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:[C.green,'rgba(248,113,113,.55)',C.amber],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  // Webinar
+  document.getElementById('mg_wA').textContent=D.wb.att;document.getElementById('mg_wAw').textContent=D.wb.att_won;document.getElementById('mg_wN').textContent=nf(D.wb.noatt);document.getElementById('mg_wNw').textContent=D.wb.noatt_won;document.getElementById('mg_wConvA').textContent=D.wb.conv_att+'%';document.getElementById('mg_wConvN').textContent=D.wb.conv_noatt+'%';document.getElementById('mg_wMult').textContent='×'+Math.round(D.wb.conv_att/D.wb.conv_noatt);
+  document.getElementById('mg_wbBody').innerHTML=D.wbTbl.map(r=>`<tr><td>${r.name}</td><td>${r.t}</td><td>${r.w}</td><td><span class="pill ${r.w>0?'y':'n'}">${r.t?Math.round(r.w/r.t*100):0}%</span></td></tr>`).join('');
+  // Close time
+  document.getElementById('mg_ctKpis').innerHTML=[{l:'ממוצע',v:D.close.avg+' ימים'},{l:'חציון',v:D.close.median+' ימים'},{l:'הכי מהיר',v:D.close.min+' יום'},{l:'הכי איטי',v:D.close.max+' ימים'}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('');
+  const dd=D.deals.filter(d=>d.days!=null).map(d=>d.days);
+  const buckets={};dd.forEach(v=>{const b=v<=7?'0-7':v<=14?'8-14':v<=30?'15-30':v<=60?'31-60':v<=90?'61-90':'90+';buckets[b]=(buckets[b]||0)+1;});
+  const bOrder=['0-7','8-14','15-30','31-60','61-90','90+'];
+  new Chart(document.getElementById('mg_cClose'),{type:'bar',data:{labels:bOrder.filter(b=>buckets[b]),datasets:[{data:bOrder.filter(b=>buckets[b]).map(b=>buckets[b]),backgroundColor:ctx=>grad(ctx.chart.ctx,'rgba(251,191,36,.9)','rgba(251,191,36,.2)'),borderRadius:8}]},options:baseOpt});
+  const fast=dd.filter(v=>v<=14).length,med=dd.filter(v=>v>14&&v<=45).length,slow=dd.filter(v=>v>45).length;
+  new Chart(document.getElementById('mg_cSpeed'),{type:'doughnut',data:{labels:['מהיר (≤14)','בינוני (15-45)','איטי (45+)'],datasets:[{data:[fast,med,slow],backgroundColor:[C.green,C.amber,C.red],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'60%'}});
+  // Deals table
+  document.getElementById('mg_dlBody').innerHTML=D.deals.map(d=>`<tr><td>${d.title}</td><td>${d.owner||''}</td><td>${nf(d.value)}</td><td>${d.days??'—'}</td><td>${d.add}</td><td>${d.won}</td><td><span class="pill ${d.wb?'y':'n'}">${d.wb?'כן':'לא'}</span></td></tr>`).join('');
+  // Meta Ads
+  document.getElementById('mg_linkToLead').textContent=D.meta.link_to_lead+'%';
+  document.getElementById('mg_linkMeta').textContent=nf(D.meta.clicks)+' קליקים על קישור · '+nf(D.meta.leads_pixel)+' לידים · כל 100 קליקים מניבים '+D.meta.link_to_lead+' לידים';
+  document.getElementById('mg_metaGrid').innerHTML=[{l:'💸 הוצאה',v:'₪'+nf(D.meta.spend)},{l:'👁️ Impressions',v:nf(D.meta.impressions)},{l:'👤 Reach',v:nf(D.meta.reach)},{l:'🖱️ קליקים (Link)',v:nf(D.meta.clicks)},{l:'🎯 לידים (Pixel)',v:nf(D.meta.leads_pixel)},{l:'📊 CTR (Link)',v:D.meta.ctr+'%'},{l:'💵 CPL (Meta)',v:'₪'+D.meta.cpl},{l:'📡 CPM',v:'₪'+D.meta.cpm},{l:'🔗 CPC',v:'₪'+D.meta.cpc},{l:'🎯 קליק → ליד',v:D.meta.link_to_lead+'%',hi:true},{l:'📋 CPL (CRM)',v:'₪'+D.roi.cpl_crm},{l:'💼 CAC',v:'₪'+nf(D.roi.cac)}].map(m=>`<div class="meta-item" ${m.hi?'style="border:1px solid rgba(34,211,238,.35);background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.06))"':''}><div class="ml">${m.l}</div><div class="mv" ${m.hi?'style="color:var(--cyan);font-size:24px"':''}>${m.v}</div></div>`).join('');
+  // Conclusions
+  document.getElementById('mg_roiBig').textContent='+'+D.roi.pct+'%';document.getElementById('mg_roiNet').textContent=nf(D.roi.net);document.getElementById('mg_roiSpend').textContent=nf(D.meta.spend);document.getElementById('mg_roiRoas').textContent=D.roi.roas+'x';
+  document.getElementById('mg_insights').innerHTML=[
+    {i:'🎥',t:`<b>נוכחות בוובינר היא מנוף ההמרה החזק ביותר.</b> מי שנכח ממיר ב-${D.wb.conv_att}% לעומת ${D.wb.conv_noatt}% — פי ${Math.round(D.wb.conv_att/D.wb.conv_noatt)}. רק ${D.wb.att} מתוך ${nf(D.pipe.total)} לידים הגיעו לוובינר.`},
+    {i:'💰',t:`<b>הקמפיין רווחי משמעותית.</b> ROI של +${D.roi.pct}% — כל ₪1 שהושקע החזיר ₪${D.roi.roas}. הכנסה נטו ₪${nf(D.roi.net)} מהוצאה של ₪${nf(D.meta.spend)}.`},
+    {i:'⏱️',t:`<b>מחזור מכירה ארוך — אל תוותרו על לידים.</b> חציון ${D.close.median} ימים, ממוצע ${D.close.avg} ועד ${D.close.max} ימים. כמעט שליש נסגרו מעל 45 יום.`},
+    {i:'📣',t:`<b>יחס קליק→ליד: ${D.meta.link_to_lead}%.</b> CTR של ${D.meta.ctr}% גבוה פי 4–8 מהממוצע הפיננסי. הבעיה אינה בפרסום — היא בשלב ההמרה.`},
+    {i:'💎',t:`<b>פוטנציאל פייפליין: ₪${nf(D.pipe.open_val)}.</b> ${D.pipe.open} עסקאות פתוחות. המרה של 10% תוסיף ₪${nf(Math.round(D.pipe.open_val*0.1))}.`},
+  ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// INIT — כסף חכם
+// ══════════════════════════════════════════
+function initKc(){
+  const D=D_kc;
+  document.getElementById('kc_upd').textContent='עודכן: '+now;
+  document.getElementById('kc_updFooter').textContent=now;
+  setupSubTabs('kc_');
+  document.getElementById('kc_kpis').innerHTML=[{l:'לידים (CRM)',v:nf(D.pipe.total),d:'Union כל שדות המקור'},{l:'עסקאות שנסגרו',v:D.pipe.won,d:D.pipe.open+' עדיין פתוחות'},{l:'הוצאת מדיה',v:'₪'+nf(D.meta.spend),d:'CPL ₪'+D.meta.cpl},{l:'הכנסה (ללא מעמ)',v:'₪'+nf(D.rev.exvat),d:'ברוטו ₪'+nf(D.rev.gross)},{l:'פייפליין פתוח',v:'₪'+nf(D.pipe.open_val),d:'פוטנציאל '+D.pipe.open+' עסקאות'},{l:'ROAS',v:D.roi.roas+'x',d:'החזר על ההוצאה'},{l:'ROI',v:'+'+D.roi.pct+'%',d:'CAC ₪'+nf(D.roi.cac)}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="d">${k.d}</div></div>`).join('');
+  new Chart(document.getElementById('kc_cTrend'),{type:'bar',data:{labels:Object.keys(D.ml),datasets:[{label:'לידים',data:Object.values(D.ml),backgroundColor:ctx=>grad(ctx.chart.ctx,'rgba(34,211,238,.8)','rgba(34,211,238,.15)'),borderRadius:5,order:2,yAxisID:'y'},{label:'WON',data:Object.values(D.mw),type:'line',borderColor:'#34d399',backgroundColor:'rgba(52,211,153,.1)',pointBackgroundColor:'#34d399',pointBorderColor:'#0a0e1a',pointBorderWidth:2,pointRadius:5,borderWidth:2.5,tension:.3,fill:false,order:1,yAxisID:'y2'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,padding:16,color:'#8a96b3'}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},title:{display:true,text:'לידים',color:'#8a96b3',font:{size:11}}},y2:{beginAtZero:true,position:'right',grid:{display:false},ticks:{precision:0},title:{display:true,text:'WON',color:'#34d399',font:{size:11}}},x:{grid:{display:false},ticks:{maxRotation:45,font:{size:9}}}}}});
+  new Chart(document.getElementById('kc_cStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:[C.green,'rgba(248,113,113,.55)',C.amber],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  new Chart(document.getElementById('kc_cSpeedOv'),{type:'doughnut',data:{labels:['מהיר (0-7)','בינוני (7-30)','איטי (30+)'],datasets:[{data:[290,324,175],backgroundColor:[C.green,C.amber,C.red],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  // Funnel
+  const fsteps=[{l:'חשיפות',v:D.meta.impressions,c:'linear-gradient(135deg,#22d3ee,#0891b2)'},{l:'קליקים (Link)',v:D.meta.clicks,c:'linear-gradient(135deg,#38bdf8,#6366f1)'},{l:'לידים (Meta)',v:D.meta.leads_pixel,c:'linear-gradient(135deg,#8b5cf6,#6d28d9)'},{l:'לידים (CRM)',v:D.pipe.total,c:'linear-gradient(135deg,#a78bfa,#7c3aed)'},{l:'הוזמנו לוובינר',v:240,c:'linear-gradient(135deg,#f472b6,#db2777)'},{l:'נכחו בוובינר',v:D.wb.att,c:'linear-gradient(135deg,#fb923c,#ea580c)'},{l:'עסקאות (WON)',v:D.pipe.won,c:'linear-gradient(135deg,#34d399,#059669)'}];
+  const fmax=fsteps[0].v;
+  document.getElementById('kc_funnel').innerHTML=fsteps.map((s,i)=>{const w=Math.max(8,Math.sqrt(s.v/fmax)*100);const prev=i>0?fsteps[i-1].v:s.v;const rate=i>0?((s.v/prev)*100).toFixed(s.v/prev<.1?1:0)+'%':'100%';return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${s.c}">${nf(s.v)}</div><div class="fmeta"><b>${s.l}</b> · ${rate} מהשלב הקודם</div></div>`;}).join('');
+  const maxS=Math.max(...D.pipe.stages.map(s=>s.c));
+  document.getElementById('kc_pipeStages').innerHTML=D.pipe.stages.map(s=>`<div class="hbar-row"><div class="hbar-top"><span class="hbar-name">${s.n}</span><span class="hbar-count" style="color:${s.col}">${s.c}</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${(s.c/maxS*100).toFixed(1)}%;background:${s.col}"></div></div></div>`).join('');
+  document.getElementById('kc_pipeVal').textContent=nf(D.pipe.open_val);document.getElementById('kc_pipeVal10').textContent=nf(Math.round(D.pipe.open_val*0.1));
+  new Chart(document.getElementById('kc_cPipeStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:[C.green,'rgba(248,113,113,.55)',C.amber],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  const wonM=Object.entries(D.mw).filter(([,v])=>v>0);
+  new Chart(document.getElementById('kc_cWonMonth'),{type:'bar',data:{labels:wonM.map(([k])=>k),datasets:[{data:wonM.map(([,v])=>v),backgroundColor:ctx=>grad(ctx.chart.ctx,'rgba(52,211,153,.9)','rgba(52,211,153,.2)'),borderRadius:8}]},options:baseOpt});
+  // Webinar
+  document.getElementById('kc_wA').textContent=D.wb.att;document.getElementById('kc_wAw').textContent=D.wb.att_won;document.getElementById('kc_wN').textContent=nf(D.wb.noatt);document.getElementById('kc_wNw').textContent=D.wb.noatt_won;document.getElementById('kc_wConvA').textContent=D.wb.conv_att+'%';document.getElementById('kc_wConvN').textContent=D.wb.conv_noatt+'%';
+  const mult=Math.round(D.wb.conv_att/D.wb.conv_noatt);document.getElementById('kc_wMult').textContent='×'+mult;document.getElementById('kc_wMultNote').textContent='×'+mult;
+  new Chart(document.getElementById('kc_cWbComp'),{type:'bar',data:{labels:['נכחו בוובינר','לא נכחו'],datasets:[{data:[D.wb.conv_att,D.wb.conv_noatt],backgroundColor:['rgba(52,211,153,.75)','rgba(248,113,113,.55)'],borderRadius:8}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'% המרה'}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+  // Close time
+  document.getElementById('kc_ctKpis').innerHTML=[{l:'ממוצע',v:D.close.avg+' ימים'},{l:'חציון',v:D.close.median+' ימים'},{l:'נסגרו תוך 30 יום',v:D.close.pct30+'%'},{l:'נסגרו 90+ ימים',v:D.close.pct90p+'%'}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('');
+  const bk=D.closeBuckets;
+  new Chart(document.getElementById('kc_cClose'),{type:'bar',data:{labels:Object.keys(bk),datasets:[{data:Object.values(bk),backgroundColor:ctx=>grad(ctx.chart.ctx,'rgba(251,191,36,.9)','rgba(251,191,36,.2)'),borderRadius:8}]},options:baseOpt});
+  new Chart(document.getElementById('kc_cSpeed'),{type:'doughnut',data:{labels:['מהיר (0-7)','בינוני (7-30)','איטי (30+)'],datasets:[{data:[290,324,175],backgroundColor:[C.green,C.amber,C.red],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'60%'}});
+  // Meta Ads
+  document.getElementById('kc_linkToLead').textContent=D.meta.link_to_lead+'%';document.getElementById('kc_linkMeta').textContent=nf(D.meta.clicks)+' קליקים · '+nf(D.meta.leads_pixel)+' לידים · כל 100 קליקים → '+D.meta.link_to_lead+' לידים';
+  document.getElementById('kc_metaGrid').innerHTML=[{l:'💸 הוצאה',v:'₪'+nf(D.meta.spend)},{l:'👁️ Impressions',v:nf(D.meta.impressions)},{l:'👤 Reach',v:nf(D.meta.reach)},{l:'🖱️ כלל קליקים',v:nf(D.meta.all_clicks)},{l:'🔗 קליקים (Link)',v:nf(D.meta.clicks)},{l:'🎯 לידים (Pixel)',v:nf(D.meta.leads_pixel)},{l:'📊 CTR (כלל)',v:D.meta.ctr+'%'},{l:'🔗 Link Click Rate',v:D.meta.link_click_rate+'%'},{l:'💵 CPL (Meta)',v:'₪'+D.meta.cpl},{l:'🎯 קליק → ליד',v:D.meta.link_to_lead+'%',hi:true},{l:'📡 CPM',v:'₪'+D.meta.cpm},{l:'🔗 CPC (Link)',v:'₪'+D.meta.cpc},{l:'📋 CPL (CRM)',v:'₪'+D.roi.cpl_crm},{l:'💼 CAC',v:'₪'+nf(D.roi.cac)},{l:'📈 ROAS',v:D.roi.roas+'x'},{l:'💹 ROI',v:'+'+D.roi.pct+'%'}].map(m=>`<div class="meta-item" ${m.hi?'style="border:1px solid rgba(34,211,238,.35);background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.06))"':''}><div class="ml">${m.l}</div><div class="mv" ${m.hi?'style="color:var(--cyan);font-size:24px"':''}>${m.v}</div></div>`).join('');
+  // Conclusions
+  document.getElementById('kc_roiBig').textContent='+'+D.roi.pct+'%';document.getElementById('kc_roiNet').textContent=nf(D.roi.net);document.getElementById('kc_roiSpend').textContent=nf(D.meta.spend);document.getElementById('kc_roiRoas').textContent=D.roi.roas+'x';
+  document.getElementById('kc_insights').innerHTML=[
+    {i:'🚀',t:`<b>ROI של +270%.</b> ₪${nf(D.meta.spend)} הוצאה → ₪${nf(D.rev.exvat)} הכנסה נטו = ROAS ${D.roi.roas}x. פייפליין פתוח של ₪${nf(D.pipe.open_val)}.`},
+    {i:'⚡',t:`<b>מאי 2026 — ספייק של 440 לידים + 9 WON.</b> כדאי לשחזר מה גרם לספייק ולשכפל.`},
+    {i:'🎥',t:`<b>נוכחות בוובינר = פי ${mult} המרה.</b> Show Rate של 47% — יש מקום לשיפור. כל 10% עלייה שווה ~2–3 עסקאות.`},
+    {i:'🚨',t:`<b>214 לידים תקועים ב"אין מענה" — 21% מה-CRM.</b> פולואפ אוטומטי תוך 30 דקות יכול להציל חלקם.`},
+    {i:'💎',t:`<b>פוטנציאל פייפליין: ₪${nf(D.pipe.open_val)}.</b> ${D.pipe.open} עסקאות פתוחות. המרה של 10% = ₪${nf(Math.round(D.pipe.open_val*0.1))} נוספים.`},
+  ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// INIT — וובינרים
+// ══════════════════════════════════════════
+function initWb(){
+  const D=D_wb;
+  document.getElementById('wb_upd').textContent='עודכן: '+now;
+  document.getElementById('wb_updFooter').textContent=now;
+  setupSubTabs('wb_');
+  const grv=(ctx,c1,c2)=>{const g=ctx.createLinearGradient(0,0,0,280);g.addColorStop(0,c1);g.addColorStop(1,c2);return g;};
+  document.getElementById('wb_kpis').innerHTML=[{l:'לידי וובינר (CRM)',v:nf(D.crm.total),d:'32% מכלל 42,880 הלידים'},{l:'WON מיוחס',v:nf(D.pd.won),d:'63% מכלל הכנסת הפייפליין'},{l:'הכנסה מיוחסת',v:money(D.pd.won_rev),d:'Pipedrive · '+D.pd.share+'% מהכל'},{l:'הכנסה מתויגת',v:money(D.air.rev),d:'Airtable · 49 וובינרים'},{l:'פייפליין פתוח',v:money(D.pd.open_rev),d:nf(D.pd.open_deals)+' עסקאות לשחזור'},{l:'המרה כללית',v:D.crm.conv+'%',d:'על '+nf(D.crm.total)+' לידים'},{l:'המרה 120+ דקות',v:'25.0%',d:'×1.75 מהממוצע · נקודת מפנה'}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="d">${k.d}</div></div>`).join('');
+  new Chart(document.getElementById('wb_cRev'),{type:'bar',data:{labels:D.monthly.map(m=>m.m),datasets:[{label:'הכנסה ₪',data:D.monthly.map(m=>m.rev),backgroundColor:ctx=>grv(ctx.chart.ctx,'rgba(34,211,238,.8)','rgba(34,211,238,.15)'),borderRadius:6}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.raw)}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>'₪'+(v/1000)+'k'}},x:{grid:{display:false}}}}});
+  new Chart(document.getElementById('wb_cEve'),{type:'bar',data:{labels:D.monthly.map(m=>m.m),datasets:[{label:'קנו בערב',data:D.monthly.map(m=>m.eve),backgroundColor:C.violet,borderRadius:4,stack:'s'},{label:'קנו מאוחר',data:D.monthly.map(m=>m.late),backgroundColor:C.amber,borderRadius:4,stack:'s'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{x:{grid:{display:false},stacked:true},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},stacked:true}}}});
+  new Chart(document.getElementById('wb_cYearly'),{type:'bar',data:{labels:D.yearly.map(y=>y.y),datasets:[{label:'לידים',data:D.yearly.map(y=>y.n),backgroundColor:'rgba(34,211,238,.55)',borderRadius:6,yAxisID:'y'},{label:'% המרה',data:D.yearly.map(y=>y.conv),type:'line',borderColor:C.green,backgroundColor:'transparent',pointBackgroundColor:C.green,pointRadius:5,borderWidth:2.5,tension:.3,yAxisID:'y2'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},title:{display:true,text:'לידים',color:C.mut,font:{size:11}}},y2:{beginAtZero:true,position:'right',grid:{display:false},ticks:{callback:v=>v+'%'},title:{display:true,text:'% המרה',color:C.green,font:{size:11}}}}}});
+  // Funnel retention
+  const maxN=D.retention[0].n;
+  document.getElementById('wb_retFunnel').innerHTML=D.retention.map((r,i)=>{const w=Math.max(10,Math.sqrt(r.n/maxN)*100);const prev=i>0?D.retention[i-1].n:r.n;const drop=i>0?((1-r.n/prev)*100).toFixed(0)+'% עזבו':' ';return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${r.col}">${nf(r.n)}</div><div class="fmeta"><b>${r.l}</b><br><span class="fconv">${r.conv}% המרה</span><span style="font-size:11px;color:var(--red)">${drop}</span></div></div>`;}).join('');
+  // Minutes heatmap
+  const maxConv=25,maxVol=Math.max(...D.minutes.map(m=>m.n));
+  document.getElementById('wb_minGrid').innerHTML=D.minutes.map(m=>{const h=Math.max(5,(m.n/maxVol)*100);const cc=m.conv>=20?'color:var(--green)':m.conv>=8?'color:var(--cyan)':m.conv>=4?'color:var(--amber)':'color:var(--red)';return `<div class="min-col"><div class="min-val" style="${cc}">${m.conv}%</div><div class="min-bar" style="height:${h}%;background:${m.col}"></div><div class="min-lbl">${m.l}</div><div class="min-n">n=${nf(m.n)}</div></div>`;}).join('');
+  document.getElementById('wb_minTbody').innerHTML=D.minutes.map(m=>{const cc=m.conv>=20?'y':m.conv>=8?'b':m.conv>=4?'a':'r';return `<tr><td>${m.l}</td><td>${nf(m.n)}</td><td>${nf(m.won)}</td><td><span class="pill ${cc}">${m.conv}%</span></td></tr>`;}).join('');
+  // Pipeline stages
+  const maxStage=Math.max(...D.pd.open_stages.map(s=>s.c));
+  document.getElementById('wb_pipeStages').innerHTML=D.pd.open_stages.map(s=>`<div class="hbar-row"><div class="hbar-top"><span class="hbar-name">${s.n}</span><span class="hbar-count" style="color:${s.col}">${s.c} · ${money(s.rev)}</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${(s.c/maxStage*100).toFixed(1)}%;background:${s.col}"></div></div></div>`).join('');
+  new Chart(document.getElementById('wb_cExp'),{type:'doughnut',data:{labels:D.exp.map(e=>e.l),datasets:[{data:D.exp.map(e=>e.n),backgroundColor:D.exp.map(e=>e.col),borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}}},cutout:'58%'}});
+  // Webinars tab
+  document.getElementById('wb_evePct').textContent=Math.round(D.air.eve/D.air.buy*100)+'%';
+  document.getElementById('wb_latePct').textContent=Math.round(D.air.late/D.air.buy*100)+'%';
+  new Chart(document.getElementById('wb_cTrend'),{type:'line',data:{labels:D.rows.map(r=>r.date),datasets:[{label:'% נוכחות',data:D.rows.map(r=>+(r.att_rate*100).toFixed(1)),borderColor:C.cyan,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2,yAxisID:'y'},{label:'% המרה',data:D.rows.map(r=>+(r.conv*100).toFixed(1)),borderColor:C.green,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2,yAxisID:'y'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>v+'%'},min:0,max:55},x:{grid:{display:false},ticks:{maxTicksLimit:10,color:C.mut}}}}});
+  // Table sort
+  let sortK='date',sortD=-1;
+  function buildTbl(){const s=[...D.rows].sort((a,b)=>{let x=a[sortK],y=b[sortK];return typeof x==='string'?sortD*x.localeCompare(y,'he'):sortD*(x-y);});document.getElementById('wb_tblBody').innerHTML=s.map(r=>{const cc=r.conv>=.13?C.green:r.conv>=.09?C.amber:C.red;const attPct=Math.round(r.att_rate*100);return `<tr><td>${r.date}</td><td>${nf(r.reg)}</td><td>${nf(r.att)}</td><td>${attPct}%</td><td>${r.buy_eve}</td><td>${r.buy_late}</td><td>${r.buy_total}</td><td><span class="pill" style="background:${cc}22;color:${cc}">${(r.conv*100).toFixed(1)}%</span></td><td>${r.rev>0?money(r.rev):'—'}</td></tr>`;}).join('');}
+  buildTbl();
+  document.querySelectorAll('#wb_tbl th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if(k===sortK)sortD*=-1;else{sortK=k;sortD=-1;}buildTbl();});
+  // Close time
+  const cy=D.pd.cycle;
+  document.getElementById('wb_ctKpis').innerHTML=[{l:'חציון מחזור מכירה',v:cy.median+' ימים'},{l:'ממוצע מחזור מכירה',v:cy.mean+' ימים'},{l:'נסגרו ביום הוובינר',v:cy.same+'%'},{l:'נסגרו אחרי 30+ ימים',v:cy.d30p+'%'}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('');
+  new Chart(document.getElementById('wb_cCycle'),{type:'doughnut',data:{labels:['אותו יום (16.5%)','1–7 ימים (27.2%)','7–30 ימים (22.3%)','30+ ימים (34%)'],datasets:[{data:[cy.same,cy.d1_7,cy.d7_30,cy.d30p],backgroundColor:[C.green,C.cyan,C.violet,C.amber],borderColor:'#0a0e1a',borderWidth:3}]},options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}}}}});
+  new Chart(document.getElementById('wb_cOpenPipe'),{type:'bar',data:{labels:D.pd.open_stages.map(s=>s.n),datasets:[{data:D.pd.open_stages.map(s=>s.rev),backgroundColor:D.pd.open_stages.map(s=>s.col),borderRadius:6}]},options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.raw)+' · '+D.pd.open_stages[c.dataIndex].c+' עסקאות'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>'₪'+(v/1000)+'k'}},y:{grid:{display:false}}}}});
+  // Experience bars
+  const maxExpN=Math.max(...D.exp.map(e=>e.n)),maxConvEx=Math.max(...D.exp.map(e=>e.conv));
+  document.getElementById('wb_expBars').innerHTML=D.exp.map(e=>`<div class="exp-row"><div class="exp-top"><span class="exp-name" style="color:${e.col}">${e.l}</span><span class="exp-stats">${nf(e.n)} לידים · ${e.won} WON · 120+ → ${e.c120}%</span></div><div class="exp-track"><div class="exp-total-fill" style="width:${(e.n/maxExpN*100).toFixed(1)}%;background:${e.col}"></div><div class="exp-conv-fill" style="width:${(e.conv/maxConvEx*100).toFixed(1)}%;background:${e.col}"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mut);margin-top:3px"><span>נפח: ${(e.n/13702*100).toFixed(1)}%</span><span>המרה: <b style="color:${e.col}">${e.conv}%</b></span></div></div>`).join('');
+  new Chart(document.getElementById('wb_cYearly2'),{type:'bar',data:{labels:D.yearly.map(y=>y.y),datasets:[{label:'לידים',data:D.yearly.map(y=>y.n),backgroundColor:'rgba(139,92,246,.55)',borderRadius:6,yAxisID:'y'},{label:'WON',data:D.yearly.map(y=>y.won),backgroundColor:'rgba(52,211,153,.7)',borderRadius:6,yAxisID:'y'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'}},x:{grid:{display:false}}}}});
+  // Source rows
+  const maxSrcN=Math.max(...D.src.map(s=>s.n)),maxSrcC=25;
+  document.getElementById('wb_srcRows').innerHTML=D.src.map(s=>`<div class="src-row"><div class="src-lbl">${s.l}</div><div class="src-track"><div class="src-vol" style="width:${(s.n/maxSrcN*100).toFixed(1)}%;background:${s.col}"></div><div class="src-line" style="width:${(s.conv/maxSrcC*100).toFixed(1)}%;background:${s.col}"></div><div class="src-txt">${nf(s.n)} לידים</div></div><div class="src-pct" style="color:${s.col}">${s.conv}%</div></div>`).join('');
+  // Insights
+  document.getElementById('wb_insights').innerHTML=[
+    {i:'💰',t:`<b>הוובינרים = 63% מכל הכנסת הפייפליין.</b> ${money(D.pd.won_rev)} מיוחסים לוובינרים מתוך ${money(D.pd.total_rev)} סה"כ.`},
+    {i:'⏰',t:`<b>71% מהמכירות נסגרות אחרי ערב הוובינר.</b> חלון ייחוס נכון = 30–60 יום.`},
+    {i:'🏆',t:`<b>120+ דקות = נקודת המפנה.</b> המרה קופצת מ-8.5% ל-25.0% — פי 3. כל תוכן שמחזיק קהל מעבר לשעתיים = ROI גבוה.`},
+    {i:'🚨',t:`<b>₪6,888,756 פייפליין פתוח — 857 עסקאות.</b> המרה של 10% = ${money(D.pd.open_rev*0.1)} מיידים.`},
+    {i:'⭐',t:`<b>YouTube ממיר ב-22.6% — פי 1.6 מפייסבוק/גוגל.</b> 602 לידים עם המרה גבוהה מהכל. CAC הנמוך ביותר בכל הערוצים.`},
+    {i:'⚡',t:`<b>חציון מכירה 9.4 ימים — אבל 34% לוקחים 30+ יום.</b> סיקוונס אוטומטי ל-30/60/90 יום יכול לשחזר את הזנב.`},
+  ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
+}
+
+// Boot
+initMg(); mgInited=true;
+</script>
+</body>
+</html>
