@@ -350,6 +350,67 @@
   .loom-title { font-size: 0.8rem; color: #cbd5e1; font-weight: 500; line-height: 1.3; }
   .loom-date  { font-size: 0.68rem; color: #475569; margin-top: 2px; }
 
+  /* Attention Banner */
+  .attention-banner {
+    background: linear-gradient(135deg, #2d1515 0%, #1a0f0f 100%);
+    border: 1px solid #7f1d1d;
+    border-right: 4px solid #ef4444;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .attention-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fca5a5;
+    margin-bottom: 14px;
+  }
+  .attention-pulse {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ef4444;
+    animation: pulse 1.8s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .attention-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 700px) { .attention-items { grid-template-columns: 1fr; } }
+  .attention-item {
+    background: #3f1111;
+    border: 1px solid #7f1d1d55;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .att-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #ef4444;
+    margin-bottom: 4px;
+  }
+  .att-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fca5a5;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .att-desc {
+    font-size: 0.73rem;
+    color: #9a5252;
+    line-height: 1.5;
+  }
+
   /* Update timestamp */
   .footer {
     text-align: center;
@@ -396,6 +457,35 @@
 </div>
 
 <div class="main">
+
+  <!-- ATTENTION BANNER -->
+  <div class="attention-banner">
+    <div class="attention-title">
+      <div class="attention-pulse"></div>
+      דורש תשומת לב מיידית — 3 נושאים פתוחים
+    </div>
+    <div class="attention-items">
+
+      <div class="attention-item">
+        <div class="att-num">⚡ דחוף #1</div>
+        <div class="att-label">🍎 Apple Developer — הוספת App Manager</div>
+        <div class="att-desc">צריך להוסיף את אנאל סיבוני כ-App Manager בחשבון Apple Developer. בלי זה לא ניתן לפרסם את האפליקציה ב-App Store.</div>
+      </div>
+
+      <div class="attention-item">
+        <div class="att-num">⚡ דחוף #2</div>
+        <div class="att-label">💳 Purchase Flow — נדרשת החלטה</div>
+        <div class="att-desc">Omnis שואלים: האם הרכישה תהיה ישירה דרך האפליקציה (In-App Purchase) או הפנייה לאתר? ממתינים להחלטה לפני המשך פיתוח.</div>
+      </div>
+
+      <div class="attention-item">
+        <div class="att-num">⚡ דחוף #3</div>
+        <div class="att-label">📬 2 מיילים ללא מענה (18.6)</div>
+        <div class="att-desc">כפיר שלח עדכון שבועי עם שאלות פתוחות. רון שלח עיצוב M3 לאישור. שניהם ממתינים לפידבק מצידנו.</div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- MODULES -->
   <div class="section-title">📦 מודולים</div>
@@ -630,87 +720,4 @@
             <div class="infra-value">$80 / חודש</div>
           </div>
           <div class="infra-item">
-            <div class="infra-label">Pipedrive → LMS</div>
-            <div class="infra-value">
-              <span class="infra-status status-green">● פעיל (WON)</span>
-            </div>
-          </div>
-          <div class="infra-item">
-            <div class="infra-label">מייל פיתוח</div>
-            <div class="infra-value" style="direction:ltr">dev@cyclestrading.com</div>
-          </div>
-          <div class="infra-item">
-            <div class="infra-label">Apple Developer</div>
-            <div class="infra-value">
-              <a href="https://appstoreconnect.apple.com/business/atb/020a3c0d-9099-44b6-a1a8-5c5577b5a905" target="_blank">App Store Connect</a>
-            </div>
-          </div>
-          <div class="infra-item">
-            <div class="infra-label">Google Play</div>
-            <div class="infra-value">
-              <span class="infra-status status-amber">● ממתין</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Team -->
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-icon icon-people">👥</div>
-        אנשי קשר
-      </div>
-      <div class="panel-body">
-
-        <div class="team-item">
-          <div class="avatar av-purple">KA</div>
-          <div>
-            <div class="team-name">כפיר אפלבאום</div>
-            <div class="team-role">Senior Project Manager</div>
-            <div class="team-email">kfir@madebyomnis.com</div>
-          </div>
-          <span class="team-side side-omnis">Omnis</span>
-        </div>
-
-        <div class="team-item">
-          <div class="avatar av-blue">RG</div>
-          <div>
-            <div class="team-name">רון גילד</div>
-            <div class="team-role">Head of Design</div>
-            <div class="team-email">ron@madebyomnis.com</div>
-          </div>
-          <span class="team-side side-omnis">Omnis</span>
-        </div>
-
-        <div class="team-item">
-          <div class="avatar av-teal">IY</div>
-          <div>
-            <div class="team-name">עידו יעקב</div>
-            <div class="team-role">Co-founder & CEO</div>
-            <div class="team-email">ido@madebyomnis.com</div>
-          </div>
-          <span class="team-side side-omnis">Omnis</span>
-        </div>
-
-        <div class="team-item">
-          <div class="avatar av-orange">AN</div>
-          <div>
-            <div class="team-name">אנאל סיבוני</div>
-            <div class="team-role">ניהול שוטף</div>
-            <div class="team-email">anaelle@cyclestrading.com</div>
-          </div>
-          <span class="team-side side-cycles">Cycles</span>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="footer">Cycles Trading | LMS Development Dashboard | עדכון: יוני 2026</div>
-
-</body>
-</html>
+            <di
