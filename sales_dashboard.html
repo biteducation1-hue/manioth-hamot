@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Sales Conversion Dashboard",
+  "schemaVersion": 1,
+  "description": "דשבורד המרה נציגי מכירות — יחס סגירה לפי נציג, מקור הגעה, וובינר וחידושי מנוי. נתונים מ-Pipedrive, תקופה אפריל–יוני 2026."
+}
+</script>
+<html lang="he" dir="rtl" style="color-scheme:light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -146,8 +153,8 @@
 </div>
 <div class="exclusion-note">
   <strong>⚠️ סינון מחישוב ההמרה — שני סוגים:</strong><br>
-  <strong>לא מגיבים</strong> ("ללא מענה" / "מספר שגוי"): ראובן 263 | צבי 173 | דניאל 26 | אבי 10 | אלי 109.<br>
-  <strong>חידושי מנוי</strong> (שדה "סוג דיל = חידוש מנוי"): ראובן 115 | צבי 112 | דניאל 3 | אבי 5 | אלי 48.
+  <strong>לא מגיבים</strong> ("ללא מענה" / "מספר שגוי"): ראובן 323 | צבי 197 | דניאל 61 | אבי 26 | אלי 140.<br>
+  <strong>חידושי מנוי</strong> (שדה "סוג דיל = חידוש מנוי"): ראובן 153 | צבי 117 | דניאל 55 | אבי 30 | אלי 70.
 </div>
 
 <!-- KPI -->
@@ -156,140 +163,137 @@
 <div class="kpi-grid">
   <div class="kpi-card reuven">
     <div class="kpi-rep-name">ראובן</div>
-    <div class="kpi-conversion">6.9%</div>
+    <div class="kpi-conversion">6.8%</div>
     <div class="kpi-label">יחס המרה</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">52</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">698</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">128</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">378</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">56</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">765</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">103</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-excl">323</span><span class="stat-lbl">סוננו</span></div>
     </div>
-    <span class="badge badge-active">750 סגורים</span>
+    <span class="badge badge-active">821 סגורים</span>
   </div>
   <div class="kpi-card tzvi">
     <div class="kpi-rep-name">צבי</div>
-    <div class="kpi-conversion">10.4%</div>
+    <div class="kpi-conversion">10.0%</div>
     <div class="kpi-label">יחס המרה</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">50</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">430</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">95</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">285</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">53</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">479</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">114</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-excl">197</span><span class="stat-lbl">סוננו</span></div>
     </div>
-    <span class="badge badge-active">480 סגורים</span>
+    <span class="badge badge-active">532 סגורים</span>
   </div>
   <div class="kpi-card daniel">
     <div class="kpi-rep-name">דניאל</div>
-    <div class="kpi-conversion">2.2%</div>
+    <div class="kpi-conversion">2.1%</div>
     <div class="kpi-label">יחס המרה</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">2</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">89</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">59</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">29</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">3</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">140</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">57</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-excl">61</span><span class="stat-lbl">סוננו</span></div>
     </div>
-    <span class="badge badge-new">91 סגורים</span>
+    <span class="badge badge-new">143 סגורים</span>
   </div>
   <div class="kpi-card avi">
     <div class="kpi-rep-name">אבי</div>
-    <div class="kpi-conversion">8.7%</div>
+    <div class="kpi-conversion">9.6%</div>
     <div class="kpi-label">יחס המרה</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">2</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">21</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">43</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">15</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">10</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">94</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">76</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-excl">26</span><span class="stat-lbl">סוננו</span></div>
     </div>
-    <span class="badge badge-new">23 סגורים</span>
+    <span class="badge badge-new">104 סגורים</span>
   </div>
   <div class="kpi-card eli">
     <div class="kpi-rep-name">אלי</div>
-    <div class="kpi-conversion">5.9%</div>
+    <div class="kpi-conversion">6.1%</div>
     <div class="kpi-label">יחס המרה</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">14</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">224</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">90</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">157</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">18</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">275</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">96</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-excl">140</span><span class="stat-lbl">סוננו</span></div>
     </div>
-    <span class="badge badge-active">238 סגורים</span>
+    <span class="badge badge-active">293 סגורים</span>
   </div>
 </div>
 
 <!-- RENEWALS SECTION -->
 <div class="section-title">🔄 ביצועים על חידושי מנוי</div>
-<div class="section-desc">יחס המרה על דילים מסוג "חידוש מנוי" בלבד. לדניאל ואבי מדגם זעיר (1 דיל סגור כל אחד) — הנתונים אינם מייצגים.</div>
+<div class="section-desc">יחס המרה על דילים מסוג "חידוש מנוי" בלבד. לדניאל ואלי — מדגם קטן יחסית.</div>
 <div class="renewal-grid">
 
-  <!-- ראובן: #1 -->
-  <div class="renewal-card reuven">
+  <!-- אבי: #1 -->
+  <div class="renewal-card avi">
     <div class="rank-badge gold">1</div>
-    <div class="kpi-rep-name">ראובן</div>
-    <div class="renewal-conv">10.9%</div>
+    <div class="kpi-rep-name">אבי</div>
+    <div class="renewal-conv">15.4%</div>
     <div class="kpi-label">המרת חידושים</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">6</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">49</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">51</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">9</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">2</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">11</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">17</span><span class="stat-lbl">פתוח</span></div>
     </div>
-    <span class="badge badge-active">55 סגורים</span>
+    <span class="badge badge-new">⚠️ 13 סגורים</span>
   </div>
 
-  <!-- צבי: #2 -->
-  <div class="renewal-card tzvi">
+  <!-- ראובן: #2 -->
+  <div class="renewal-card reuven">
     <div class="rank-badge silver">2</div>
+    <div class="kpi-rep-name">ראובן</div>
+    <div class="renewal-conv">11.4%</div>
+    <div class="kpi-label">המרת חידושים</div>
+    <div class="kpi-stats">
+      <div class="stat-item"><span class="stat-val stat-won">8</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">62</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">83</span><span class="stat-lbl">פתוח</span></div>
+    </div>
+    <span class="badge badge-active">70 סגורים</span>
+  </div>
+
+  <!-- צבי: #3 -->
+  <div class="renewal-card tzvi">
+    <div class="rank-badge bronze">3</div>
     <div class="kpi-rep-name">צבי</div>
     <div class="renewal-conv">8.6%</div>
     <div class="kpi-label">המרת חידושים</div>
     <div class="kpi-stats">
       <div class="stat-item"><span class="stat-val stat-won">5</span><span class="stat-lbl">WON</span></div>
       <div class="stat-item"><span class="stat-val stat-lost">53</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">44</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">10</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">59</span><span class="stat-lbl">פתוח</span></div>
     </div>
     <span class="badge badge-active">58 סגורים</span>
   </div>
 
-  <!-- אלי: #3 -->
+  <!-- אלי: #4 -->
   <div class="renewal-card eli">
-    <div class="rank-badge bronze">3</div>
     <div class="kpi-rep-name">אלי</div>
-    <div class="renewal-conv">6.7%</div>
+    <div class="renewal-conv">4.0%</div>
     <div class="kpi-label">המרת חידושים</div>
     <div class="kpi-stats">
       <div class="stat-item"><span class="stat-val stat-won">2</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">28</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">6</span><span class="stat-lbl">פתוח</span></div>
-      <div class="stat-item"><span class="stat-val stat-excl">12</span><span class="stat-lbl">סוננו</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">48</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">20</span><span class="stat-lbl">פתוח</span></div>
     </div>
-    <span class="badge badge-active">30 סגורים</span>
+    <span class="badge badge-active">50 סגורים</span>
   </div>
 
   <!-- דניאל: מדגם זעיר -->
   <div class="renewal-card daniel">
     <div class="kpi-rep-name">דניאל</div>
-    <div class="renewal-conv" style="color:#94a3b8;">—</div>
+    <div class="renewal-conv">3.4%</div>
     <div class="kpi-label">המרת חידושים</div>
     <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">0</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">1</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">2</span><span class="stat-lbl">פתוח</span></div>
+      <div class="stat-item"><span class="stat-val stat-won">1</span><span class="stat-lbl">WON</span></div>
+      <div class="stat-item"><span class="stat-val stat-lost">28</span><span class="stat-lbl">LOST</span></div>
+      <div class="stat-item"><span class="stat-val stat-open">26</span><span class="stat-lbl">פתוח</span></div>
     </div>
-    <span class="badge badge-new">⚠️ 1 סגור בלבד</span>
-  </div>
-
-  <!-- אבי: מדגם זעיר -->
-  <div class="renewal-card avi">
-    <div class="kpi-rep-name">אבי</div>
-    <div class="renewal-conv" style="color:#94a3b8;">—</div>
-    <div class="kpi-label">המרת חידושים</div>
-    <div class="kpi-stats">
-      <div class="stat-item"><span class="stat-val stat-won">0</span><span class="stat-lbl">WON</span></div>
-      <div class="stat-item"><span class="stat-val stat-lost">1</span><span class="stat-lbl">LOST</span></div>
-      <div class="stat-item"><span class="stat-val stat-open">4</span><span class="stat-lbl">פתוח</span></div>
-    </div>
-    <span class="badge badge-new">⚠️ 1 סגור בלבד</span>
+    <span class="badge badge-new">⚠️ 29 סגורים</span>
   </div>
 
 </div>
@@ -304,11 +308,11 @@
   <!-- Scale: 0–12%, plot area y=190 to y=30 (h=160px)
        Bar positions x=84,162,240,318,396 width=60
        h = val/12*160
-       ראובן 6.9: h=92.0 y=98
-       צבי 10.4: h=138.7 y=51
-       דניאל 2.2: h=29.3 y=161
-       אבי 8.7: h=116.0 y=74
-       אלי 5.9: h=78.7 y=111
+       ראובן 6.8%: h=91 y=99
+       צבי 10.0%: h=133 y=57
+       דניאל 2.1%: h=28 y=162
+       אבי 9.6%: h=128 y=62
+       אלי 6.1%: h=81 y=109
   -->
   <div class="chart-card">
     <h3>יחס המרה לפי נציג</h3>
@@ -324,30 +328,38 @@
       <text x="44" y="113" text-anchor="end" font-size="11" fill="#999">6%</text>
       <text x="44" y="73"  text-anchor="end" font-size="11" fill="#999">9%</text>
       <text x="44" y="33"  text-anchor="end" font-size="11" fill="#999">12%</text>
-      <!-- ראובן 6.9%: h=92 y=98 -->
-      <rect x="84"  y="98"  width="60" height="92"  fill="#6366f1" rx="5" ry="5"/>
-      <text x="114" y="92"  text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">6.9%</text>
+      <!-- ראובן 6.8%: h=91 y=99 -->
+      <rect x="84"  y="99"  width="60" height="91"  fill="#6366f1" rx="5" ry="5"/>
+      <text x="114" y="93"  text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">6.8%</text>
       <text x="114" y="208" text-anchor="middle" font-size="11" fill="#555">ראובן</text>
-      <!-- צבי 10.4%: h=139 y=51 -->
-      <rect x="162" y="51"  width="60" height="139" fill="#10b981" rx="5" ry="5"/>
-      <text x="192" y="45"  text-anchor="middle" font-size="12" font-weight="700" fill="#10b981">10.4%</text>
+      <!-- צבי 10.0%: h=133 y=57 -->
+      <rect x="162" y="57"  width="60" height="133" fill="#10b981" rx="5" ry="5"/>
+      <text x="192" y="51"  text-anchor="middle" font-size="12" font-weight="700" fill="#10b981">10.0%</text>
       <text x="192" y="208" text-anchor="middle" font-size="11" fill="#555">צבי</text>
-      <!-- דניאל 2.2%: h=29 y=161 -->
-      <rect x="240" y="161" width="60" height="29"  fill="#f59e0b" rx="5" ry="5"/>
-      <text x="270" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#f59e0b">2.2%</text>
+      <!-- דניאל 2.1%: h=28 y=162 -->
+      <rect x="240" y="162" width="60" height="28"  fill="#f59e0b" rx="5" ry="5"/>
+      <text x="270" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#f59e0b">2.1%</text>
       <text x="270" y="208" text-anchor="middle" font-size="11" fill="#555">דניאל</text>
-      <!-- אבי 8.7%: h=116 y=74 -->
-      <rect x="318" y="74"  width="60" height="116" fill="#ef4444" rx="5" ry="5"/>
-      <text x="348" y="68"  text-anchor="middle" font-size="12" font-weight="700" fill="#ef4444">8.7%</text>
+      <!-- אבי 9.6%: h=128 y=62 -->
+      <rect x="318" y="62"  width="60" height="128" fill="#ef4444" rx="5" ry="5"/>
+      <text x="348" y="56"  text-anchor="middle" font-size="12" font-weight="700" fill="#ef4444">9.6%</text>
       <text x="348" y="208" text-anchor="middle" font-size="11" fill="#555">אבי</text>
-      <!-- אלי 5.9%: h=79 y=111 -->
-      <rect x="396" y="111" width="60" height="79"  fill="#8b5cf6" rx="5" ry="5"/>
-      <text x="426" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#8b5cf6">5.9%</text>
+      <!-- אלי 6.1%: h=81 y=109 -->
+      <rect x="396" y="109" width="60" height="81"  fill="#8b5cf6" rx="5" ry="5"/>
+      <text x="426" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#8b5cf6">6.1%</text>
       <text x="426" y="208" text-anchor="middle" font-size="11" fill="#555">אלי</text>
     </svg>
   </div>
 
   <!-- TREND CHART (SVG) with per-rep toggle -->
+  <!-- Scale 0-16%, y=20-190 (h=170px), y = 190 - val/16*170
+       Apr x=110, May x=300, Jun x=470
+       ראובן: Apr5.8%→128, May7.7%→108, Jun6.3%→123
+       צבי:   Apr14.6%→35, May8.4%→101, Jun6.1%→125
+       דניאל: May0%→190, Jun3.3%→155
+       אבי:   Jun9.6%→88 only
+       אלי:   Apr0%→190, May5.4%→133, Jun7.8%→107
+  -->
   <div class="chart-card">
     <h3>מגמת המרה חודשית</h3>
     <div class="chart-desc">יחס המרה לפי חודש סגירת הדיל (אפריל–יוני 2026) — לחץ על נציג לסינון</div>
@@ -381,52 +393,52 @@
       <line x1="300" y1="20" x2="300" y2="190" stroke="#f5f5f5" stroke-width="1"/>
       <line x1="470" y1="20" x2="470" y2="190" stroke="#f5f5f5" stroke-width="1"/>
 
-      <!-- ראובן: Apr5.7→129, May7.5→110, Jun7.4→111 -->
+      <!-- ראובן: Apr5.8%→128, May7.7%→108, Jun6.3%→123 -->
       <g id="tg-reuven">
-        <polyline points="110,129 300,110 470,111" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="110" cy="129" r="5" fill="#6366f1"/>
-        <circle cx="300" cy="110" r="5" fill="#6366f1"/>
-        <circle cx="470" cy="111" r="5" fill="#6366f1"/>
-        <text x="476" y="114" font-size="10" fill="#6366f1" font-weight="600">7.4%</text>
-        <text x="104" y="123" font-size="9" fill="#6366f1" text-anchor="middle">5.7%</text>
-        <text x="294" y="104" font-size="9" fill="#6366f1" text-anchor="middle">7.5%</text>
+        <polyline points="110,128 300,108 470,123" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="110" cy="128" r="5" fill="#6366f1"/>
+        <circle cx="300" cy="108" r="5" fill="#6366f1"/>
+        <circle cx="470" cy="123" r="5" fill="#6366f1"/>
+        <text x="476" y="126" font-size="10" fill="#6366f1" font-weight="600">6.3%</text>
+        <text x="104" y="122" font-size="9" fill="#6366f1" text-anchor="middle">5.8%</text>
+        <text x="294" y="102" font-size="9" fill="#6366f1" text-anchor="middle">7.7%</text>
       </g>
 
-      <!-- צבי: Apr14.6→35, May8.4→101, Jun5.3→134 -->
+      <!-- צבי: Apr14.6%→35, May8.4%→101, Jun6.1%→125 -->
       <g id="tg-tzvi">
-        <polyline points="110,35 300,101 470,134" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="110,35 300,101 470,125" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
         <circle cx="110" cy="35" r="5" fill="#10b981"/>
         <circle cx="300" cy="101" r="5" fill="#10b981"/>
-        <circle cx="470" cy="134" r="5" fill="#10b981"/>
-        <text x="476" y="137" font-size="10" fill="#10b981" font-weight="600">5.3%</text>
+        <circle cx="470" cy="125" r="5" fill="#10b981"/>
+        <text x="476" y="128" font-size="10" fill="#10b981" font-weight="600">6.1%</text>
         <text x="104" y="29"  font-size="9" fill="#10b981" text-anchor="middle">14.6%</text>
         <text x="294" y="95"  font-size="9" fill="#10b981" text-anchor="middle">8.4%</text>
       </g>
 
-      <!-- דניאל: May0→190, Jun5.1→136 (dashed) -->
+      <!-- דניאל: May0%→190, Jun3.3%→155 (dashed) -->
       <g id="tg-daniel">
-        <polyline points="300,190 470,136" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3" stroke-linejoin="round"/>
+        <polyline points="300,190 470,155" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,3" stroke-linejoin="round"/>
         <circle cx="300" cy="190" r="5" fill="#f59e0b"/>
-        <circle cx="470" cy="136" r="5" fill="#f59e0b"/>
-        <text x="476" y="150" font-size="10" fill="#f59e0b" font-weight="600">5.1%</text>
+        <circle cx="470" cy="155" r="5" fill="#f59e0b"/>
+        <text x="476" y="158" font-size="10" fill="#f59e0b" font-weight="600">3.3%</text>
         <text x="294" y="184" font-size="9" fill="#f59e0b" text-anchor="middle">0%</text>
       </g>
 
-      <!-- אבי: Jun8.7→97 only -->
+      <!-- אבי: Jun9.6%→88 only -->
       <g id="tg-avi">
-        <circle cx="470" cy="97" r="6" fill="#ef4444"/>
-        <text x="476" y="112" font-size="10" fill="#ef4444" font-weight="600">8.7%</text>
+        <circle cx="470" cy="88" r="6" fill="#ef4444"/>
+        <text x="476" y="91" font-size="10" fill="#ef4444" font-weight="600">9.6%</text>
       </g>
 
-      <!-- אלי: Apr0→190, May5.3→134, Jun8.5→100 -->
+      <!-- אלי: Apr0%→190, May5.4%→133, Jun7.8%→107 -->
       <g id="tg-eli">
-        <polyline points="110,190 300,134 470,100" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linejoin="round"/>
+        <polyline points="110,190 300,133 470,107" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linejoin="round"/>
         <circle cx="110" cy="190" r="5" fill="#8b5cf6"/>
-        <circle cx="300" cy="134" r="5" fill="#8b5cf6"/>
-        <circle cx="470" cy="100" r="5" fill="#8b5cf6"/>
-        <text x="476" y="103" font-size="10" fill="#8b5cf6" font-weight="600">8.5%</text>
+        <circle cx="300" cy="133" r="5" fill="#8b5cf6"/>
+        <circle cx="470" cy="107" r="5" fill="#8b5cf6"/>
+        <text x="476" y="110" font-size="10" fill="#8b5cf6" font-weight="600">7.8%</text>
         <text x="104" y="184" font-size="9" fill="#8b5cf6" text-anchor="middle">0%</text>
-        <text x="294" y="128" font-size="9" fill="#8b5cf6" text-anchor="middle">5.3%</text>
+        <text x="294" y="127" font-size="9" fill="#8b5cf6" text-anchor="middle">5.4%</text>
       </g>
     </svg>
   </div>
@@ -453,12 +465,11 @@
       <table class="source-table">
         <thead><tr><th>מקור</th><th>WON</th><th>LOST</th><th>סוננו</th><th>סה"כ</th><th>המרה</th></tr></thead>
         <tbody>
-          <tr><td>וובינר</td><td class="stat-won">33</td><td class="stat-lost">481</td><td class="stat-excl">155</td><td>514</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:19px;background:#6366f1"></div><span class="conv-pct">6.4%</span></div></td></tr>
-          <tr><td>לא ידוע</td><td class="stat-won">7</td><td class="stat-lost">26</td><td class="stat-excl">7</td><td>33</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:64px;background:#6366f1"></div><span class="conv-pct">21.2%</span></div></td></tr>
-          <tr><td>כסף חכם</td><td class="stat-won">6</td><td class="stat-lost">81</td><td class="stat-excl">63</td><td>87</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:21px;background:#6366f1"></div><span class="conv-pct">6.9%</span></div></td></tr>
-          <tr><td>טופס הגשת ליד</td><td class="stat-won">2</td><td class="stat-lost">14</td><td class="stat-excl">4</td><td>16</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:38px;background:#6366f1"></div><span class="conv-pct">12.5%</span></div></td></tr>
-          <tr><td>מגנט 7 דרכים</td><td class="stat-won">2</td><td class="stat-lost">27</td><td class="stat-excl">7</td><td>29</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:21px;background:#6366f1"></div><span class="conv-pct">6.9%</span></div></td></tr>
-          <tr><td>מיני קורס</td><td class="stat-won">0</td><td class="stat-lost">38</td><td class="stat-excl">9</td><td>38</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#6366f1"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>וובינר</td><td class="stat-won">36</td><td class="stat-lost">519</td><td class="stat-excl">191</td><td>555</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:20px;background:#6366f1"></div><span class="conv-pct">6.5%</span></div></td></tr>
+          <tr><td>כסף חכם</td><td class="stat-won">5</td><td class="stat-lost">64</td><td class="stat-excl">58</td><td>69</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:22px;background:#6366f1"></div><span class="conv-pct">7.2%</span></div></td></tr>
+          <tr><td>לא ידוע</td><td class="stat-won">7</td><td class="stat-lost">26</td><td class="stat-excl">8</td><td>33</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:64px;background:#6366f1"></div><span class="conv-pct">21.2%</span></div></td></tr>
+          <tr><td>כסף חכם (כפול)</td><td class="stat-won">0</td><td class="stat-lost">26</td><td class="stat-excl">14</td><td>26</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#6366f1"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>מיני קורס</td><td class="stat-won">0</td><td class="stat-lost">25</td><td class="stat-excl">5</td><td>25</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#6366f1"></div><span class="conv-pct">0.0%</span></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -468,12 +479,11 @@
       <table class="source-table">
         <thead><tr><th>מקור</th><th>WON</th><th>LOST</th><th>סוננו</th><th>סה"כ</th><th>המרה</th></tr></thead>
         <tbody>
-          <tr><td>וובינר</td><td class="stat-won">34</td><td class="stat-lost">279</td><td class="stat-excl">94</td><td>313</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:33px;background:#10b981"></div><span class="conv-pct">10.9%</span></div></td></tr>
-          <tr><td>מיני קורס</td><td class="stat-won">3</td><td class="stat-lost">10</td><td class="stat-excl">6</td><td>13</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:69px;background:#10b981"></div><span class="conv-pct">23.1%</span></div></td></tr>
-          <tr><td>מגנט 7 דרכים</td><td class="stat-won">3</td><td class="stat-lost">16</td><td class="stat-excl">5</td><td>19</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:47px;background:#10b981"></div><span class="conv-pct">15.8%</span></div></td></tr>
+          <tr><td>וובינר</td><td class="stat-won">37</td><td class="stat-lost">301</td><td class="stat-excl">100</td><td>338</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:33px;background:#10b981"></div><span class="conv-pct">11.0%</span></div></td></tr>
+          <tr><td>כסף חכם</td><td class="stat-won">1</td><td class="stat-lost">63</td><td class="stat-excl">35</td><td>64</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:5px;background:#10b981"></div><span class="conv-pct">1.6%</span></div></td></tr>
+          <tr><td>כסף חכם (כפול)</td><td class="stat-won">1</td><td class="stat-lost">21</td><td class="stat-excl">9</td><td>22</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:14px;background:#10b981"></div><span class="conv-pct">4.5%</span></div></td></tr>
           <tr><td>לא ידוע</td><td class="stat-won">2</td><td class="stat-lost">18</td><td class="stat-excl">6</td><td>20</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:30px;background:#10b981"></div><span class="conv-pct">10.0%</span></div></td></tr>
-          <tr><td>טופס הגשת ליד</td><td class="stat-won">1</td><td class="stat-lost">9</td><td class="stat-excl">8</td><td>10</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:30px;background:#10b981"></div><span class="conv-pct">10.0%</span></div></td></tr>
-          <tr><td>כסף חכם</td><td class="stat-won">4</td><td class="stat-lost">79</td><td class="stat-excl">34</td><td>83</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:14px;background:#10b981"></div><span class="conv-pct">4.8%</span></div></td></tr>
+          <tr><td>טופס הגשת ליד</td><td class="stat-won">0</td><td class="stat-lost">8</td><td class="stat-excl">8</td><td>8</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#10b981"></div><span class="conv-pct">0.0%</span></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -483,14 +493,11 @@
       <table class="source-table">
         <thead><tr><th>מקור</th><th>WON</th><th>LOST</th><th>סוננו</th><th>סה"כ</th><th>המרה</th></tr></thead>
         <tbody>
-          <tr><td>וובינר</td><td class="stat-won">0</td><td class="stat-lost">77</td><td class="stat-excl">21</td><td>77</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#f59e0b"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>כסף חכם</td><td class="stat-won">2</td><td class="stat-lost">3</td><td class="stat-excl">0</td><td>5</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:120px;background:#f59e0b"></div><span class="conv-pct">40.0%</span></div></td></tr>
-          <tr><td>מיני קורס</td><td class="stat-won">0</td><td class="stat-lost">6</td><td class="stat-excl">2</td><td>6</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#f59e0b"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>מגנט 7 דרכים</td><td class="stat-won">0</td><td class="stat-lost">1</td><td class="stat-excl">2</td><td>1</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#f59e0b"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>לא ידוע</td><td class="stat-won">0</td><td class="stat-lost">1</td><td class="stat-excl">0</td><td>1</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#f59e0b"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>וובינר</td><td class="stat-won">0</td><td class="stat-lost">114</td><td class="stat-excl">46</td><td>114</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#f59e0b"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>כסף חכם</td><td class="stat-won">3</td><td class="stat-lost">11</td><td class="stat-excl">4</td><td>14</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:64px;background:#f59e0b"></div><span class="conv-pct">21.4%</span></div></td></tr>
         </tbody>
       </table>
-      <div style="padding:12px 16px;font-size:0.8rem;color:#888;">⚠️ מדגם קטן — 91 לידים בלבד.</div>
+      <div style="padding:12px 16px;font-size:0.8rem;color:#888;">⚠️ מדגם קטן — 143 לידים סה"כ (מהם 55 חידושי מנוי).</div>
     </div>
 
     <!-- אבי -->
@@ -498,14 +505,14 @@
       <table class="source-table">
         <thead><tr><th>מקור</th><th>WON</th><th>LOST</th><th>סוננו</th><th>סה"כ</th><th>המרה</th></tr></thead>
         <tbody>
-          <tr><td>וובינר</td><td class="stat-won">1</td><td class="stat-lost">14</td><td class="stat-excl">7</td><td>15</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:20px;background:#ef4444"></div><span class="conv-pct">6.7%</span></div></td></tr>
-          <tr><td>כסף חכם</td><td class="stat-won">1</td><td class="stat-lost">4</td><td class="stat-excl">0</td><td>5</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:60px;background:#ef4444"></div><span class="conv-pct">20.0%</span></div></td></tr>
-          <tr><td>מגנט 7 דרכים</td><td class="stat-won">0</td><td class="stat-lost">1</td><td class="stat-excl">2</td><td>1</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#ef4444"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>מיני קורס</td><td class="stat-won">0</td><td class="stat-lost">1</td><td class="stat-excl">0</td><td>1</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#ef4444"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>טופס הגשת ליד</td><td class="stat-won">0</td><td class="stat-lost">1</td><td class="stat-excl">0</td><td>1</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#ef4444"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>וובינר</td><td class="stat-won">6</td><td class="stat-lost">55</td><td class="stat-excl">11</td><td>61</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:29px;background:#ef4444"></div><span class="conv-pct">9.8%</span></div></td></tr>
+          <tr><td>כסף חכם</td><td class="stat-won">1</td><td class="stat-lost">23</td><td class="stat-excl">6</td><td>24</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:13px;background:#ef4444"></div><span class="conv-pct">4.2%</span></div></td></tr>
+          <tr><td>כסף חכם (כפול)</td><td class="stat-won">1</td><td class="stat-lost">3</td><td class="stat-excl">3</td><td>4</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:75px;background:#ef4444"></div><span class="conv-pct">25.0%</span></div></td></tr>
+          <tr><td>תוכנית ההכשרה</td><td class="stat-won">0</td><td class="stat-lost">2</td><td class="stat-excl">1</td><td>2</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#ef4444"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>טופס הגשת ליד</td><td class="stat-won">0</td><td class="stat-lost">2</td><td class="stat-excl">1</td><td>2</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#ef4444"></div><span class="conv-pct">0.0%</span></div></td></tr>
         </tbody>
       </table>
-      <div style="padding:12px 16px;font-size:0.8rem;color:#888;">⚠️ מדגם קטן מאוד — 23 לידים בלבד.</div>
+      <div style="padding:12px 16px;font-size:0.8rem;color:#888;">⚠️ מדגם קטן — 104 לידים סה"כ (מהם 30 חידושי מנוי). רק יוני 2026.</div>
     </div>
 
     <!-- אלי -->
@@ -513,12 +520,11 @@
       <table class="source-table">
         <thead><tr><th>מקור</th><th>WON</th><th>LOST</th><th>סוננו</th><th>סה"כ</th><th>המרה</th></tr></thead>
         <tbody>
-          <tr><td>מיני קורס</td><td class="stat-won">1</td><td class="stat-lost">2</td><td class="stat-excl">0</td><td>3</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:100px;background:#8b5cf6"></div><span class="conv-pct">33.3%</span></div></td></tr>
-          <tr><td>מגנט 7 דרכים</td><td class="stat-won">1</td><td class="stat-lost">5</td><td class="stat-excl">0</td><td>6</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:50px;background:#8b5cf6"></div><span class="conv-pct">16.7%</span></div></td></tr>
-          <tr><td>וובינר</td><td class="stat-won">9</td><td class="stat-lost">168</td><td class="stat-excl">70</td><td>177</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:15px;background:#8b5cf6"></div><span class="conv-pct">5.1%</span></div></td></tr>
-          <tr><td>כסף חכם</td><td class="stat-won">1</td><td class="stat-lost">40</td><td class="stat-excl">33</td><td>41</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:7px;background:#8b5cf6"></div><span class="conv-pct">2.4%</span></div></td></tr>
+          <tr><td>וובינר</td><td class="stat-won">11</td><td class="stat-lost">205</td><td class="stat-excl">84</td><td>216</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:15px;background:#8b5cf6"></div><span class="conv-pct">5.1%</span></div></td></tr>
+          <tr><td>כסף חכם</td><td class="stat-won">2</td><td class="stat-lost">35</td><td class="stat-excl">24</td><td>37</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:16px;background:#8b5cf6"></div><span class="conv-pct">5.4%</span></div></td></tr>
+          <tr><td>כסף חכם (כפול)</td><td class="stat-won">0</td><td class="stat-lost">16</td><td class="stat-excl">12</td><td>16</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#8b5cf6"></div><span class="conv-pct">0.0%</span></div></td></tr>
           <tr><td>לא ידוע</td><td class="stat-won">0</td><td class="stat-lost">3</td><td class="stat-excl">2</td><td>3</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#8b5cf6"></div><span class="conv-pct">0.0%</span></div></td></tr>
-          <tr><td>טופס הגשת ליד</td><td class="stat-won">0</td><td class="stat-lost">3</td><td class="stat-excl">2</td><td>3</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#8b5cf6"></div><span class="conv-pct">0.0%</span></div></td></tr>
+          <tr><td>טופס הגשת ליד</td><td class="stat-won">0</td><td class="stat-lost">3</td><td class="stat-excl">1</td><td>3</td><td><div class="conv-bar"><div class="conv-bar-fill" style="width:4px;background:#8b5cf6"></div><span class="conv-pct">0.0%</span></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -528,42 +534,42 @@
 
 <!-- WEBINAR -->
 <div class="section-title">🎥 השפעת הוובינר על יחס ההמרה</div>
-<div class="section-desc">לאלי — יתרון הוובינר הכי בולט מכולם: <strong>+11.8 נ.א.</strong></div>
+<div class="section-desc">לאבי — יתרון הוובינר הכי בולט מכולם: <strong>+15.3 נ.א.</strong></div>
 <div class="webinar-grid">
   <div class="webinar-card">
     <h4>ראובן</h4>
-    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">8.4%</span></div>
-    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">5.1%</span></div>
-    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#6366f1">+3.3 נ.א.</span></div>
-    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 35W/383L | ללא: 17W/315L</div>
+    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">8.6%</span></div>
+    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">4.8%</span></div>
+    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#6366f1">+3.8 נ.א.</span></div>
+    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 38W/406L | ללא: 18W/359L</div>
   </div>
   <div class="webinar-card">
     <h4>צבי</h4>
-    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">13.5%</span></div>
-    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">5.7%</span></div>
-    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#10b981">+7.8 נ.א.</span></div>
-    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 39W/249L | ללא: 11W/181L</div>
+    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">13.7%</span></div>
+    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">4.9%</span></div>
+    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#10b981">+8.8 נ.א.</span></div>
+    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 42W/264L | ללא: 11W/215L</div>
   </div>
   <div class="webinar-card">
     <h4>דניאל</h4>
     <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-low">0.0%</span></div>
     <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct">2.7%</span></div>
     <div class="advantage-box" style="background:#fef3c7;"><span style="font-size:0.76rem;color:#92400e">מדגם קטן</span><span style="font-weight:700;color:#92400e">⚠️</span></div>
-    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 0W/17L | ללא: 2W/72L</div>
+    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 0W/32L | ללא: 3W/108L</div>
   </div>
   <div class="webinar-card">
     <h4>אבי</h4>
-    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct">8.3%</span></div>
-    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct">9.1%</span></div>
-    <div class="advantage-box" style="background:#fef3c7;"><span style="font-size:0.76rem;color:#92400e">מדגם קטן</span><span style="font-weight:700;color:#92400e">⚠️</span></div>
-    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 1W/11L | ללא: 1W/10L</div>
+    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">18.6%</span></div>
+    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct">3.3%</span></div>
+    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#ef4444">+15.3 נ.א.</span></div>
+    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 8W/35L | ללא: 2W/59L</div>
   </div>
   <div class="webinar-card">
     <h4>אלי</h4>
-    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">13.2%</span></div>
-    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">1.4%</span></div>
-    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#8b5cf6">+11.8 נ.א.</span></div>
-    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 12W/79L | ללא: 2W/145L</div>
+    <div class="webinar-row"><span class="webinar-label">🎥 נכח בוובינר</span><span class="webinar-pct pct-high">12.2%</span></div>
+    <div class="webinar-row"><span class="webinar-label">❌ לא נכח</span><span class="webinar-pct pct-low">2.2%</span></div>
+    <div class="advantage-box"><span style="font-size:0.76rem;color:#888">יתרון:</span><span style="font-weight:700;color:#8b5cf6">+10.0 נ.א.</span></div>
+    <div style="font-size:0.72rem;color:#aaa;margin-top:6px;text-align:center;">וובינר: 14W/101L | ללא: 4W/174L</div>
   </div>
 </div>
 
