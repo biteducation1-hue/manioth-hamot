@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דשבורד ללא מענה | נציגי מכירות פעילים</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f1117; color: #e2e8f0; direction: rtl; min-height: 100vh; }
+
+header { background: #1a1f2e; border-bottom: 2px solid #f59e0b; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+header h1 { font-size: 20px; font-weight: 700; color: #fff; }
+header h1 span { color: #f59e0b; }
+.subtitle { font-size: 12px; color: #718096; margin-top: 3px; }
+.badge { background: #f59e0b22; border: 1px solid #f59e0b66; color: #f59e0b; border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 700; }
+
+main { padding: 24px 32px; }
+
+/* POLICY BOX */
+.policy-box {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.policy-item {
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.policy-item.bad  { background: #f5656518; border: 1px solid #f5656555; }
+.policy-item.ok   { background: #48bb7818; border: 1px solid #48bb7855; }
+.policy-item.note { background: #f59e0b14; border: 1px solid #f59e0b44; }
+.policy-icon { font-size: 22px; flex-shrink: 0; }
+.policy-text-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.policy-text-desc  { font-size: 12px; color: #a0aec0; }
+.policy-item.bad  .policy-text-title { color: #f56565; }
+.policy-item.ok   .policy-text-title { color: #48bb78; }
+.policy-item.note .policy-text-title { color: #f59e0b; }
+
+/* CARDS */
+.cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 28px; }
+.card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px 18px; border-top-width: 3px; }
+.card-label { font-size: 11px; color: #718096; margin-bottom: 8px; }
+.card-value { font-size: 36px; font-weight: 800; line-height: 1; }
+.card-sub { font-size: 11px; color: #718096; margin-top: 6px; }
+.card.blue   { border-top-color:#4299e1; } .card.blue   .card-value { color:#4299e1; }
+.card.red    { border-top-color:#f56565; } .card.red    .card-value { color:#f56565; }
+.card.green  { border-top-color:#48bb78; } .card.green  .card-value { color:#48bb78; }
+.card.yellow { border-top-color:#f59e0b; } .card.yellow .card-value { color:#f59e0b; }
+
+/* ALERT */
+.alert { background: #2d1f0e; border: 1px solid #f59e0b55; border-right: 3px solid #f59e0b; border-radius: 8px; padding: 12px 16px; margin-bottom: 22px; font-size: 13px; color: #f6ad55; display: flex; align-items: flex-start; gap: 10px; }
+.alert strong { color: #f59e0b; }
+
+/* SECTION TITLE */
+.sec-title { font-size: 14px; font-weight: 700; color: #a0aec0; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.sec-title::before { content:''; display:inline-block; width:3px; height:16px; background:#f59e0b; border-radius:2px; }
+
+/* CHART */
+.chart-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px 24px 16px; margin-bottom: 28px; }
+.chart-legend { display: flex; gap: 18px; margin-bottom: 18px; flex-wrap: wrap; }
+.cl-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #a0aec0; }
+.cl-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+.chart-rows { display: flex; flex-direction: column; gap: 20px; }
+.chart-row { display: flex; align-items: center; gap: 12px; }
+.chart-row-name { width: 140px; font-size: 13px; font-weight: 600; color: #e2e8f0; flex-shrink: 0; text-align: right; }
+.chart-row-bar { flex: 1; height: 32px; border-radius: 6px; display: flex; overflow: hidden; background: #2d3748; }
+.seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.9); transition: width 0.4s; }
+.seg.bad  { background: #f56565; }
+.seg.good { background: #48bb78; }
+.seg.warn { background: #f59e0b; }
+.chart-row-meta { width: 120px; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.meta-pct { font-size: 14px; font-weight: 800; }
+.meta-sub { font-size: 10px; color: #718096; }
+
+/* REP CARDS */
+.rep-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 14px; margin-bottom: 28px; }
+.rep-card { background: #1a1f2e; border: 1px solid #4299e155; border-radius: 12px; overflow: hidden; }
+.rep-head { padding: 13px 16px 10px; border-bottom: 1px solid #2d3748; display: flex; justify-content: space-between; align-items: center; }
+.rep-head-name { font-size: 15px; font-weight: 700; color: #fff; }
+.rep-head-right { display: flex; align-items: center; gap: 8px; }
+.rep-head-total { font-size: 11px; color: #718096; background: #2d3748; border-radius: 10px; padding: 2px 10px; }
+.active-badge { font-size: 10px; font-weight: 700; background: #48bb7822; color: #48bb78; border: 1px solid #48bb7855; border-radius: 10px; padding: 1px 8px; }
+
+.rep-body { padding: 14px 16px; }
+
+/* Main KPI */
+.kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.kpi-box { border-radius: 8px; padding: 12px; text-align: center; }
+.kpi-box.problem { background: #f5656518; border: 1px solid #f5656555; }
+.kpi-box.waste   { background: #f59e0b14; border: 1px solid #f59e0b44; }
+.kpi-box-val { font-size: 26px; font-weight: 800; }
+.kpi-box.problem .kpi-box-val { color: #f56565; }
+.kpi-box.waste   .kpi-box-val { color: #f59e0b; }
+.kpi-box-lbl { font-size: 10px; color: #718096; margin-top: 3px; }
+.kpi-box-pct { font-size: 12px; font-weight: 700; margin-top: 2px; }
+.kpi-box.problem .kpi-box-pct { color: #f56565; }
+.kpi-box.waste   .kpi-box-pct { color: #f59e0b; }
+
+/* Score bar */
+.score-section { margin-bottom: 12px; }
+.score-top { display: flex; justify-content: space-between; font-size: 11px; color: #718096; margin-bottom: 4px; }
+.score-bar { height: 12px; border-radius: 6px; display: flex; overflow: hidden; background: #2d3748; }
+.sb-bad  { background: #f56565; }
+.sb-ok   { background: #48bb78; }
+.sb-warn { background: #f59e0b88; }
+
+.avg-tag { display: inline-block; font-size: 11px; color: #a0aec0; background: #2d3748; border-radius: 8px; padding: 2px 10px; }
+
+/* Score badge */
+.score-badge { display: inline-block; border-radius: 8px; padding: 3px 12px; font-size: 12px; font-weight: 700; margin-right: 6px; }
+.badge-good { background:#48bb7822; color:#48bb78; border:1px solid #48bb7855; }
+.badge-warn { background:#f59e0b22; color:#f59e0b; border:1px solid #f59e0b55; }
+.badge-bad  { background:#f5656522; color:#f56565; border:1px solid #f5656555; }
+
+/* TABLE */
+.tbl-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; overflow: hidden; margin-bottom: 28px; }
+.tbl-head { padding: 14px 20px; border-bottom: 1px solid #2d3748; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th { background: #151a27; padding: 9px 14px; text-align: right; color: #718096; font-size: 11px; font-weight: 700; border-bottom: 1px solid #2d3748; }
+tbody tr { border-bottom: 1px solid #1e2535; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #1e2535; }
+tbody td { padding: 10px 14px; }
+.td-name { font-weight: 700; color: #fff; font-size: 14px; }
+.pill { display: inline-block; border-radius: 10px; padding: 2px 10px; font-size: 11px; font-weight: 700; }
+.pill-red    { background:#f5656522; color:#f56565; }
+.pill-green  { background:#48bb7822; color:#48bb78; }
+.pill-yellow { background:#f59e0b22; color:#f59e0b; }
+.pct-cell { display: flex; align-items: center; gap: 8px; }
+.pct-track { width: 70px; height: 7px; background: #2d3748; border-radius: 4px; overflow: hidden; }
+.pct-fill-red { height: 100%; border-radius: 4px; background: #f56565; }
+
+/* INACTIVE */
+.inactive-section { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 16px 20px; margin-bottom: 28px; }
+.inactive-title { font-size: 13px; color: #718096; font-weight: 600; margin-bottom: 12px; }
+.inactive-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.inactive-card { background: #151a27; border: 1px solid #2d3748; border-radius: 8px; padding: 10px 14px; opacity: 0.7; }
+.inactive-name { font-size: 13px; font-weight: 600; color: #a0aec0; }
+.inactive-stats { font-size: 11px; color: #4a5568; margin-top: 3px; }
+.tag-inactive { font-size: 10px; background: #f5656522; color: #f56565; border-radius: 8px; padding: 1px 7px; margin-top: 4px; display: inline-block; }
+.tag-warn     { background: #f59e0b22; color: #f59e0b; }
+
+footer { padding: 14px 32px; border-top: 1px solid #2d3748; font-size: 11px; color: #4a5568; text-align: center; }
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2,1fr); }
+  .policy-box { grid-template-columns: 1fr; }
+  main { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>דשבורד <span>ללא מענה</span> — נציגי מכירות פעילים</h1>
+    <div class="subtitle">נתונים מ-1 באפריל 2026 | מקור: Pipedrive + Airtable</div>
+  </div>
+  <div class="badge">פוליסי: 5–6 שיחות לסגירה</div>
+</header>
+
+<main>
+
+<!-- Policy explanation -->
+<div class="policy-box">
+  <div class="policy-item bad">
+    <div class="policy-icon">🚨</div>
+    <div>
+      <div class="policy-text-title">פחות מ-5 שיחות — בעיה</div>
+      <div class="policy-text-desc">הנציג סגר את הליד כ"ללא מענה" לפני שניסה מספיק פעמים. זה הגרוע ביותר — ליד אבוד בלי סיבה.</div>
+    </div>
+  </div>
+  <div class="policy-item ok">
+    <div class="policy-icon">✅</div>
+    <div>
+      <div class="policy-text-title">5–6 שיחות — מושלם</div>
+      <div class="policy-text-desc">עמד בפוליסי החברה בדיוק. ניסה את המספר הנדרש ואז סגר.</div>
+    </div>
+  </div>
+  <div class="policy-item note">
+    <div class="policy-icon">⏱️</div>
+    <div>
+      <div class="policy-text-title">מעל 6 שיחות — בסדר, אבל...</div>
+      <div class="policy-text-desc">לא הפר את הפוליסי, אבל בזבז זמן על ליד שלא עונה. אין ציון נמוך — רק הערה לייעול.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Cards — problem metric only -->
+<div class="cards">
+  <div class="card blue">
+    <div class="card-label">סה״כ לידים ללא מענה (נציגים פעילים)</div>
+    <div class="card-value" id="totalActive">—</div>
+    <div class="card-sub">מ-1 באפריל 2026</div>
+  </div>
+  <div class="card red">
+    <div class="card-label">🚨 בעיה — פחות מ-5 שיחות</div>
+    <div class="card-value" id="totalBelow">—</div>
+    <div class="card-sub" id="totalBelowPct">סגרו ליד מוקדם מדי</div>
+  </div>
+  <div class="card green">
+    <div class="card-label">✅ תקין — 5 שיחות ומעלה</div>
+    <div class="card-value" id="totalOkPlus">—</div>
+    <div class="card-sub">עמד בפוליסי לפחות</div>
+  </div>
+  <div class="card yellow">
+    <div class="card-label">⏱️ בזבוז זמן — מעל 6 שיחות</div>
+    <div class="card-value" id="totalAbove">—</div>
+    <div class="card-sub">תקין אך לא יעיל</div>
+  </div>
+</div>
+
+<!-- Alert -->
+<div class="alert">
+  <span>⚠️</span>
+  <div>
+    <strong>שים לב:</strong> רון אלקובי (37 לידים) — לא פעיל ב-Airtable אך פעיל בפייפדרייב. מוצג בנפרד למטה.
+  </div>
+</div>
+
+<!-- Chart — problem % only -->
+<div class="chart-box">
+  <div class="sec-title">אחוז בעיה לפי נציג (% לידים שנסגרו עם פחות מ-5 שיחות)</div>
+  <div class="chart-legend">
+    <div class="cl-item"><div class="cl-dot" style="background:#f56565"></div> 🚨 פחות מ-5 שיחות (בעיה)</div>
+    <div class="cl-item"><div class="cl-dot" style="background:#48bb78"></div> ✅ 5–6 שיחות (מושלם)</div>
+    <div class="cl-item"><div class="cl-dot" style="background:#f59e0b88"></div> ⏱️ מעל 6 שיחות (בזבוז זמן)</div>
+  </div>
+  <div class="chart-rows" id="chartRows"></div>
+</div>
+
+<!-- Rep cards -->
+<div class="sec-title">פירוט לפי נציג פעיל</div>
+<div class="rep-grid" id="repGrid"></div>
+
+<!-- Summary table -->
+<div class="tbl-box">
+  <div class="tbl-head">
+    <div class="sec-title" style="margin:0">טבלת סיכום — נציגים פעילים</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>נציג</th>
+        <th>סה״כ</th>
+        <th>ממוצע שיחות</th>
+        <th>🚨 &lt;5 שיחות</th>
+        <th>% בעיה</th>
+        <th>✅ 5–6 שיחות</th>
+        <th>⏱️ &gt;6 שיחות</th>
+        <th>ציון</th>
+      </tr>
+    </thead>
+    <tbody id="tblBody"></tbody>
+  </table>
+</div>
+
+<!-- Inactive -->
+<div class="inactive-section">
+  <div class="inactive-title">נציגים לא פעילים שהיו להם לידים מ-1 באפריל (לא נכללים בסיכום)</div>
+  <div class="inactive-grid" id="inactiveGrid"></div>
+</div>
+
+</main>
+<footer>עודכן: 28 יוני 2026 | מקורות: Pipedrive + Airtable | הגדרת בעיה: פחות מ-5 שיחות לפני סגירה כ"ללא מענה"</footer>
+
+<script>
+var ACTIVE = [
+  { name:'ראובן',        total:325, below:88, ok:62, above:175, avg:8.5  },
+  { name:'צבי שמש',      total:210, below:83, ok:41, above:86,  avg:7.3  },
+  { name:'אלי בן סימון', total:157, below:7,  ok:26, above:124, avg:10.8 },
+  { name:'דניאל סייג',   total:49,  below:8,  ok:2,  above:39,  avg:11.1 },
+  { name:'אבי חוטובלי',  total:43,  below:7,  ok:8,  above:28,  avg:10.0 },
+  { name:'אוראל זקן',    total:11,  below:2,  ok:1,  above:8,   avg:10.0 }
+];
+
+var INACTIVE = [
+  { name:'רון אלקובי', total:37, below:9, ok:7, above:21, avg:9.2, status:'⚠️ לא פעיל ב-Airtable', warn:true }
+];
+
+function pct(v,t){ return t ? Math.round(v/t*100) : 0; }
+
+// Score based ONLY on % below (<5 calls) — lower is better
+function scoreClass(belowPct){ return belowPct<=15?'badge-good':belowPct<=35?'badge-warn':'badge-bad'; }
+function scoreText(belowPct){
+  if(belowPct===0)   return '🏆 מצוין';
+  if(belowPct<=15)   return '✅ טוב';
+  if(belowPct<=35)   return '⚠️ לשיפור';
+  return '🚨 בעיה';
+}
+function compColor(belowPct){ return belowPct<=15?'#48bb78':belowPct<=35?'#f59e0b':'#f56565'; }
+
+// Totals
+var tTotal=0,tBelow=0,tOkPlus=0,tAbove=0;
+ACTIVE.forEach(function(r){ tTotal+=r.total; tBelow+=r.below; tOkPlus+=(r.ok+r.above); tAbove+=r.above; });
+document.getElementById('totalActive').textContent  = tTotal;
+document.getElementById('totalBelow').textContent   = tBelow;
+document.getElementById('totalBelowPct').textContent= pct(tBelow,tTotal)+'% מהלידים — בעיה';
+document.getElementById('totalOkPlus').textContent  = tOkPlus;
+document.getElementById('totalAbove').textContent   = tAbove;
+
+// Chart
+var chartEl = document.getElementById('chartRows');
+ACTIVE.forEach(function(r){
+  var pBelow = pct(r.below,r.total);
+  var pOk    = pct(r.ok,r.total);
+  var pAbove = pct(r.above,r.total);
+  var color  = compColor(pBelow);
+
+  var div = document.createElement('div');
+  div.className = 'chart-row';
+  div.innerHTML =
+    '<div class="chart-row-name">'+r.name+'</div>'+
+    '<div class="chart-row-bar">'+
+      '<div class="seg bad"  style="width:'+pBelow+'%">'+(pBelow>8?pBelow+'%':'')+'</div>'+
+      '<div class="seg good" style="width:'+pOk+'%">'   +(pOk>8?pOk+'%':'')+'</div>'+
+      '<div class="seg warn" style="width:'+pAbove+'%">'+(pAbove>8?pAbove+'%':'')+'</div>'+
+    '</div>'+
+    '<div class="chart-row-meta">'+
+      '<div class="meta-pct" style="color:'+color+'">'+pBelow+'% בעיה</div>'+
+      '<div class="meta-sub">'+r.total+' לידים | ממוצע '+r.avg+' שיחות</div>'+
+    '</div>';
+  chartEl.appendChild(div);
+});
+
+// Rep cards
+var grid = document.getElementById('repGrid');
+ACTIVE.forEach(function(r){
+  var pBelow=pct(r.below,r.total), pOk=pct(r.ok,r.total), pAbove=pct(r.above,r.total);
+  var color = compColor(pBelow);
+  var sClass = scoreClass(pBelow);
+  var sText  = scoreText(pBelow);
+
+  var card = document.createElement('div');
+  card.className = 'rep-card';
+  card.innerHTML =
+    '<div class="rep-head">'+
+      '<div class="rep-head-name">'+r.name+'</div>'+
+      '<div class="rep-head-right">'+
+        '<div class="active-badge">פעיל ✓</div>'+
+        '<div class="rep-head-total">'+r.total+' לידים</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="rep-body">'+
+      '<div class="kpi-row">'+
+        '<div class="kpi-box problem">'+
+          '<div class="kpi-box-val">'+r.below+'</div>'+
+          '<div class="kpi-box-lbl">🚨 פחות מ-5 שיחות</div>'+
+          '<div class="kpi-box-pct">'+pBelow+'% מהלידים</div>'+
+        '</div>'+
+        '<div class="kpi-box waste">'+
+          '<div class="kpi-box-val">'+r.above+'</div>'+
+          '<div class="kpi-box-lbl">⏱️ מעל 6 שיחות</div>'+
+          '<div class="kpi-box-pct">'+pAbove+'% מהלידים</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="score-section">'+
+        '<div class="score-top"><span>התפלגות לידים</span><span class="score-badge '+sClass+'">'+sText+'</span></div>'+
+        '<div class="score-bar">'+
+          '<div class="sb-bad"  style="width:'+pBelow+'%"></div>'+
+          '<div class="sb-ok"   style="width:'+pOk+'%"></div>'+
+          '<div class="sb-warn" style="width:'+pAbove+'%"></div>'+
+        '</div>'+
+      '</div>'+
+      '<span class="avg-tag">ממוצע שיחות לליד: '+r.avg+' | 5–6 שיחות: '+r.ok+'</span>'+
+    '</div>';
+  grid.appendChild(card);
+});
+
+// Table
+var tbody = document.getElementById('tblBody');
+ACTIVE.forEach(function(r){
+  var pBelow = pct(r.below,r.total);
+  var sClass = scoreClass(pBelow);
+  var sText  = scoreText(pBelow);
+  var color  = compColor(pBelow);
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td class="td-name">'+r.name+'</td>'+
+    '<td>'+r.total+'</td>'+
+    '<td>'+r.avg+'</td>'+
+    '<td><span class="pill pill-red">'+r.below+'</span></td>'+
+    '<td><div class="pct-cell"><div class="pct-track"><div class="pct-fill-red" style="width:'+pBelow+'%"></div></div><span style="color:'+color+';font-weight:700">'+pBelow+'%</span></div></td>'+
+    '<td><span class="pill pill-green">'+r.ok+'</span></td>'+
+    '<td><span class="pill pill-yellow">'+r.above+'</span></td>'+
+    '<td><span class="score-badge '+sClass+'">'+sText+'</span></td>';
+  tbody.appendChild(tr);
+});
+
+// Inactive grid
+var inGrid = document.getElementById('inactiveGrid');
+INACTIVE.forEach(function(r){
+  var pBelow = pct(r.below,r.total);
+  var div = document.createElement('div');
+  div.className = 'inactive-card';
+  div.innerHTML =
+    '<div class="inactive-name">'+r.name+'</div>'+
+    '<div class="inactive-stats">'+r.total+' לידים | '+r.below+' בעיה ('+pBelow+'%) | ממוצע '+r.avg+' שיחות</div>'+
+    '<div class="tag-inactive'+(r.warn?' tag-warn':'')+'">'+r.status+'</div>';
+  inGrid.appendChild(div);
+});
+</script>
+</body>
+</html>
