@@ -1059,4 +1059,84 @@ function initWb(){
   const cy=D.pd.cycle;
   document.getElementById('wb_ctKpis').innerHTML=[{l:'חציון מחזור מכירה',v:cy.median+' ימים'},{l:'ממוצע מחזור מכירה',v:cy.mean+' ימים'},{l:'נסגרו ביום הוובינר',v:cy.same+'%'},{l:'נסגרו אחרי 30+ ימים',v:cy.d30p+'%'}].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div></div>`).join('');
   new Chart(document.getElementById('wb_cCycle'),{type:'doughnut',data:{labels:['אותו יום (16.5%)','1–7 ימים (27.2%)','7–30 ימים (22.3%)','30+ ימים (34%)'],datasets:[{data:[cy.same,cy.d1_7,cy.d7_30,cy.d30p],backgroundColor:[C.green,C.cyan,C.violet,C.amber],borderColor:'#0a0e1a',borderWidth:3}]},options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}}}}});
-  new Chart(document.getElementById('wb_cOpenPipe'),{type:'bar',data:{labels:D.pd.open_stages.map(s=>s.n),datasets:[{data:D.pd.open_stages.map(s=>s.rev),backgroundColor:D.pd.open_stages.map(s=>s.col),borderRadius:6}]},option
+  new Chart(document.getElementById('wb_cOpenPipe'),{type:'bar',data:{labels:D.pd.open_stages.map(s=>s.n),datasets:[{data:D.pd.open_stages.map(s=>s.rev),backgroundColor:D.pd.open_stages.map(s=>s.col),borderRadius:6}]},options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.raw)+' · '+D.pd.open_stages[c.dataIndex].c+' עסקאות'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>'₪'+(v/1000)+'k'}},y:{grid:{display:false}}}}});
+  // Experience bars
+  const maxExpN=Math.max(...D.exp.map(e=>e.n)),maxConvEx=Math.max(...D.exp.map(e=>e.conv));
+  document.getElementById('wb_expBars').innerHTML=D.exp.map(e=>`<div class="exp-row"><div class="exp-top"><span class="exp-name" style="color:${e.col}">${e.l}</span><span class="exp-stats">${nf(e.n)} לידים · ${e.won} WON · 120+ → ${e.c120}%</span></div><div class="exp-track"><div class="exp-total-fill" style="width:${(e.n/maxExpN*100).toFixed(1)}%;background:${e.col}"></div><div class="exp-conv-fill" style="width:${(e.conv/maxConvEx*100).toFixed(1)}%;background:${e.col}"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mut);margin-top:3px"><span>נפח: ${(e.n/13702*100).toFixed(1)}%</span><span>המרה: <b style="color:${e.col}">${e.conv}%</b></span></div></div>`).join('');
+  new Chart(document.getElementById('wb_cYearly2'),{type:'bar',data:{labels:D.yearly.map(y=>y.y),datasets:[{label:'לידים',data:D.yearly.map(y=>y.n),backgroundColor:'rgba(139,92,246,.55)',borderRadius:6,yAxisID:'y'},{label:'WON',data:D.yearly.map(y=>y.won),backgroundColor:'rgba(52,211,153,.7)',borderRadius:6,yAxisID:'y'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'}},x:{grid:{display:false}}}}});
+  // Source rows
+  const maxSrcN=Math.max(...D.src.map(s=>s.n)),maxSrcC=25;
+  document.getElementById('wb_srcRows').innerHTML=D.src.map(s=>`<div class="src-row"><div class="src-lbl">${s.l}</div><div class="src-track"><div class="src-vol" style="width:${(s.n/maxSrcN*100).toFixed(1)}%;background:${s.col}"></div><div class="src-line" style="width:${(s.conv/maxSrcC*100).toFixed(1)}%;background:${s.col}"></div><div class="src-txt">${nf(s.n)} לידים</div></div><div class="src-pct" style="color:${s.col}">${s.conv}%</div></div>`).join('');
+  // Insights
+  document.getElementById('wb_insights').innerHTML=[
+    {i:'💰',t:`<b>הוובינרים = 63% מכל הכנסת הפייפליין.</b> ${money(D.pd.won_rev)} מיוחסים לוובינרים מתוך ${money(D.pd.total_rev)} סה"כ.`},
+    {i:'⏰',t:`<b>71% מהמכירות נסגרות אחרי ערב הוובינר.</b> חלון ייחוס נכון = 30–60 יום.`},
+    {i:'🏆',t:`<b>120+ דקות = נקודת המפנה.</b> המרה קופצת מ-8.5% ל-25.0% — פי 3. כל תוכן שמחזיק קהל מעבר לשעתיים = ROI גבוה.`},
+    {i:'🚨',t:`<b>₪6,888,756 פייפליין פתוח — 857 עסקאות.</b> המרה של 10% = ${money(D.pd.open_rev*0.1)} מיידים.`},
+    {i:'⭐',t:`<b>YouTube ממיר ב-22.6% — פי 1.6 מפייסבוק/גוגל.</b> 602 לידים עם המרה גבוהה מהכל. CAC הנמוך ביותר בכל הערוצים.`},
+    {i:'⚡',t:`<b>חציון מכירה 9.4 ימים — אבל 34% לוקחים 30+ יום.</b> סיקוונס אוטומטי ל-30/60/90 יום יכול לשחזר את הזנב.`},
+  ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
+}
+
+// ══════════════════════════════════════════
+function initQz(){
+// ══════════════════════════════════════════
+  const D=D_qz;
+  document.getElementById('qz_upd').textContent='עודכן: '+now;
+  document.getElementById('qz_updFooter').textContent=now;
+  setupSubTabs('qz_');
+  const conv=D.pipe.total>0?((D.pipe.won/D.pipe.total)*100).toFixed(1):'0.0';
+  // KPIs
+  document.getElementById('qz_kpis').innerHTML=[
+    {l:'לידים (CRM)',v:nf(D.pipe.total),d:'מקור: תוכנית ההכשרה'},
+    {l:'עסקאות שנסגרו',v:D.pipe.won,d:D.pipe.open+' עדיין פתוחות'},
+    {l:'הכנסה (ללא מעמ)',v:'₪'+nf(D.rev.exvat),d:'ברוטו ₪'+nf(D.rev.gross)},
+    {l:'פייפליין פתוח',v:'₪'+nf(D.pipe.open_val),d:'פוטנציאל '+D.pipe.open+' עסקאות'},
+    {l:'הוצאת מדיה (Meta)',v:'₪'+nf(D.meta.spend),d:'CPL פיקסל ₪'+D.meta.cpl+' · '+nf(D.meta.leads)+' לידים'},
+    {l:'הוצאת מדיה (Google)',v:'₪'+nf(D.google.spend),d:'CPL ₪'+D.google.cpl+' · '+D.google.leads+' המרות · CPC ₪'+D.google.cpc},
+    {l:'סה"כ הוצאה (Meta+Google)',v:'₪'+nf(D.roi.total_spend),d:'ROAS '+D.roi.roas+'x · CPL משולב ₪'+D.roi.cpl_combined},
+    {l:'עלות לקוח (CAC)',v:'₪'+nf(D.roi.cac),d:'Meta+Google ÷ '+D.pipe.won+' WON'},
+  ].map(k=>`<div class="kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div><div class="d">${k.d}</div></div>`).join('');
+  // Chart: Lead trend
+  new Chart(document.getElementById('qz_cTrend'),{type:'bar',data:{labels:Object.keys(D.ml),datasets:[
+    {label:'לידים',data:Object.values(D.ml),backgroundColor:'rgba(34,211,238,.75)',borderRadius:7,order:2,yAxisID:'y'},
+    {label:'WON',data:Object.keys(D.ml).map(m=>D.mw[m]||0),type:'line',borderColor:'#34d399',backgroundColor:'rgba(52,211,153,.1)',pointBackgroundColor:'#34d399',pointRadius:5,borderWidth:2.5,tension:.3,fill:false,order:1,yAxisID:'y2'}
+  ]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,padding:12,color:'#8a96b3'}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'}},y2:{beginAtZero:true,position:'right',grid:{display:false},ticks:{precision:0}},x:{grid:{display:false}}}}});
+  // Chart: Status doughnut
+  new Chart(document.getElementById('qz_cStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:['#34d399','rgba(248,113,113,.55)','#fbbf24'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom'}},cutout:'62%'}});
+  // Chart: Stages bar
+  new Chart(document.getElementById('qz_cStages'),{type:'bar',data:{labels:D.stages.map(s=>s.n),datasets:[{data:D.stages.map(s=>s.c),backgroundColor:D.stages.map(s=>s.col),borderRadius:6}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0},grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
+  // Funnel
+  const funnelSteps=[
+    {l:'סה"כ לידים',n:D.pipe.total,col:'#22d3ee'},
+    {l:'פתוחות',n:D.pipe.open,col:'#fbbf24'},
+    {l:'WON',n:D.pipe.won,col:'#34d399'},
+  ];
+  const maxN=funnelSteps[0].n;
+  document.getElementById('qz_funnelDiv').innerHTML=funnelSteps.map((r,i)=>{
+    const w=Math.max(12,Math.sqrt(r.n/maxN)*100);
+    const prev=i>0?funnelSteps[i-1].n:r.n;
+    const drop=i>0?((1-r.n/prev)*100).toFixed(0)+'% ירידה':'';
+    return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${r.col}">${nf(r.n)}</div><div class="fmeta"><b>${r.l}</b><br><span style="font-size:11px;color:var(--mut)">${drop}</span></div></div>`;
+  }).join('');
+  // Insights
+  const ainMana=(D.stages.find(s=>s.n==='אין מענה')||{c:0}).c;
+  const ainManaPct=D.pipe.open>0?Math.round(ainMana/D.pipe.open*100):0;
+  const peakMo=Object.entries(D.ml).sort((a,b)=>b[1]-a[1])[0];
+  const pixelToCrm=D.meta.leads>0?Math.round(D.pipe.total/D.meta.leads*100):0;
+  const totalAdLeads=D.meta.leads+D.google.leads;
+  const potentialRoas=D.pipe.open_val>0?((D.rev.exvat+D.pipe.open_val)/D.roi.total_spend).toFixed(1):0;
+  document.getElementById('qz_insights').innerHTML=[
+    {i:'📊',t:`<b>Meta + Google: ₪${nf(D.roi.total_spend)} הוצאה כוללת, ${totalAdLeads} לידי מודעות.</b> Meta: ₪${nf(D.meta.spend)} · ${D.meta.leads} לידים · CPL ₪${D.meta.cpl}. Google: ₪${nf(D.google.spend)} · ${D.google.leads} המרות · CPL ₪${D.google.cpl}.`},
+    {i:'⚠️',t:`<b>ROAS נוכחי: ${D.roi.roas}x — כמעט איזון.</b> ₪${nf(D.rev.exvat)} הכנסה מול ₪${nf(D.roi.total_spend)} הוצאה = ${D.roi.pct}% ROI. אך ${D.pipe.open} עסקאות פתוחות שוות ₪${nf(D.pipe.open_val)} — סגירה שלהן תביא ROAS ל-~${potentialRoas}x.`},
+    {i:'📈',t:`<b>יוני 2026 — שיא: ${nf(peakMo[1])} לידים.</b> רוב הלידים הגיעו מיוני 2026 — Meta הושק 10.6, Google פעיל לאורך כל יוני. טמפו: ~${Math.round(D.pipe.total/30)} לידים/יום.`},
+    {i:'🚨',t:`<b>${ainMana} לידים ב"אין מענה" (${ainManaPct}% מהפתוחים).</b> CAC של ₪${nf(D.roi.cac)} לכל סגירה — כל ליד שאובד = כסף שהלך. פולואפ תוך 30 דקות מכפיל המרות.`},
+    {i:'⚡',t:`<b>מודעות vs CRM: ${pixelToCrm}% מלידי המודעות הגיעו ל-Pipedrive.</b> ${totalAdLeads} לידי מודעות → ${D.pipe.total} CRM. CPL CRM ₪${D.roi.cpl_crm} לעומת CPL מודעות ₪${D.roi.cpl_combined} — כדאי לאטום את חוויית הנחיתה.`},
+  ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
+}
+
+// Boot
+initMg(); mgInited=true;
+</script>
+</body>
+</html>
