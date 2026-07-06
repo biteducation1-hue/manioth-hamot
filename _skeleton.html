@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מניות חמות 🔥 | 2026-06-29</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --border: #30363d;
+      --green: #26c281;
+      --accent: #58a6ff;
+      --accent2: #1f6feb;
+      --red: #f85149;
+      --orange: #f0883e;
+      --yellow: #e3b341;
+      --purple: #bc8cff;
+      --text: #e6edf3;
+      --text2: #cdd9e5;
+      --text3: #6e7681;
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    /* ── HERO (stats + watchlist inside) ── */
+    .hero {
+      background: linear-gradient(160deg, #0d1117 0%, #1a2332 50%, #0d1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 44px 24px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(88,166,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .subtitle { font-size: 0.85rem; color: var(--text3); letter-spacing: 1.5px; margin-bottom: 24px; }
+
+    /* stats chips inside hero */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .stat-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      color: var(--text2);
+      font-weight: 500;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .stat-chip span { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+    .stat-chip span.green { color: var(--green); }
+    .stat-chip span.red { color: var(--red); }
+
+    /* watchlist button */
+    .tv-watchlist-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent2), #388bfd);
+      color: #fff;
+      text-decoration: none;
+      padding: 11px 28px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(88,166,255,0.25);
+    }
+    .tv-watchlist-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(88,166,255,0.4); }
+
+    /* ── PREAMBLE ── */
+    .preamble-wrap { max-width: 868px; margin: 28px auto; padding: 0 24px; }
+    .preamble {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text2);
+    }
+    .preamble p { margin-bottom: 14px; }
+    .preamble p:last-child { margin-bottom: 0; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer { max-width: 868px; margin: 0 auto 28px; padding: 0 24px; }
+    .disclaimer-inner {
+      background: rgba(201,162,39,0.07);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      color: rgb(201,162,39);
+      line-height: 1.6;
+    }
+    .disclaimer-inner strong { color: rgb(201,162,39); }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      max-width: 1300px;
+      margin: 0 auto 16px;
+      padding: 0 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── GRID — 2 columns, 1300px wide ── */
+    .grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: #444d56; }
+
+    .card-header {
+      padding: 16px 18px 12px;
+      background: linear-gradient(180deg, var(--bg3) 0%, var(--bg2) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .ticker-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .ticker { font-size: 1.45rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .exchange-badge {
+      font-size: 0.7rem; font-weight: 600;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text3); padding: 2px 8px; border-radius: 20px; letter-spacing: 0.5px;
+    }
+    .company-name { font-size: 0.9rem; color: var(--text2); font-weight: 500; margin-right: auto; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid; }
+    .tag.support { background: rgba(38,194,129,0.1); color: var(--green); border-color: rgba(38,194,129,0.3); }
+    .tag.retest  { background: rgba(88,166,255,0.1); color: var(--accent); border-color: rgba(88,166,255,0.3); }
+    .tag.range   { background: rgba(240,136,62,0.1); color: var(--orange); border-color: rgba(240,136,62,0.3); }
+    .tag.fib     { background: rgba(188,140,255,0.1); color: var(--purple); border-color: rgba(188,140,255,0.3); }
+    .tag.ratio   { background: rgba(227,179,65,0.1); color: var(--yellow); border-color: rgba(227,179,65,0.3); }
+    .tag.short   { background: rgba(248,81,73,0.1); color: var(--red); border-color: rgba(248,81,73,0.3); }
+    .tag.misc    { background: var(--bg3); color: var(--text2); border-color: var(--border); }
+
+    /* CHART */
+    .chart-wrap { position: relative; background: #000; }
+    .chart-img { width: 100%; display: block; cursor: zoom-in; transition: opacity 0.2s; }
+    .chart-img:hover { opacity: 0.92; }
+    .chart-hint { text-align: center; font-size: 0.72rem; color: var(--text3); padding: 5px 0; background: var(--bg3); border-bottom: 1px solid var(--border); }
+
+    /* TV BUTTON */
+    .card-footer-bar { padding: 10px 18px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+    .tv-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, var(--accent2), #388bfd);
+      color: #fff; text-decoration: none; padding: 7px 18px;
+      border-radius: 6px; font-size: 0.88rem; font-weight: 600;
+      transition: all 0.2s; box-shadow: 0 2px 8px rgba(88,166,255,0.2);
+    }
+    .tv-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(88,166,255,0.4); }
+
+    /* ANALYSIS */
+    .analysis { padding: 14px 18px; font-size: 0.93rem; line-height: 1.85; color: var(--text2); flex: 1; }
+
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 9999; align-items: center; justify-content: center; padding: 20px; cursor: zoom-out; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; }
+    .lb-close { position: fixed; top: 20px; left: 20px; color: #fff; font-size: 2rem; cursor: pointer; opacity: 0.7; background: none; border: none; line-height: 1; }
+    .lb-close:hover { opacity: 1; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 30px 20px; color: var(--text3); font-size: 0.82rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<!-- HERO — date, stats, watchlist all inside -->
+<header class="hero">
+  <h1>🔥 מניות חמות השבוע</h1>
+  <div class="subtitle">2026-06-29 · סריקת שוק שבועית</div>
+  <div class="stats-row">
+    <div class="stat-chip"><span>8</span>מניות</div>
+    <div class="stat-chip"><span class="green">8</span>לונג</div>
+    <div class="stat-chip"><span class="red">0</span>שורט</div>
+  </div>
+  <a href="https://www.tradingview.com/watchlists/337322322/" target="_blank" class="tv-watchlist-btn">📊 רשימת מעקב בטריידינג וויו</a>
+</header>
+
+<!-- PREAMBLE -->
+<div class="preamble-wrap">
+  <div class="preamble">
+    <p>שבוע חדש, רשימת מניות חדשה.</p>
+    <p>לפני שמתחילים, חשוב לזכור כמה דברים.</p>
+    <p>שבוע המסחר האחרון הסתיים בלחץ מוכרים, כאשר מדד ה-S&amp;P 500 ירד בכמעט 2%. בהחלט ייתכן שהתיקון ימשיך להעמיק גם בימים הקרובים, ולכן הרשימה השבוע נבחרה בפינצטה ורק עם המניות שנראות כרגע בצורה הטובה ביותר מבחינה טכנית.</p>
+    <p>בנוסף, יש עדיין מספר מניות מהסקירות הקודמות שנותרו רלוונטיות, כך שאין שום צורך לרדוף אחרי כל הזדמנות. להפך, זה בדיוק הזמן להיות סבלניים, סלקטיביים ולהיכנס רק לסטאפים שנראים מושלמים ועומדים בכל כללי תוכנית המסחר.</p>
+    <p>תשימו לב שגם השבוע בחרתי לשלב כמה מהמניות הגדולות בשוק, שנמצאות כעת באזורי תמיכה מעניינים ועשויות לייצר הזדמנויות איכותיות.</p>
+    <p>כרגיל, המטרה שלנו היא לא לנחש לאן השוק ילך, אלא להכין מראש תרחישים ברורים ולפעול רק כשהגרף נותן את האישור שאנחנו מחפשים. 🎯📈</p>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <strong>⚠️ הצהרת אחריות:</strong> כל המניות כאן הן לצורכי לימוד ומחקר בלבד ואינן מהוות המלצת השקעה. השקעה בשוק ההון כרוכה בסיכון לאובדן הון. יש לבצע מחקר עצמאי לפני כל החלטת השקעה.
+  </div>
+</div>
+
+<!-- US STOCKS -->
+<div class="section-title">🇺🇸 מניות אמריקאיות</div>
+<div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">PNR</span>
+          <span class="exchange-badge">NYSE</span>
+          <span class="company-name">Pentair</span>
+        </div>
+        <div class="tags"><span class="tag support">תמיכה</span><span class="tag range">דשדוש</span><span class="tag ratio">🎯 יחס 1:2.5–1:5</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="PNR chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NYSE%3APNR" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">המניה ממשיכה להיות רלוונטית גם השבוע. המחיר מתבסס על אזור התמיכה שבין 73 ל-76 דולר, בתוך מבנה דשדוש רחב. יחס הסיכוי-סיכון עומד על כ-1:2.5 עד אמצע הטווח וכמעט 1:5 עד השיא האחרון.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">NEM</span>
+          <span class="exchange-badge">NYSE</span>
+          <span class="company-name">Newmont</span>
+        </div>
+        <div class="tags"><span class="tag support">תמיכה</span><span class="tag ratio">🎯 יחס 1:4–1:6</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="NEM chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NYSE%3ANEM" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">המניה חזרה לרמת תמיכה משמעותית שהוכיחה את עצמה בעבר. בפעמים הקודמות האזור הזה סיפק תיקון יפה כלפי מעלה, ולכן כל עוד התמיכה לא נשברת, אין סיבה להניח שהפעם תהיה שונה. יעד ראשון מעניק יחס סיכוי-סיכון של כ-1:4, ועד השיא ההיסטורי היחס מגיע לכ-1:6.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">GOOGL</span>
+          <span class="exchange-badge">NASDAQ</span>
+          <span class="company-name">Alphabet (Google)</span>
+        </div>
+        <div class="tags"><span class="tag support">תמיכה</span><span class="tag fib">פיבו 50%</span><span class="tag ratio">🎯 יחס 1:3</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="GOOGL chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AGOOGL" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">לאחר ירידות חדות בשבוע האחרון, המחיר הגיע לאזור תמיכה משמעותי המשתלב עם תיקון 50% פיבונאצ'י. ביום שישי נרשם מחזור מסחר גבוה במיוחד בדיוק על רמת התמיכה, סימן שכדאי לעקוב אחריו. יחס הסיכוי-סיכון עומד על כ-1:3.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">AAPL</span>
+          <span class="exchange-badge">NASDAQ</span>
+          <span class="company-name">Apple</span>
+        </div>
+        <div class="tags"><span class="tag support">תמיכה</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="AAPL chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3AAAPL" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">בדומה לגוגל, גם אפל חזרה לרמת תמיכה משמעותית. ביום שישי נרשם מחזור גבוה מאוד על אזור התמיכה, מה שמייצר סטאפ מעניין. הסטופ יחסית קצר ולכן חשוב לנהל את העסקה בהתאם.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">SEDG</span>
+          <span class="exchange-badge">NASDAQ</span>
+          <span class="company-name">SolarEdge</span>
+        </div>
+        <div class="tags"><span class="tag retest">ריטסט</span><span class="tag fib">פיבו 61.8%</span><span class="tag ratio">🎯 יחס 1:4.5</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="SEDG chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ASEDG" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">המחיר חוזר לרמת תמיכה לאחר ארבעה שבועות של ירידות עם מחזורים שהולכים ופוחתים, דבר שמעיד על היחלשות המוכרים. התמיכה משתלבת עם תיקון 61.8% פיבונאצ'י ויוצרת סטאפ ריטסט קלאסי. יעד הרווח לשיא האחרון מעניק יחס סיכוי-סיכון של כ-1:4.5.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">CF</span>
+          <span class="exchange-badge">NYSE</span>
+          <span class="company-name">CF Industries</span>
+        </div>
+        <div class="tags"><span class="tag support">תמיכה</span><span class="tag fib">פיבו 50%–61.8%</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="CF chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=NYSE%3ACF" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">גם המניה הזו ממשיכה להיות רלוונטית מהסקירות האחרונות. המחיר חוזר לרמת תמיכה משמעותית שנפרצה לאחר תקופה ארוכה, כאשר לאורך כל הירידה נרשמת ירידה במחזורי המסחר. בנוסף, התמיכה נמצאת באזור הזהב שבין 50% ל-61.8% פיבונאצ', מה שמחזק את הסטאפ.</div>
+    </div>
+
+</div>
+
+<!-- IL STOCKS -->
+<div class="section-title">🇮🇱 מניות מהשוק הישראלי</div>
+<div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">DLEKG</span>
+          <span class="exchange-badge">TASE</span>
+          <span class="company-name">קבוצת דלק</span>
+        </div>
+        <div class="tags"><span class="tag retest">ריטסט</span><span class="tag misc">שיא היסטורי 2014</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="DLEKG chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=TASE%3ADLEKG" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">כדאי לשים לב במיוחד לגרף החודשי. המניה מבצעת ריטסט לשיא ההיסטורי משנת 2014, שהפך כעת לאזור תמיכה משמעותי. חשוב לזכור שהמניה מושפעת מאוד ממחירי הנפט, ולכן כדאי לעקוב גם אחרי ההתפתחויות בשוק האנרגיה.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="ticker-row">
+          <span class="ticker">ASHG</span>
+          <span class="exchange-badge">TASE</span>
+          <span class="company-name">קבוצת אשטרום</span>
+        </div>
+        <div class="tags"><span class="tag range">דשדוש</span><span class="tag ratio">🎯 יחס 1:4.5</span></div>
+      </div>
+      <div class="chart-wrap">
+        <img src="DATA_URI_STRIPPED" alt="ASHG chart" class="chart-img" onclick="openLightbox(this.src)">
+        <div class="chart-hint">🔍 לחיצה על הגרף מגדילה אותו</div>
+      </div>
+      <div class="card-footer-bar">
+        <a href="https://www.tradingview.com/chart/?symbol=TASE%3AASHG" target="_blank" class="tv-btn">לפתיחת הגרף בTV ↗</a>
+      </div>
+      <div class="analysis">המניה נמצאת בתוך דשדוש ברור וחוזרת כעת לרמת התמיכה של הטווח. הסטאפ מאפשר יחס סיכוי-סיכון של כ-1:4.5 עד אזור ההתנגדות העליון של הדשדוש.</div>
+    </div>
+
+</div>
+
+<footer class="footer">CyclesTrading · 2026-06-29 · כל הזכויות שמורות</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <img id="lb-img" src="" alt="enlarged chart">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
