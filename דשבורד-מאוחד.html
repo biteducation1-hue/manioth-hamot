@@ -175,10 +175,10 @@ tbody tr:hover{background:var(--panel2)}
 
 <!-- AGGREGATE STRIP -->
 <div class="agg-strip">
-  <div class="agg-item"><div class="al">💰 הכנסות כוללות</div><div class="av" style="color:var(--green)">₪13,817,318</div><div class="as">כל 4 הקמפיינים · ללא מע״מ</div></div>
-  <div class="agg-item"><div class="al">🏆 עסקאות WON</div><div class="av" style="color:var(--cyan)">2,133</div><div class="as">25 + 26 + 2 + 2,080</div></div>
-  <div class="agg-item"><div class="al">📣 הוצאת מדיה</div><div class="av" style="color:var(--amber)">₪2,417,023</div><div class="as">Meta + Google</div></div>
-  <div class="agg-item"><div class="al">💼 פייפליין פתוח</div><div class="av" style="color:var(--violet)">₪8,612,813</div><div class="as">4 פייפליינים משולבים</div></div>
+  <div class="agg-item"><div class="al">💰 הכנסות כוללות</div><div class="av" style="color:var(--green)">₪13,844,989</div><div class="as">כל 4 הקמפיינים · ללא מע״מ</div></div>
+  <div class="agg-item"><div class="al">🏆 עסקאות WON</div><div class="av" style="color:var(--cyan)">2,136</div><div class="as">24 + 30 + 2 + 2,080</div></div>
+  <div class="agg-item"><div class="al">📣 הוצאת מדיה</div><div class="av" style="color:var(--amber)">₪2,423,786</div><div class="as">Meta + Google</div></div>
+  <div class="agg-item"><div class="al">💼 פייפליין פתוח</div><div class="av" style="color:var(--violet)">₪8,611,796</div><div class="as">4 פייפליינים משולבים</div></div>
 </div>
 
 <!-- CAMPAIGN TABS -->
@@ -264,11 +264,14 @@ tbody tr:hover{background:var(--panel2)}
 </div>
 <div class="view" id="mg_mt">
   <div class="meta-hi def">
-    <div style="font-size:12px;color:var(--mut);margin-bottom:6px;letter-spacing:.5px">🎯 יחס המרה קריטי — קליק על קישור ← ליד</div>
+    <div style="font-size:12px;color:var(--mut);margin-bottom:6px;letter-spacing:.5px">🎯 המרת קליק על קישור ← ליד (לא CTR)</div>
     <div style="font-size:50px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1" id="mg_linkToLead">—</div>
     <div style="font-size:12px;color:var(--mut);margin-top:8px" id="mg_linkMeta">—</div>
   </div>
   <div class="card"><h3>📣 מדדי Meta Ads <span class="mut">— קמפיין לידים "7 דרכים להכפיל את ההון"</span></h3><div class="meta-grid" id="mg_metaGrid"></div></div>
+  <div class="card" style="margin-top:16px"><h3>📑 פירוק לפי קמפיין <span class="mut">— היסטוריה מלאה של קמפייני הלידים</span></h3><div id="mg_campBreak"></div></div>
+  <div class="card" style="margin-top:16px"><h3>📊 ניתוח מודעות <span class="mut">— ציון ביצוע + CPL/CTR ברמת מודעה (Meta Ads)</span></h3><div class="scroll"><table><thead><tr><th>קריאייטיב</th><th>ציון</th><th>הוצאה</th><th>לידים</th><th>CPL</th><th>קישור CTR</th><th>מגמת CPL (30 יום)</th></tr></thead><tbody id="mg_adsBody"></tbody></table></div><div style="font-size:11px;color:var(--mut);margin-top:8px;text-align:center">ציון = גבוה + נפח לידים טוב. היחס CPL/לידים/CTR ישירות מ-Meta API (Pipedrive לא שומר איזו מודעה)</div></div>
+  <div class="card" style="margin-top:16px"><h3>💡 המלצות למחלקת הפרסום</h3><div id="mg_adRecos" style="display:grid;gap:12px"></div></div>
 </div>
 <div class="view" id="mg_cn">
   <div class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.08))">
@@ -276,6 +279,7 @@ tbody tr:hover{background:var(--panel2)}
     <div class="big" id="mg_roiBig" style="margin:8px 0">—</div>
     <div class="fmeta">הכנסה נטו ₪<span id="mg_roiNet"></span> · הוצאה ₪<span id="mg_roiSpend"></span> · ROAS <span id="mg_roiRoas"></span></div>
   </div>
+  <div class="card" style="margin-bottom:16px"><h3>🧭 ייחוס מורחב <span class="mut">— ROAS לפי שיטת ייחוס (ראשוני / סופי / מפוצל)</span></h3><div id="mg_attr"></div></div>
   <div id="mg_insights"></div>
 </div>
 <div class="note" style="text-align:center;margin-top:8px">נתוני Pipedrive ו-Meta Ads · סונן: לא כולל "חידוש מנוי" · ערכים ללא מעמ (÷1.18)</div>
@@ -380,6 +384,7 @@ tbody tr:hover{background:var(--panel2)}
     <div class="big" id="kc_roiBig" style="margin:8px 0">—</div>
     <div class="fmeta">הכנסה נטו ₪<span id="kc_roiNet"></span> · הוצאה ₪<span id="kc_roiSpend"></span> · ROAS <span id="kc_roiRoas"></span></div>
   </div>
+  <div class="card" style="margin-bottom:16px"><h3>🧭 ייחוס מורחב <span class="mut">— ROAS לפי שיטת ייחוס (ראשוני / סופי / מפוצל)</span></h3><div id="kc_attr"></div></div>
   <div id="kc_insights"></div>
 </div>
 <div class="note" style="text-align:center;margin-top:8px">נתוני Pipedrive ו-Meta Ads · ערכים ללא מעמ (÷1.18) · עודכן <span id="kc_updFooter"></span></div>
@@ -411,6 +416,7 @@ tbody tr:hover{background:var(--panel2)}
 </div>
 <div class="view active" id="wb_ov">
   <div class="card" style="margin-bottom:16px"><h3>הכנסה חודשית מוובינרים <span class="mut">— מאי 2025 עד יוני 2026</span></h3><canvas id="wb_cRev" style="max-height:240px"></canvas></div>
+  <div class="card" style="margin-bottom:16px"><h3>💰 הכנסה לליד לפי קוהורטת וובינר <span class="mut">— ללא מע״מ · מול עלות ליד וסף אזהרה</span></h3><canvas id="wb_cRpl" style="max-height:260px"></canvas><div class="note">כל עמודה = כל הלידים שמקורם הראשוני באותו וובינר (Pipedrive), כולל סגירות מאוחרות ע"י מקורות אחרים. קו אדום = עלות ליד נוכחית (₪80) · קו כתום = סף אזהרה ₪200 (ROAS 2.5). קוהורטות של 45 הימים האחרונים עדיין מבשילות — הערך שלהן צפוי לעלות.</div></div>
   <div class="grid g2">
     <div class="card"><h3>מתי נסגרת המכירה? <span class="mut">— ערב הוובינר מול מאוחר</span></h3><canvas id="wb_cEve"></canvas><div class="note">71% מהרכישות נסגרות <b style="color:var(--amber)">אחרי</b> ערב הוובינר. חלון ייחוס נכון = 30–60 יום.</div></div>
     <div class="card"><h3>מגמה שנתית 2023–2026 <span class="mut">— נפח ו-% המרה</span></h3><canvas id="wb_cYearly"></canvas><div class="note">2026 נראה נמוך (9%) כי הפייפליין עדיין פתוח. צפי: ~14–15%</div></div>
@@ -701,58 +707,74 @@ document.querySelectorAll('.camp-tab').forEach(t=>t.onclick=()=>switchCamp(t.dat
 // DATA — מגנט 7 דרכים
 // ══════════════════════════════════════════
 const D_mg={
-  meta:{spend:60824,leads_pixel:3998,cpl:15.21,impressions:649174,reach:147451,clicks:31218,ctr:4.81,cpc:1.95,cpm:93.69,link_to_lead:16.9},
-  pipe:{total:193,won:25,lost:141,open:27,open_val:352897,
-    stages:[{n:"ליד חדש",c:13,col:"#38bdf8"},{n:"בוצעה שיחה מלאה",c:5,col:"#34d399"},{n:"נוצר קשר ראשוני",c:4,col:"#22d3ee"},{n:"פולואפ 1",c:2,col:"#fbbf24"},{n:"אין מענה",c:2,col:"#f87171"},{n:"פולואפ 2",c:1,col:"#fb923c"}]},
-  rev:{gross:186661,exvat:158187},
-  roi:{roas:2.60,net:97363,pct:160,cac:2433,cpl_crm:315.2},
-  ml:{"2025-11":24,"2025-12":38,"2026-01":33,"2026-02":17,"2026-03":27,"2026-04":14,"2026-05":21,"2026-06":18,"2026-07":1},
-  mw:{"2025-11":7,"2025-12":1,"2026-01":4,"2026-02":3,"2026-03":1,"2026-04":3,"2026-05":4,"2026-06":2},
-  wb:{att:87,att_won:12,noatt:106,noatt_won:13,conv_att:13.8,conv_noatt:12.26},
+  meta:{spend:66202,leads_pixel:4369,cpl:15.15,impressions:716724,reach:157153,clicks:25517,ctr:3.56,cpc:2.59,cpm:92.37,link_to_lead:17.1},
+  pipe:{total:3221,sales:193,cold_open:542,won:24,lost:152,open:17,open_val:135030,
+    stages:[{n:"בוצעה שיחה מלאה",c:7,col:"#34d399"},{n:"נוצר קשר ראשוני",c:5,col:"#22d3ee"},{n:"פולואפ 1",c:2,col:"#fbbf24"},{n:"אין מענה",c:2,col:"#f87171"},{n:"הקלטה",c:1,col:"#a78bfa"}]},
+  rev:{gross:183261,exvat:155307},
+  roi:{roas:2.35,net:89105,pct:135,cac:2758,cpl_crm:20.6},
+  ml:{"2025-11":20,"2025-12":30,"2026-01":32,"2026-02":17,"2026-03":28,"2026-04":16,"2026-05":25,"2026-06":19,"2026-07":6},
+  mw:{"2025-11":7,"2025-12":1,"2026-01":4,"2026-02":3,"2026-03":1,"2026-04":3,"2026-05":4,"2026-06":0,"2026-07":1},
+  wb:{att:87,att_won:12,noatt:96,noatt_won:11,conv_att:13.8,conv_noatt:11.46},
   wbTbl:[
-    {name:"נכח וובינר 23.03.2026",t:7,w:0},{name:"נכח וובינר 16.03.2026",t:6,w:0},
-    {name:"נכח וובינר 01.06.26",t:5,w:0},{name:"נכח וובינר 11.05.26",t:5,w:2},
-    {name:"נכח וובינר 08.06.26",t:4,w:0},{name:"נכח וובינר 03.05.26",t:4,w:1},
-    {name:"נכח וובינר 27.04.26",t:4,w:0},{name:"נכח וובינר 12.04.2026",t:4,w:1},
-    {name:"וובינר 16.02.2026",t:4,w:0},{name:"נכח וובינר 19.04.26",t:3,w:0},
-    {name:"נכח וובינר 29.03.2026",t:3,w:0},{name:"וובינר 09.02.2026",t:3,w:1},
+    {name:"נכח וובינר 23.03.2026",t:6,w:0},{name:"נכח וובינר 16.03.2026",t:6,w:0},
+    {name:"נכח וובינר 11.05.26",t:5,w:2},{name:"נכח וובינר 22.06.26",t:5,w:0},
+    {name:"נכח וובינר 01.06.26",t:5,w:0},{name:"נכח וובינר 03.05.26",t:4,w:1},
+    {name:"נכח וובינר 12.04.2026",t:4,w:1},{name:"נכח וובינר 08.06.26",t:4,w:0},
+    {name:"נכח וובינר 15.06.26",t:4,w:0},{name:"נכח וובינר 27.04.26",t:4,w:0},
+    {name:"וובינר 16.02.2026",t:4,w:0},{name:"וובינר 09.02.2026",t:3,w:1},
     {name:"וובינר 19.01.2026",t:3,w:1},{name:"וובינר 26.01.2026",t:3,w:1},
-    {name:"וובינר 24.11.2025",t:3,w:2},{name:"וובינר 23.02.2026",t:2,w:0},
-    {name:"וובינר 02.02.2026",t:2,w:0},{name:"וובינר 05.01.2026",t:2,w:0},
-    {name:"וובינר 29.12.2025",t:2,w:1},{name:"וובינר 22.12.2025",t:2,w:1},
-    {name:"וובינר 01.12.2025",t:2,w:0},{name:"נכח וובינר 25.05.26",t:1,w:0},
-    {name:"נכח וובינר 09.03.2026",t:1,w:1},{name:"וובינר 12.01.2026",t:1,w:0},
-    {name:"וובינר 17.11.2025",t:1,w:0},{name:"וובינר 10.11.2025",t:1,w:0}
+    {name:"וובינר 24.11.2025",t:3,w:2},{name:"נכח וובינר 19.04.26",t:3,w:0},
+    {name:"נכח וובינר 29.03.2026",t:3,w:0},{name:"וובינר 29.12.2025",t:2,w:1},
+    {name:"וובינר 22.12.2025",t:2,w:1},{name:"נכח וובינר 29.06.26",t:2,w:0},
+    {name:"וובינר 23.02.2026",t:2,w:0},{name:"וובינר 02.02.2026",t:2,w:0},
+    {name:"וובינר 05.01.2026",t:2,w:0},{name:"נכח וובינר 09.03.2026",t:1,w:1},
+    {name:"נכח וובינר 25.05.26",t:1,w:0},{name:"וובינר 12.01.2026",t:1,w:0},
+    {name:"וובינר 01.12.2025",t:1,w:0},{name:"וובינר 17.11.2025",t:1,w:0},
+    {name:"וובינר 10.11.2025",t:1,w:0}
   ],
-  close:{avg:50.7,median:20,min:2,max:192},
-  own:{Roy:7,"Guy Rrovinsky":4,"Avi Hotovely":3,"צבי שמש":3,"Amit Almakies":2,"Shani Hajj":2,"Michael Krichely":1,"אלי בן סימון":1,"גולן":1,"ראובן":1},
+  close:{avg:40.0,median:17,min:2,max:166},
+  own:{Roy:5,"Guy Rrovinsky":4,"צבי שמש":3,"Avi Hotovely":3,"Shani Hajj":2,"Amit Almakies":2,"ראובן":1,"גולן":1,"אלי בן סימון":1,"Michael Krichely":1},
   multi:{"0":77,"1":2473,"2":107,"3":16,"4":2,"5":2},
   deals:[
     {title:"יפעת הראל- מגנט 7 דרכים",owner:"Avi Hotovely",value:10890,days:5,add:"2025-11-05",won:"2025-11-10",wb:false},
-    {title:"לילך מוטוביץ-קורס גאן מאסטר קוד",owner:"Roy",value:9790,days:192,add:"2025-12-15",won:"2026-06-25",wb:false},
-    {title:"לב ארי חסון-קורס גולד - דו\"ח שנה",owner:"Roy",value:9690,days:120,add:"2025-12-06",won:"2026-04-05",wb:false},
     {title:"נורית ערבה-קורס גולד - דו\"ח שנה",owner:"Shani Hajj",value:9690,days:17,add:"2025-12-15",won:"2026-01-01",wb:true},
+    {title:"לב ארי חסון-קורס גולד - דו\"ח שנה",owner:"Roy",value:9690,days:120,add:"2025-12-06",won:"2026-04-05",wb:false},
     {title:"שי פנקר- מגנט 7 דרכים",owner:"Amit Almakies",value:9300,days:15,add:"2025-11-11",won:"2025-11-26",wb:false},
     {title:"אייל בן משה- מגנט 7 דרכים",owner:"Avi Hotovely",value:9150,days:13,add:"2025-11-14",won:"2025-11-27",wb:true},
     {title:"יצחק אלבז-קורס גולד - דו\"ח שנה",owner:"צבי שמש",value:9100,days:142,add:"2025-12-21",won:"2026-05-12",wb:false},
-    {title:"זריהן דוד - אפסייל לאחר סדנא",owner:"Michael Krichely",value:8790,days:12,add:"2025-11-06",won:"2025-11-18",wb:false},
-    {title:"דניאל שם טוב- מגנט 7 דרכים",owner:"Avi Hotovely",value:8790,days:14,add:"2025-12-09",won:"2025-12-23",wb:true},
-    {title:"עמיקם כהן-קורס גולד - דו\"ח שנה",owner:"אלי בן סימון",value:8790,days:166,add:"2025-12-10",won:"2026-05-25",wb:true},
-    {title:"שחר בנימין-קורס גולד - דו\"ח שנה עם הטבה",owner:"Shani Hajj",value:8790,days:20,add:"2025-12-22",won:"2026-01-11",wb:false},
-    {title:"דגן אטיה-קורס גולד - דו\"ח שנה",owner:"Guy Rrovinsky",value:8790,days:30,add:"2025-12-28",won:"2026-01-27",wb:true},
-    {title:"גיל ממן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:15,add:"2026-01-26",won:"2026-02-10",wb:true},
-    {title:"טל קינן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:26,add:"2026-01-30",won:"2026-02-25",wb:false},
     {title:"אילן ספקטור-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:8790,days:16,add:"2026-04-18",won:"2026-05-04",wb:true},
-    {title:"עדיאל חרט-קורס גולד - דו\"ח שנה",owner:"Roy",value:8490,days:81,add:"2025-11-08",won:"2026-01-28",wb:false},
-    {title:"אברהם גלבר- מגנט 7 דרכים",owner:"Amit Almakies",value:8490,days:17,add:"2025-11-09",won:"2025-11-26",wb:true},
-    {title:"בועז לב ארי-קורס גולד - דו\"ח שנה",owner:"גולן",value:8490,days:109,add:"2026-01-24",won:"2026-05-13",wb:true},
-    {title:"הילה אורן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8490,days:32,add:"2026-02-06",won:"2026-03-10",wb:true},
+    {title:"טל קינן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:26,add:"2026-01-30",won:"2026-02-25",wb:false},
+    {title:"גיל ממן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:15,add:"2026-01-26",won:"2026-02-10",wb:true},
+    {title:"דגן אטיה-קורס גולד - דו\"ח שנה",owner:"Guy Rrovinsky",value:8790,days:30,add:"2025-12-28",won:"2026-01-27",wb:true},
+    {title:"שחר בנימין-קורס גולד - דו\"ח שנה עם הטבה",owner:"Shani Hajj",value:8790,days:20,add:"2025-12-22",won:"2026-01-11",wb:false},
+    {title:"עמיקם כהן-קורס גולד - דו\"ח שנה",owner:"אלי בן סימון",value:8790,days:166,add:"2025-12-10",won:"2026-05-25",wb:true},
+    {title:"דניאל שם טוב- מגנט 7 דרכים",owner:"Avi Hotovely",value:8790,days:14,add:"2025-12-09",won:"2025-12-23",wb:true},
+    {title:"זריהן דוד - אפסייל לאחר סדנא",owner:"Michael Krichely",value:8790,days:12,add:"2025-11-06",won:"2025-11-18",wb:false},
     {title:"איילת אלוני-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:8490,days:13,add:"2026-03-29",won:"2026-04-11",wb:true},
+    {title:"הילה אורן-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8490,days:32,add:"2026-02-06",won:"2026-03-10",wb:true},
+    {title:"בועז לב ארי-קורס גולד - דו\"ח שנה",owner:"גולן",value:8490,days:109,add:"2026-01-24",won:"2026-05-13",wb:true},
+    {title:"אברהם גלבר- מגנט 7 דרכים",owner:"Amit Almakies",value:8490,days:17,add:"2025-11-09",won:"2025-11-26",wb:true},
+    {title:"עדיאל חרט-קורס גולד - דו\"ח שנה",owner:"Roy",value:8490,days:81,add:"2025-11-08",won:"2026-01-28",wb:false},
     {title:"יוסי קדוסי-דו\"ח שנתי",owner:"צבי שמש",value:3590,days:28,add:"2026-03-16",won:"2026-04-13",wb:false},
-    {title:"אלמוג טובי חי-ליווי קבוצתי קורס גאן",owner:"Roy",value:2400,days:154,add:"2025-12-31",won:"2026-06-03",wb:false},
-    {title:"דניאל מלחי- מגנט 7 דרכים",owner:"Roy",value:97,days:2,add:"2025-11-03",won:"2025-11-05",wb:false},
+    {title:"פרג יצחקי-סדנא - משכורת שנייה משוק ההון",owner:"Roy",value:97,days:26,add:"2026-01-15",won:"2026-02-10",wb:true},
     {title:"יאיר כהן- סדנא - משכורת משוק ההון",owner:"Roy",value:97,days:2,add:"2025-11-07",won:"2025-11-09",wb:false},
-    {title:"פרג יצחקי-סדנא - משכורת שנייה משוק ההון",owner:"Roy",value:97,days:26,add:"2026-01-15",won:"2026-02-10",wb:true}
+    {title:"דניאל מלחי- מגנט 7 דרכים",owner:"Roy",value:97,days:2,add:"2025-11-03",won:"2025-11-05",wb:false}
+  ],
+  campaigns:[
+    {n:"קמפיין הדרכה חינמית 3.11",st:"פעיל",spend:66202,leads:4369,lc:25517,cpl:15.15,ctr:3.56}
+  ],
+  ads:[
+    {n:"הכנתי לכם - 3",spend:61021,leads:3966,cpl:15.39,ctr:3.74,cpl30:18.63,score:78},
+    {n:"הכפלתי את ההון - 2",spend:2576,leads:179,cpl:14.39,ctr:2.31,cpl30:11.37,score:62},
+    {n:"איזה קשה זה-6",spend:2227,leads:200,cpl:11.14,ctr:2.11,cpl30:11.01,score:80},
+    {n:"יש לכם מליון דרכים - 1",spend:314,leads:20,cpl:15.71,ctr:2.10,cpl30:14.20,score:42},
+    {n:"אתה לא צריך-5",spend:63,leads:4,cpl:15.86,ctr:2.68,cpl30:15.86,score:36}
+  ],
+  adRecos:[
+    {i:"🏆",t:"<b>'הכנתי לכם - 3' — מנוע הקמפיין.</b> 91% מהלידים (3,966 מתוך 4,369). CPL עלה +21% ב-30 יום (₪15.39 → ₪18.63). לרענן קריאייטיב עכשיו לפני שחיקה מלאה."},
+    {i:"🚀",t:"<b>'איזה קשה זה-6' — CPL ₪11.14, הנמוך בקמפיין.</b> קיבלה תקציב אמיתי (₪2,136 ב-30 יום) וה-CPL נשאר יציב (₪11.01). הסקייל עובד — להמשיך להגדיל בהדרגה."},
+    {i:"💡",t:"<b>'הכפלתי את ההון - 2' — CPL 30 יום מצוין (₪11.37) אבל התקציב צומצם ל-₪125.</b> שווה להחזיר תקציב ולבחון מחדש."},
+    {i:"⚠️",t:"<b>ריכוז יתר: מודעה אחת מייצרת 91% מהלידים.</b> סיכון גבוה לפגיעה בביצועים אם תשחק. 'איזה קשה זה-6' מוכיחה שיש חלופות — להמשיך לגוון."}
   ]
 };
 
@@ -760,62 +782,65 @@ const D_mg={
 // DATA — כסף חכם
 // ══════════════════════════════════════════
 const D_kc={
-  meta:{spend:66109,leads_pixel:1296,cpl:51.01,impressions:692772,reach:209634,clicks:20963,link_clicks:11452,ctr:3.03,cpc:3.15,cpm:95.43,link_to_lead:11.3},
-  meta2:{name:"לידים ישיר VSL //ABO//29.06",spend:230,impressions:1955,reach:1305,link_clicks:39,leads:4},
+  meta:{spend:71731,leads_pixel:1436,cpl:49.95,impressions:751732,reach:233120,clicks:22925,link_clicks:12588,ctr:1.67,cpc:5.70,cpm:95.42,link_to_lead:11.4},
+  meta2:{name:"לידים ישיר VSL //ABO//29.06",spend:2952,impressions:32299,reach:19559,link_clicks:695,leads:65},
   campaigns:[
-    {n:"VSL 20.1 — ראשי",spend:66109,leads:1296,lc:11452,cpl:51.01,ctr:3.03,st:"פעיל"},
-    {n:"VSL //ABO//29.06 — חדש",spend:230,leads:4,lc:39,cpl:57.5,ctr:2.71,st:"פעיל"}
+    {n:"VSL 20.1 — ראשי",spend:68779,leads:1371,lc:11893,cpl:50.17,ctr:1.65,st:"פעיל"},
+    {n:"VSL //ABO//29.06 — חדש",spend:2952,leads:65,lc:695,cpl:45.42,ctr:2.15,st:"פעיל"}
   ],
   ads:[
-    {n:"36 אלף דולר",spend:48540,leads:1035,cpl:46.9,ctr:1.7,cpl30:57.3,score:84},
-    {n:"מה שאני הולך",spend:555,leads:17,cpl:32.6,ctr:2.16,cpl30:44.2,score:70},
-    {n:"אני קם כל בוקר",spend:10410,leads:184,cpl:56.6,ctr:1.77,cpl30:53.9,score:55},
-    {n:"חבל שהבאתי את",spend:2415,leads:20,cpl:120.7,ctr:1.81,cpl30:135.3,score:18},
-    {n:"52 אחוז רווח",spend:3990,leads:36,cpl:110.8,ctr:0.82,cpl30:159.1,score:6}
+    {n:"36 אלף דולר",spend:50145,leads:1082,cpl:46.3,ctr:1.70,cpl30:51.1,score:74},
+    {n:"אני קם כל בוקר",spend:11670,leads:216,cpl:54.0,ctr:1.75,cpl30:50.0,score:56},
+    {n:"52 אחוז רווח",spend:3992,leads:36,cpl:110.9,ctr:0.82,cpl30:151.0,score:10},
+    {n:"איך גבר בן 40",spend:2619,leads:60,cpl:43.7,ctr:2.15,cpl30:44.9,score:66},
+    {n:"חבל שהבאתי את",spend:2415,leads:20,cpl:120.8,ctr:1.81,cpl30:163.2,score:12},
+    {n:"מה שאני הולך",spend:556,leads:17,cpl:32.7,ctr:2.16,cpl30:66.2,score:48},
+    {n:"17 שנים",spend:261,leads:5,cpl:52.1,ctr:2.42,cpl30:52.1,score:42}
   ],
   adRecos:[
-    {i:"🚀",t:"<b>להגדיל את 'מה שאני הולך - 4'.</b> ה-CPL הנמוך ביותר (₪32.6, כ-36% מתחת לממוצע הפאנל) אך הוצאה זעומה (₪555). כדאי להגדיל תקציב או לשכפל לקהלים נוספים — ולבחון לפני שחיקה."},
-    {i:"🏆",t:"<b>'36 אלף דולר - 2' הוא סוס העבודה</b> — כ-80% מהלידים. אך ה-CPL עלה מ-₪47 ל-₪57 ב-30 יום (+22%). לרענן קריאייטיב או להוציא וריאציות חדשות לפני שהביצוע יורד."},
-    {i:"⏸️",t:"<b>לעצור או לשכתב את '52 אחוז רווח - 3'.</b> ה-CTR הנמוך ביותר (0.82%) וה-CPL קפץ מ-₪111 ל-₪159. שורף תקציב ללא תמורה."},
-    {i:"⚠️",t:"<b>'חבל שהבאתי את - 1' חלש</b> — CPL ₪121 (פי 2.4 מהממוצע) וממשיך לעלות ל-₪135. לצמצם תקציב או לעצור."},
-    {i:"✅",t:"<b>'אני קם כל בוקר - 5' — מנוע יציב שני.</b> CPL ₪57 ואף משתפר (₪54 ב-30 יום). לשמור ולשקול הגדלה מתונה."}
+    {i:"🏆",t:"<b>'36 אלף דולר - 2' הוא סוס העבודה</b> — כ-75% מהלידים (1,082). ה-CPL עלה מ-₪46.3 ל-₪51.1 ב-30 יום (+10%) — שחיקה מתונה. לרענן קריאייטיב בהקדם."},
+    {i:"🚀",t:"<b>קמפיין ABO (29.06): 'איך גבר בן 40' מוכיח את עצמו</b> — CPL ₪43.7 יציב לגמרי (₪44.9 ב-30 יום), 60 לידים, CTR 2.15%. ההימור החדש עובד — להגדיל תקציב."},
+    {i:"✅",t:"<b>'אני קם כל בוקר - 5' — מנוע יציב שני.</b> CPL ₪54 ואף משתפר (₪50 ב-30 יום). כבר ₪7,093 ב-30 יום — לשמור ולהמשיך הגדלה מתונה."},
+    {i:"⏸️",t:"<b>לעצור את '52 אחוז רווח - 3'.</b> ה-CTR הנמוך ביותר (0.82%) וה-CPL קפץ מ-₪111 ל-₪151 ב-30 יום. שורף תקציב ללא תמורה."},
+    {i:"⚠️",t:"<b>'חבל שהבאתי את - 1' ממשיך להידרדר</b> — CPL ₪121 ובחודש האחרון ₪163 (12 לידים ב-₪1,959). לעצור או לשכתב."},
+    {i:"💡",t:"<b>'מה שאני הולך - 4' — ה-CPL הכולל הנמוך בפאנל (₪32.7) אבל התקציב צומצם לאפס</b> (ליד אחד ב-30 יום). אם מחזירים — להתחיל בקטן ולעקוב."}
   ],
-  pipe:{total:1170,won:26,lost:991,open:153,open_val:1230630,
-    stages:[{n:"נוצר קשר ראשוני",c:66,col:"#22d3ee"},{n:"הקלטה",c:25,col:"#a78bfa"},{n:"בוצעה שיחה מלאה",c:22,col:"#34d399"},{n:"אין מענה",c:20,col:"#f87171"},{n:"ליד חדש",c:9,col:"#38bdf8"},{n:"פולואפ 1",c:7,col:"#fbbf24"},{n:"פולואפ 2",c:4,col:"#fb923c"}]},
-  rev:{gross:243670,exvat:206500},
-  roi:{roas:3.11,net:140161,pct:211,cac:2552,cpl_crm:56.7},
-  ml:{"נוב-25":1,"ינו-26":92,"פבר-26":64,"מרץ-26":99,"אפר-26":10,"מאי-26":424,"יוני-26":458,"יולי-26":22},
-  mw:{"ינו-26":0,"פבר-26":0,"מרץ-26":2,"אפר-26":0,"מאי-26":7,"יוני-26":17},
-  wb:{att:88,att_won:15,noatt:1082,noatt_won:11,conv_att:17.0,conv_noatt:1.02},
+  pipe:{total:1315,won:30,lost:1093,open:181,open_val:1447480,
+    stages:[{n:"נוצר קשר ראשוני",c:72,col:"#22d3ee"},{n:"אין מענה",c:29,col:"#f87171"},{n:"ליד חדש",c:25,col:"#38bdf8"},{n:"הקלטה",c:23,col:"#a78bfa"},{n:"בוצעה שיחה מלאה",c:19,col:"#34d399"},{n:"פולואפ 1",c:12,col:"#fbbf24"},{n:"פולואפ 2",c:1,col:"#fb923c"}]},
+  rev:{gross:279720,exvat:237051},
+  roi:{roas:3.30,net:165320,pct:230,cac:2391,cpl_crm:55},
+  ml:{"ינו-26":92,"פבר-26":64,"מרץ-26":99,"אפר-26":10,"מאי-26":424,"יוני-26":459,"יולי-26":156},
+  mw:{"ינו-26":0,"פבר-26":0,"מרץ-26":2,"אפר-26":0,"מאי-26":7,"יוני-26":17,"יולי-26":4},
+  wb:{att:88,att_won:15,noatt:1106,noatt_won:11,conv_att:17.0,conv_noatt:1.0},
   close:{avg:8.8,median:5.0,pct30:96,pct90p:0},
-  closeBuckets:{"0–7":17,"7–30":8,"30–90":1,"90+":0},
-  lostReasons:[{r:"לא מעוניין",n:461},{r:"ללא מענה",n:287},{r:"בשלב מאוחר יותר",n:85},{r:"יקר לו",n:30},{r:"מספר שגוי",n:27},{r:"מכחיש פניה",n:19},{r:"מעדיף הצעת מתחרים",n:13},{r:"אחר",n:8}],
+  closeBuckets:{"0–7":18,"7–30":7,"30–90":1,"90+":0},
+  lostReasons:[{r:"לא מעוניין",n:490},{r:"ללא מענה",n:298},{r:"בשלב מאוחר יותר",n:94},{r:"מספר שגוי",n:32},{r:"יקר לו",n:30},{r:"מכחיש פניה",n:23},{r:"מעדיף הצעת מתחרים",n:14},{r:"אחר",n:7}],
   deals:[
-    {title:"רחל מאור-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:12980,days:8,add:"2026-02-25",won:"2026-03-05",wb:false},
     {title:"אודליה עמר-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:12980,days:17,add:"2026-05-07",won:"2026-05-24",wb:false},
-    {title:"ישעיהו זקס-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:12890,days:7,add:"2026-05-03",won:"2026-05-10",wb:false},
+    {title:"רחל מאור-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:12980,days:8,add:"2026-02-25",won:"2026-03-05",wb:false},
     {title:"יגאל שמאייב-קורס גולד - דו\"ח שנה",owner:"ראובן",value:12890,days:1,add:"2026-05-17",won:"2026-05-18",wb:false},
+    {title:"ישעיהו זקס-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:12890,days:7,add:"2026-05-03",won:"2026-05-10",wb:false},
     {title:"ניר בן דור-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:10390,days:24,add:"2026-05-07",won:"2026-05-31",wb:false},
     {title:"דניאל אבסדריס-קורס גולד - דו\"ח שנה",owner:"ראובן",value:10380,days:2,add:"2026-06-02",won:"2026-06-04",wb:false},
-    {title:"צבי פינקו-קורס גולד - דו\"ח שנה",owner:"גולן",value:9690,days:65,add:"2026-03-21",won:"2026-05-25",wb:true},
     {title:"אבידן זגורי-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:9690,days:5,add:"2026-06-18",won:"2026-06-23",wb:true},
+    {title:"צבי פינקו-קורס גולד - דו\"ח שנה",owner:"גולן",value:9690,days:65,add:"2026-03-21",won:"2026-05-25",wb:true},
     {title:"סיימון אלמליח-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:9490,days:5,add:"2026-06-04",won:"2026-06-09",wb:false},
-    {title:"איגור בקר-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:9390,days:6,add:"2026-05-28",won:"2026-06-03",wb:false},
     {title:"לואי עראף-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:9390,days:6,add:"2026-06-18",won:"2026-06-24",wb:true},
-    {title:"דודי הוד-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:4,add:"2026-03-20",won:"2026-03-24",wb:true},
-    {title:"איציק דהן-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:8790,days:0,add:"2026-05-03",won:"2026-05-03",wb:true},
-    {title:"איתי סיטבון-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:8790,days:4,add:"2026-05-13",won:"2026-05-17",wb:true},
-    {title:"דני לוי-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:8790,days:19,add:"2026-05-20",won:"2026-06-08",wb:true},
-    {title:"ליעד רפאל לוי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:6,add:"2026-05-27",won:"2026-06-02",wb:true},
-    {title:"משאלי אבי-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:8790,days:9,add:"2026-05-30",won:"2026-06-08",wb:false},
-    {title:"מנחם פרוכטר-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:8790,days:11,add:"2026-06-04",won:"2026-06-15",wb:true},
-    {title:"מור אפריים-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:8790,days:5,add:"2026-06-07",won:"2026-06-12",wb:false},
-    {title:"מני ביטון-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:8790,days:4,add:"2026-06-10",won:"2026-06-14",wb:false},
-    {title:"אמיר אבו סביה-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:3,add:"2026-06-13",won:"2026-06-16",wb:true},
-    {title:"בן מזרחי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:2,add:"2026-06-20",won:"2026-06-22",wb:true},
-    {title:"רמי אבוחצירא-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:8790,days:0,add:"2026-06-22",won:"2026-06-22",wb:true},
-    {title:"אומרי בשארי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:4,add:"2026-06-25",won:"2026-06-29",wb:true},
+    {title:"איגור בקר-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:9390,days:6,add:"2026-05-28",won:"2026-06-03",wb:false},
     {title:"שי אוזנה-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:3,add:"2026-06-26",won:"2026-06-29",wb:true},
+    {title:"אומרי בשארי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:4,add:"2026-06-25",won:"2026-06-29",wb:true},
+    {title:"רמי אבוחצירא-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:8790,days:0,add:"2026-06-22",won:"2026-06-22",wb:true},
+    {title:"בן מזרחי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:2,add:"2026-06-20",won:"2026-06-22",wb:true},
+    {title:"אמיר אבו סביה-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:3,add:"2026-06-13",won:"2026-06-16",wb:true},
+    {title:"מני ביטון-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:8790,days:4,add:"2026-06-10",won:"2026-06-14",wb:false},
+    {title:"מור אפריים-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:8790,days:5,add:"2026-06-07",won:"2026-06-12",wb:false},
+    {title:"מנחם פרוכטר-קורס גולד - דו\"ח שנה עם הטבה",owner:"אבי חוטובלי",value:8790,days:11,add:"2026-06-04",won:"2026-06-15",wb:true},
+    {title:"משאלי אבי-קורס גולד - דו\"ח שנה",owner:"דניאל סייג",value:8790,days:9,add:"2026-05-30",won:"2026-06-08",wb:false},
+    {title:"ליעד רפאל לוי-קורס גולד - דו\"ח שנה עם הטבה",owner:"אלי בן סימון",value:8790,days:6,add:"2026-05-27",won:"2026-06-02",wb:true},
+    {title:"דני לוי-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:8790,days:19,add:"2026-05-20",won:"2026-06-08",wb:true},
+    {title:"איתי סיטבון-קורס גולד - דו\"ח שנה עם הטבה",owner:"צבי שמש",value:8790,days:4,add:"2026-05-13",won:"2026-05-17",wb:true},
+    {title:"איציק דהן-קורס גולד - דו\"ח שנה עם הטבה",owner:"ראובן",value:8790,days:0,add:"2026-05-03",won:"2026-05-03",wb:true},
+    {title:"דודי הוד-קורס גולד - דו\"ח שנה עם הטבה",owner:"Guy Rrovinsky",value:8790,days:4,add:"2026-03-20",won:"2026-03-24",wb:true},
     {title:"אלירן גלאון-דו\"ח חודשי",owner:"ראובן",value:450,days:8,add:"2026-05-25",won:"2026-06-02",wb:true}
   ]
 };
@@ -826,11 +851,11 @@ const D_kc={
 const D_qz={
   meta:{spend:15613,leads:97,cpl:161,impressions:260202,reach:52007,clicks:12787,ctr:4.91,cpc:1.22,cpm:60.00,campaign:'ODMֹ_Quiz_SiteLead_open',acc:'800524074982642'},
   google:{spend:7510,leads:67,cpl:112,impressions:210465,clicks:3512,ctr:1.67,cpc:2.14,campaign:'ODM_Demand Gen - Quiz_Lead'},
-  pipe:{total:53,won:2,lost:34,open:17,open_val:140530},
-  rev:{gross:20770,exvat:17602},
-  roi:{total_spend:23123,roas:0.76,net:-5521,pct:-24,cac:11561,cpl_combined:141,cpl_crm:436},
+  pipe:{total:53,won:3,lost:34,open:17,open_val:140530},
+  rev:{gross:26370,exvat:22347},
+  roi:{total_spend:23123,roas:0.97,net:-776,pct:-3,cac:7708,cpl_combined:141,cpl_crm:436},
   ml:{"פבר-26":1,"אפר-26":1,"מאי-26":5,"יוני-26":46},
-  mw:{"יוני-26":2},
+  mw:{"יוני-26":3},
   stages:[
     {n:"נוצר קשר ראשוני",c:7,col:"#22d3ee"},
     {n:"אין מענה",c:4,col:"#f87171"},
@@ -961,8 +986,8 @@ function initMg(){
   setupSubTabs('mg_');
   // KPIs
   document.getElementById('mg_kpis').innerHTML=[
-    {l:'לידים (CRM)',v:nf(D.pipe.total),d:'מקור ראשוני מגנט'},
-    {l:'עסקאות שנסגרו',v:D.pipe.won,d:D.pipe.open+' עדיין פתוחות'},
+    {l:'לידים (CRM)',v:nf(D.pipe.total),d:nf(D.pipe.sales)+' הגיעו לפייפליין מכירות · '+nf(D.pipe.cold_open)+' בלידים קרים'},
+    {l:'עסקאות שנסגרו',v:D.pipe.won,d:D.pipe.open+' פתוחות (מכירות) · '+nf(D.pipe.cold_open)+' לידים קרים פעילים'},
     {l:'הוצאת מדיה',v:'₪'+nf(D.meta.spend),d:'CPL ₪'+D.meta.cpl},
     {l:'הכנסה (ללא מעמ)',v:'₪'+nf(D.rev.exvat),d:'ברוטו ₪'+nf(D.rev.gross)},
     {l:'פייפליין פתוח',v:'₪'+nf(D.pipe.open_val),d:'פוטנציאל '+D.pipe.open+' עסקאות'},
@@ -975,7 +1000,7 @@ function initMg(){
   new Chart(document.getElementById('mg_cOwner'),{type:'bar',data:{labels:Object.keys(D.own),datasets:[{data:Object.values(D.own),backgroundColor:'rgba(139,92,246,.8)',borderRadius:6}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0},grid:{color:'rgba(255,255,255,.05)'}},y:{grid:{display:false}}}}});
   new Chart(document.getElementById('mg_cStatus'),{type:'doughnut',data:{labels:['נסגרו (WON)','אבודות','פתוחות'],datasets:[{data:[D.pipe.won,D.pipe.lost,D.pipe.open],backgroundColor:[C.green,'rgba(248,113,113,.55)',C.amber],borderWidth:0}]},options:{plugins:{legend:{position:'bottom'}},cutout:'62%'}});
   // Funnel
-  const fsteps=[{l:'חשיפות',v:D.meta.impressions,c:'linear-gradient(135deg,#22d3ee,#0891b2)'},{l:'קליקים',v:D.meta.clicks,c:'linear-gradient(135deg,#38bdf8,#6366f1)'},{l:'לידים (Meta)',v:D.meta.leads_pixel,c:'linear-gradient(135deg,#8b5cf6,#6d28d9)'},{l:'לידים (CRM)',v:D.pipe.total,c:'linear-gradient(135deg,#a78bfa,#7c3aed)'},{l:'נכחו בוובינר',v:D.wb.att,c:'linear-gradient(135deg,#f472b6,#db2777)'},{l:'עסקאות (WON)',v:D.pipe.won,c:'linear-gradient(135deg,#34d399,#059669)'}];
+  const fsteps=[{l:'חשיפות',v:D.meta.impressions,c:'linear-gradient(135deg,#22d3ee,#0891b2)'},{l:'קליקים',v:D.meta.clicks,c:'linear-gradient(135deg,#38bdf8,#6366f1)'},{l:'לידים (Meta)',v:D.meta.leads_pixel,c:'linear-gradient(135deg,#8b5cf6,#6d28d9)'},{l:'לידים CRM (כולל קרים)',v:D.pipe.total,c:'linear-gradient(135deg,#a78bfa,#7c3aed)'},{l:'עברו לפייפליין מכירות',v:D.pipe.sales,c:'linear-gradient(135deg,#fb923c,#ea580c)'},{l:'נכחו בוובינר',v:D.wb.att,c:'linear-gradient(135deg,#f472b6,#db2777)'},{l:'עסקאות (WON)',v:D.pipe.won,c:'linear-gradient(135deg,#34d399,#059669)'}];
   const fmax=fsteps[0].v;
   document.getElementById('mg_funnel').innerHTML=fsteps.map((s,i)=>{const w=Math.max(8,Math.sqrt(s.v/fmax)*100);const prev=i>0?fsteps[i-1].v:s.v;const rate=i>0?((s.v/prev)*100).toFixed(s.v/prev<.1?1:0)+'%':'100%';return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${s.c}">${nf(s.v)}</div><div class="fmeta"><b>${s.l}</b> · ${rate} מהשלב הקודם</div></div>`;}).join('');
   const mlk=Object.keys(D.multi);
@@ -1003,6 +1028,16 @@ function initMg(){
   document.getElementById('mg_linkToLead').textContent=D.meta.link_to_lead+'%';
   document.getElementById('mg_linkMeta').textContent=nf(D.meta.clicks)+' קליקים על קישור · '+nf(D.meta.leads_pixel)+' לידים · כל 100 קליקים מניבים '+D.meta.link_to_lead+' לידים';
   document.getElementById('mg_metaGrid').innerHTML=[{l:'💸 הוצאה',v:'₪'+nf(D.meta.spend)},{l:'👁️ Impressions',v:nf(D.meta.impressions)},{l:'👤 Reach',v:nf(D.meta.reach)},{l:'🖱️ קליקים (Link)',v:nf(D.meta.clicks)},{l:'🎯 לידים (Pixel)',v:nf(D.meta.leads_pixel)},{l:'📊 CTR (Link)',v:D.meta.ctr+'%'},{l:'💵 CPL (Meta)',v:'₪'+D.meta.cpl},{l:'📡 CPM',v:'₪'+D.meta.cpm},{l:'🔗 CPC',v:'₪'+D.meta.cpc},{l:'🎯 קליק → ליד',v:D.meta.link_to_lead+'%',hi:true},{l:'📋 CPL (CRM)',v:'₪'+D.roi.cpl_crm},{l:'💼 CAC',v:'₪'+nf(D.roi.cac)}].map(m=>`<div class="meta-item" ${m.hi?'style="border:1px solid rgba(34,211,238,.35);background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.06))"':''}><div class="ml">${m.l}</div><div class="mv" ${m.hi?'style="color:var(--cyan);font-size:24px"':''}>${m.v}</div></div>`).join('');
+  // Campaign breakdown
+  document.getElementById('mg_campBreak').innerHTML='<div class="scroll"><table><thead><tr><th>קמפיין</th><th>סטטוס</th><th>הוצאה</th><th>לידים</th><th>קליקים</th><th>CPL</th><th>CTR</th></tr></thead><tbody>'+D.campaigns.map(c=>`<tr><td>${c.n}</td><td><span class="pill ${c.st==='פעיל'?'y':'b'}">${c.st}</span></td><td>₪${nf(c.spend)}</td><td>${nf(c.leads)}</td><td>${nf(c.lc)}</td><td>₪${c.cpl}</td><td>${c.ctr}%</td></tr>`).join('')+'</tbody></table></div>';
+  // Ad analysis — per-ad spend/leads/CPL/CTR from Meta API (ad level)
+  var mgFunnelCpl=D.meta.cpl;
+  document.getElementById('mg_adsBody').innerHTML=D.ads.map(a=>{
+    var trend=a.cpl30>a.cpl?`<span style="color:var(--red)">▲ ₪${a.cpl30} (עולה)</span>`:`<span style="color:var(--green)">▼ ₪${a.cpl30} (משתפר)</span>`;
+    var sc=a.score>=65?'#34d399':a.score>=35?'#fbbf24':'#f87171';
+    return `<tr><td><b>${a.n}</b></td><td><div style="display:flex;align-items:center;gap:8px"><div style="width:56px;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden"><div style="width:${a.score}%;height:100%;background:${sc}"></div></div><b style="color:${sc}">${a.score}</b></div></td><td>₪${nf(a.spend)}</td><td>${nf(a.leads)}</td><td style="color:${a.cpl<=mgFunnelCpl?'var(--green)':'var(--red)'};font-weight:700">₪${a.cpl}</td><td>${a.ctr}%</td><td>${trend}</td></tr>`;
+  }).join('');
+  document.getElementById('mg_adRecos').innerHTML=D.adRecos.map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
   // Conclusions
   document.getElementById('mg_roiBig').textContent='+'+D.roi.pct+'%';document.getElementById('mg_roiNet').textContent=nf(D.roi.net);document.getElementById('mg_roiSpend').textContent=nf(D.meta.spend);document.getElementById('mg_roiRoas').textContent=D.roi.roas+'x';
   document.getElementById('mg_insights').innerHTML=[
@@ -1048,7 +1083,7 @@ function initKc(){
   // Meta Ads
   document.getElementById('kc_linkToLead').textContent=D.meta.link_to_lead+'%';document.getElementById('kc_linkMeta').textContent=nf(D.meta.link_clicks)+' קליקים על הקישור · '+nf(D.meta.leads_pixel)+' לידים · כל 100 קליקים על הקישור → '+D.meta.link_to_lead+' לידים';
   document.getElementById('kc_metaGrid').innerHTML=[{l:'💸 הוצאה',v:'₪'+nf(D.meta.spend)},{l:'👁️ Impressions',v:nf(D.meta.impressions)},{l:'👤 Reach',v:nf(D.meta.reach)},{l:'🔗 קליקים על הקישור',v:nf(D.meta.link_clicks),hi:true},{l:'🖱️ קליקים (כולל)',v:nf(D.meta.clicks)},{l:'🎯 לידים (Pixel)',v:nf(D.meta.leads_pixel)},{l:'📊 CTR',v:D.meta.ctr+'%'},{l:'💵 CPL (Meta)',v:'₪'+D.meta.cpl},{l:'🎯 קליק→ליד',v:D.meta.link_to_lead+'%'},{l:'📡 CPM',v:'₪'+D.meta.cpm},{l:'🔗 CPC',v:'₪'+D.meta.cpc},{l:'📋 CPL (CRM)',v:'₪'+D.roi.cpl_crm},{l:'💼 CAC',v:'₪'+nf(D.roi.cac)},{l:'📈 ROAS',v:D.roi.roas+'x'}].map(m=>`<div class="meta-item" ${m.hi?'style="border:1px solid rgba(34,211,238,.35);background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.06))"':''}><div class="ml">${m.l}</div><div class="mv" ${m.hi?'style="color:var(--cyan);font-size:24px"':''}>${m.v}</div></div>`).join('');
-  var kcN=D.meta2; if(kcN&&document.getElementById('kc_metaNotice')) document.getElementById('kc_metaNotice').innerHTML='🆕 <span><b>קמפיין כסף חכם נוסף נפתח היום:</b> '+kcN.name+' · ₪'+nf(kcN.spend)+' הוצאה · '+nf(kcN.impressions)+' חשיפות · '+kcN.link_clicks+' קליקים על הקישור · '+kcN.leads+' לידים. המספרים למעלה מתייחסים לקמפיין הראשי (VSL 20.1).</span>';
+  var kcN=D.meta2; if(kcN&&document.getElementById('kc_metaNotice')) document.getElementById('kc_metaNotice').innerHTML='ℹ️ <span><b>המספרים למעלה כוללים את שני הקמפיינים</b> (VSL 20.1 + ABO 29.06). מתוכם קמפיין '+kcN.name+': ₪'+nf(kcN.spend)+' הוצאה · '+nf(kcN.impressions)+' חשיפות · '+kcN.link_clicks+' קליקים על הקישור · '+kcN.leads+' לידים. פירוט מלא בטבלת הקמפיינים למטה.</span>';
   document.getElementById('kc_dlBody').innerHTML=D.deals.map(d=>`<tr><td>${d.title}</td><td>${d.owner||''}</td><td>${nf(d.value)}</td><td>${d.days??'—'}</td><td>${d.add}</td><td>${d.won}</td><td><span class="pill ${d.wb?'y':'n'}">${d.wb?'כן':'לא'}</span></td></tr>`).join('');
   var maxLR=Math.max(...D.lostReasons.map(x=>x.n));
   document.getElementById('kc_lostReasons').innerHTML=D.lostReasons.map(x=>`<div class="hbar-row"><div class="hbar-top"><span class="hbar-name">${x.r}</span><span class="hbar-count" style="color:#f87171">${nf(x.n)} · ${Math.round(x.n/D.pipe.lost*100)}%</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${(x.n/maxLR*100).toFixed(1)}%;background:linear-gradient(90deg,#f87171,#fb923c)"></div></div></div>`).join('');
@@ -1091,6 +1126,13 @@ function initWb(){
   new Chart(document.getElementById('wb_cRev'),{type:'bar',data:{labels:D.monthly.map(m=>m.m),datasets:[{label:'הכנסה ₪',data:D.monthly.map(m=>m.rev),backgroundColor:ctx=>grv(ctx.chart.ctx,'rgba(34,211,238,.8)','rgba(34,211,238,.15)'),borderRadius:6}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.raw)}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>'₪'+(v/1000)+'k'}},x:{grid:{display:false}}}}});
   new Chart(document.getElementById('wb_cEve'),{type:'bar',data:{labels:D.monthly.map(m=>m.m),datasets:[{label:'קנו בערב',data:D.monthly.map(m=>m.eve),backgroundColor:C.violet,borderRadius:4,stack:'s'},{label:'קנו מאוחר',data:D.monthly.map(m=>m.late),backgroundColor:C.amber,borderRadius:4,stack:'s'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{x:{grid:{display:false},stacked:true},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},stacked:true}}}});
   new Chart(document.getElementById('wb_cYearly'),{type:'bar',data:{labels:D.yearly.map(y=>y.y),datasets:[{label:'לידים',data:D.yearly.map(y=>y.n),backgroundColor:'rgba(34,211,238,.55)',borderRadius:6,yAxisID:'y'},{label:'% המרה',data:D.yearly.map(y=>y.conv),type:'line',borderColor:C.green,backgroundColor:'transparent',pointBackgroundColor:C.green,pointRadius:5,borderWidth:2.5,tension:.3,yAxisID:'y2'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},title:{display:true,text:'לידים',color:C.mut,font:{size:11}}},y2:{beginAtZero:true,position:'right',grid:{display:false},ticks:{callback:v=>v+'%'},title:{display:true,text:'% המרה',color:C.green,font:{size:11}}}}}});
+  if(D.rpl&&document.getElementById('wb_cRpl')){
+    new Chart(document.getElementById('wb_cRpl'),{type:'bar',data:{labels:D.rpl.map(r=>r.w),datasets:[
+      {label:'הכנסה לליד ₪',data:D.rpl.map(r=>r.v),backgroundColor:D.rpl.map(r=>r.m?'rgba(139,92,246,.45)':(r.v<D.rpl_warn?'rgba(248,113,113,.75)':'rgba(34,211,238,.7)')),borderRadius:4,order:2},
+      {label:'עלות ליד נוכחית ₪'+D.rpl_cpl,data:D.rpl.map(_=>D.rpl_cpl),type:'line',borderColor:C.red,borderDash:[6,4],borderWidth:2,pointRadius:0,order:0},
+      {label:'סף אזהרה ₪'+D.rpl_warn,data:D.rpl.map(_=>D.rpl_warn),type:'line',borderColor:C.amber,borderDash:[3,4],borderWidth:2,pointRadius:0,order:1}
+    ]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.type==='line'?c.dataset.label:'₪'+c.raw+' לליד'+(D.rpl[c.dataIndex].m?' · מבשיל':'')}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.05)'},ticks:{callback:v=>'₪'+v}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:60,minRotation:45}}}}});
+  }
   // Funnel retention
   const maxN=D.retention[0].n;
   document.getElementById('wb_retFunnel').innerHTML=D.retention.map((r,i)=>{const w=Math.max(10,Math.sqrt(r.n/maxN)*100);const prev=i>0?D.retention[i-1].n:r.n;const drop=i>0?((1-r.n/prev)*100).toFixed(0)+'% עזבו':' ';return `<div class="fstep"><div class="fbar" style="width:${w}%;background:${r.col}">${nf(r.n)}</div><div class="fmeta"><b>${r.l}</b><br><span class="fconv">${r.conv}% המרה</span><span style="font-size:11px;color:var(--red)">${drop}</span></div></div>`;}).join('');
@@ -1190,6 +1232,42 @@ function initQz(){
     {i:'⚡',t:`<b>מודעות vs CRM: ${pixelToCrm}% מלידי המודעות הגיעו ל-Pipedrive.</b> ${totalAdLeads} לידי מודעות → ${D.pipe.total} CRM. CPL CRM ₪${D.roi.cpl_crm} לעומת CPL מודעות ₪${D.roi.cpl_combined} — כדאי לאטום את חוויית הנחיתה.`},
   ].map(x=>`<div class="insight"><div class="ico">${x.i}</div><div>${x.t}</div></div>`).join('');
 }
+
+// ══════════════════════════════════════════
+// ייחוס מורחב — ROAS לפי שיטת ייחוס
+// שדות Pipedrive: מקור הגעה ראשוני / מקור הגעה / מקור הגעה סופי
+// ══════════════════════════════════════════
+D_mg.attr={spend:66202,primary:{w:24,g:183261},assisted:{w:16,g:113737},ceded:{w:11,g:89207},
+  assistNote:"כל 16 עסקאות ה-assist: המגנט היה המקור הסופי שסגר — רובן לידים ישנים מוובינרים (17.11.25 ×5) שהמגנט החזיר.",
+  scen:[{n:"מקור ראשוני בלבד (התצוגה הראשית)",roas:2.35,ex:155307},{n:"מקור סופי בלבד — מי סגר",roas:2.66,ex:176094},{n:"מפוצל 50/50 ראשוני-סופי",roas:2.50,ex:165700,hl:true},{n:"כל נגיעה (גבול עליון)",roas:3.80,ex:251693}]};
+D_kc.attr={spend:71731,primary:{w:30,g:279720},assisted:{w:2,g:18480},ceded:{w:6,g:53640},
+  assistNote:"2 עסקאות assist (מקור סופי = כסף חכם) שמקורן בוובינרים. מנגד, 2 מתוך 6 העסקאות שנמסרו — נסגרו ע\"י המגנט.",
+  scen:[{n:"מקור ראשוני בלבד (התצוגה הראשית)",roas:3.30,ex:237051},{n:"מקור סופי בלבד — מי סגר",roas:2.89,ex:207254},{n:"מפוצל 50/50 ראשוני-סופי",roas:3.10,ex:222153,hl:true},{n:"כל נגיעה (גבול עליון)",roas:3.52,ex:252712}]};
+function renderAttr(D,el){
+  var a=D.attr; if(!a||!document.getElementById(el))return;
+  var nf2=function(n){return n.toLocaleString('en-US')};
+  var h='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:12px">';
+  h+='<div class="meta-item"><div class="ml">✅ WON — מקור ראשוני</div><div class="mv" style="color:var(--green)">'+a.primary.w+' · ₪'+nf2(a.primary.g)+'</div></div>';
+  h+='<div class="meta-item"><div class="ml">🤝 WON — assist (סגר עסקאות של מקורות אחרים)</div><div class="mv" style="color:var(--cyan)">'+a.assisted.w+' · ₪'+nf2(a.assisted.g)+'</div></div>';
+  h+='<div class="meta-item"><div class="ml">↪️ WON שלו שנסגרו ע"י מקור אחר</div><div class="mv" style="color:var(--amber)">'+a.ceded.w+' · ₪'+nf2(a.ceded.g)+'</div></div></div>';
+  h+='<table><thead><tr><th>שיטת ייחוס</th><th>הכנסה ללא מע"מ</th><th>ROAS</th></tr></thead><tbody>';
+  a.scen.forEach(function(s){h+='<tr'+(s.hl?' style="background:rgba(139,92,246,.12);font-weight:600"':'')+'><td>'+s.n+(s.hl?' ⭐':'')+'</td><td>₪'+nf2(s.ex)+'</td><td>'+s.roas.toFixed(2)+'x</td></tr>'});
+  h+='</tbody></table><div class="note" style="margin-top:8px">'+a.assistNote+' הערכים ברוטו כוללים מע"מ; בטבלה — ללא (÷1.18). מבוסס על שדות המקור ב-Pipedrive — תלוי בהקפדת הנציגים על מילוי "מקור הגעה סופי".</div>';
+  document.getElementById(el).innerHTML=h;
+}
+renderAttr(D_mg,'mg_attr'); renderAttr(D_kc,'kc_attr');
+
+// הכנסה לליד לפי קוהורטת וובינר (Pipedrive, מקור ראשוני, נכון ל-12.07.26)
+D_wb.rpl=[
+  {w:"10.11",v:286},{w:"17.11",v:682},{w:"24.11",v:405},{w:"01.12",v:417},{w:"08.12",v:347},
+  {w:"15.12",v:367},{w:"22.12",v:165},{w:"29.12",v:282},{w:"05.01",v:387},{w:"12.01",v:350},
+  {w:"19.01",v:321},{w:"26.01",v:290},{w:"02.02",v:256},{w:"09.02",v:214},{w:"16.02",v:294},
+  {w:"23.02",v:458},{w:"09.03",v:335},{w:"16.03",v:145},{w:"23.03",v:152},{w:"29.03",v:331},
+  {w:"12.04",v:263},{w:"19.04",v:286},{w:"27.04",v:234},{w:"03.05",v:186},{w:"11.05",v:310},
+  {w:"17.05",v:263},{w:"25.05",v:151},{w:"01.06",v:240,m:1},{w:"08.06",v:323,m:1},{w:"15.06",v:383,m:1},
+  {w:"22.06",v:394,m:1},{w:"29.06",v:524,m:1},{w:"06.07",v:291,m:1}
+];
+D_wb.rpl_cpl=80; D_wb.rpl_warn=200;
 
 // Boot
 initMg(); mgInited=true;
