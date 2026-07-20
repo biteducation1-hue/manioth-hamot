@@ -267,5 +267,15 @@ document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
+<script>
+(function(){
+  try{
+    if(!sessionStorage.getItem('ct_counted')){
+      fetch('https://api.counterapi.dev/v1/cyclestrading-manioth/manioth-hamot-2026-07-20/up');
+      sessionStorage.setItem('ct_counted','1');
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
